@@ -218,7 +218,6 @@
 	"donate_interface-email-unsub-delay": "Tillåt upp till fyra (4) dagar för att ändringarna ska börja gälla. Vi ber om ursäkt för alla e-postmeddelanden som du får under denna tid. Om du har några frågor, vänligen kontakta $1",
 	"donate_interface-email-unsub-fail": "Det uppstod ett fel vid bearbetning av din begäran. Vänligen kontakta <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Är du säker på att du vill avbeställa <b>$1</b>?",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "Din återkommande donation behandlas via PayPal, så om du vill ändra din e-postadress måste du uppdatera din e-postadress direkt via ditt PayPal-konto. Kontakta vårt team för givarrelationer på <a href=\"mailto:$1\"> <span class=\"notranslate\" translate=\"no\">$1</a> om du har några frågor angående uppdatering av din kontaktinformation.",
 	"donate_interface-email-primary-confirm": "Du har bekräftat din e-postadress som $1.",
 	"donate_interface-email-primary-confirm-error": "Något gick fel när ändringarna hämtades. Försök igen senare.",
 	"donate_interface-email-explain": "Vi kommer att mejla dig ett kvitto för att bekräfta din gåva.",

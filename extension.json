@@ -552,13 +552,15 @@
 				"ext.donationInterface.currencyRates",
 				"donationInterface.skinOverride",
 				"vue",
-				"@wikimedia/codex"
+				"@wikimedia/codex",
+				"ext.donationInterface.applePayHelper"
 			],
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/frequencyOptions.js",
 				"modules/ext.donationInterface.comboWiki/utils.js",
+				"modules/ext.donationInterface.comboWiki/walletAvailability.js",
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
@@ -574,6 +576,7 @@
 				"modules/ext.donationInterface.comboWiki/components/ErrorDisplay.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/CountrySelector.vue",
+				"modules/ext.donationInterface.comboWiki/components/CountrySelectorInline.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/AdyenCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyRedirectComponent.vue",
@@ -587,7 +590,8 @@
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
 				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
 				"modules/ext.donationInterface.comboWiki/components/OptIn.vue",
-				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue"
+				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -600,6 +604,11 @@
 				"combowiki-intro-heading",
 				"combowiki-intro-text",
 				"combowiki-country-placeholder",
+				"combowiki-country-search-placeholder",
+				"combowiki-country-label",
+				"combowiki-country-change",
+				"combowiki-country-change-label",
+				"combowiki-country-no-results",
 				"combowiki-cover-fees",
 				"combowiki-stay-in-touch-heading",
 				"combowiki-optin-yes",
@@ -647,12 +656,13 @@
 				"donate_interface-donor-expiration",
 				"donate_interface-donor-security",
 				"donate_interface-submit-button",
-				"donate_interface-error-msg-apple_pay_unsupported",
 				"donate_interface-error-msg-first_name",
 				"donate_interface-error-msg-last_name",
 				"donate_interface-error-msg-email",
 				"donate_interface-error-msg-invalid-email",
 				"donate_interface-error-msg-validation",
+				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-google_pay_unsupported",
 				"donate_interface",
 				"donate_interface-sign-in-online-banking",
 				"donate_interface-partner-with-trustly",
@@ -1368,7 +1378,8 @@
 			"merge_strategy": "provide_default"
 		},
 		"DonationInterfaceComboWikiGateways": {
-			"value": [ "gravy" ]
+			"value": [ "adyen", "braintree", "dlocal" ],
+			"merge_strategy": "provide_default"
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false

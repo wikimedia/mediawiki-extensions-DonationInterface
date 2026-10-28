@@ -225,7 +225,6 @@
 	"donate_interface-email-unsub-delay": "변경사항을 적용하는 데에는 최대 4일까지 소요됩니다. 이 기간 동안 받게 될 모든 이메일에 대해 사과를 드립니다. 질문이 있으시다면 $1로 문의하세요",
 	"donate_interface-email-unsub-fail": "요청을 처리하는 도중에 오류가 발생했습니다. <a href=\"mailto:$1\">$1</a>로 연락해 주시기 바랍니다.",
 	"donate_interface-email-unsub-confirm": "<b>$1</b>(으)로 보내지는 소식지 구독을 해지하시겠습니까?",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "당신의 정기 기부는 페이팔을 통해 처리되므로, 이메일 주소를 변경하시려면 페이팔 계정에서 직접 업데이트하셔야 합니다. 연락처 정보 업데이트에 관한 문의 사항은 기부자 관계팀 <a href=\"mailto:$1\">$1</a>으로 문의해주세요.",
 	"donate_interface-email-primary-confirm": "이메일 주소 $1을(를) 성공적으로 인증했습니다.",
 	"donate_interface-email-primary-confirm-error": "이메일 주소를 확인하는 도중 오류가 발생했습니다. 나중에 다시 시도해주세요.",
 	"donate_interface-email-explain": "기부 확인을 위한 영수증을 이메일로 전달하겠습니다.",

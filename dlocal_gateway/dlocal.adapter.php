@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\FraudFilters\FraudService;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
@@ -38,6 +39,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->setCurrentTransaction( 'authorize' );
 		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, FraudService::OUTCOME_BLOCKED_BY_FILTER );
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
 			return $this->newFailureWithError( 'internal-0000', 'Failed pre-process checks for payment.' );
@@ -209,6 +211,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$transactionStatus = $paymentDetailResponse->getStatus();
 		$this->addCreatePaymentResponseData( $paymentDetailResponse );
 		$paymentResult = PaymentResult::newSuccess();
+		$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
 
 		// Get staged rather than unstaged data to use transformed/generated output
 		// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
@@ -220,12 +223,27 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$paymentResult = PaymentResult::newFailure();
 			$this->logPaymentDetailFailure( $paymentDetailResponse );
 			$this->finalizeInternalStatus( $transactionStatus );
+			$outcome = FraudService::OUTCOME_AUTH_DECLINE;
+			// TODO: set 'suspected fraud' for selected dlocal decline codes in SmashPig
+			if ( $paymentDetailResponse->isSuspectedFraud() ) {
+				$outcome |= FraudService::OUTCOME_PROCESSOR_FLAGGED_FRAUD;
+			}
+			// TODO: add error category and raw error text
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome, 'dlocal'
+			);
 		} elseif ( $paymentDetailResponse->requiresApproval() ) {
 			$this->runAntifraudFilters();
 			if ( !$this->filterActionIsProcess() ) {
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
 				$paymentResult = PaymentResult::newFailure();
+				Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+					$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, 'dlocal'
+				);
 			} else {
+				Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+					$this, $outcome, 'dlocal'
+				);
 				$this->setCurrentTransaction( 'capture' );
 				$capturePaymentParams = $this->buildRequestArray();
 				$this->logger->info(
@@ -249,6 +267,9 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				$this->finalizeInternalStatus( $approvePaymentResponse->getStatus() );
 			}
 		} else {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome, 'dlocal'
+			);
 			$this->finalizeInternalStatus( $transactionStatus );
 		}
 

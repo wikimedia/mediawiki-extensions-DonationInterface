@@ -273,7 +273,6 @@
 	"donate_interface-email-unsub-delay": "请静候此更改生效，可能需要四（4）天时间。我们对于在此期间您收到的任何电邮表示歉意。如果您还有任何问题，请联系 $1",
 	"donate_interface-email-unsub-fail": "在处理您的请求时发生错误，请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-unsub-confirm": "您确认要退订<b>$1</b>吗？",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "您的定期捐款会通过PayPal处理，因此若您想更改电子邮件地址，则需要直接通过您的PayPal账号更新您的电子邮件地址。如果您对更新联系信息有任何疑问，请通过电子邮件地址：<a href=\"mailto:$1\">$1</a> 来联系我们的捐款者关系团队。",
 	"donate_interface-email-primary-confirm": "已成功验证您的电子邮件地址：$1。",
 	"donate_interface-email-primary-confirm-error": "确认您的电子邮件地址时出错。请稍后再试。",
 	"donate_interface-email-explain": "我们会发送您一份电子收据以确认您的捐赠。",

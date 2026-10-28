@@ -13,12 +13,12 @@
 				</div>
 
 				<!-- Frequency Selector -->
-				<div class="fieldset gap--3">
+				<div class="fieldset">
 					<frequency-selector v-model="donation.frequency"></frequency-selector>
 				</div>
 
 				<!-- Amount Selector -->
-				<div class="fieldset gap--3">
+				<div class="fieldset">
 					<!-- Label -->
 					<div class="fieldset__label">
 						<p class="text text--base">
@@ -34,20 +34,20 @@
 					<!-- Button Stack -->
 					<div class="fiedlset__button-grid">
 						<!-- Fixed Amounts -->
-						<cdx-button
+						<cdx-toggle-button
 							v-for="amount in presetAmounts"
 							:key="amount"
-							:weight="donation.amount === amount ? 'primary' : 'normal'"
-							:class="{ 'combo-wiki__option--selected': Number( donation.amount ) === amount }"
-							@click="selectAmount( amount )"
+							:model-value="!otherAmount && Number( donation.amount ) === amount"
+							@update:model-value="selectAmount( amount )"
 						>
 							{{ formattedAmount( amount ) }}
-						</cdx-button>
+						</cdx-toggle-button>
 						<!-- Custom Amount -->
 						<cdx-text-input
-							v-model="donation.amount"
+							:model-value="otherAmount"
 							input-type="number"
 							:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
+							@update:model-value="setOtherAmount"
 						>
 						</cdx-text-input>
 					</div>
@@ -92,6 +92,7 @@
 					@on-payment-method-change="( method ) => {
 						donation.paymentMethod = method
 					}"
+					@on-donor-details-change="updateDonorDetails"
 				></payment-method-form>
 
 				<tax-message :country-code="donation.country"></tax-message>
@@ -118,7 +119,7 @@
 					<p>
 						Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
 						{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-						{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
+						{{ donation.paymentMethod }} / Employer: {{ donation.employer }}
 					</p>
 					<p> Debug - Donation: {{ donation }}</p>
 					<p> Debug Request Params - {{ params }} </p>
@@ -131,12 +132,12 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const {
-	CdxButton,
 	CdxTextInput,
+	CdxToggleButton,
 	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
-const CountrySelector = require( '../components/CountrySelector.vue' );
+const CountrySelector = require( '../components/CountrySelectorInline.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
@@ -148,7 +149,7 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
-const { paymentMethodMap } = require( '../api.js' );
+const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -184,7 +185,7 @@ module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
 
 	components: {
-		'cdx-button': CdxButton,
+		'cdx-toggle-button': CdxToggleButton,
 		'cdx-text-input': CdxTextInput,
 		'cdx-checkbox': CdxCheckbox,
 		'error-display': ErrorDisplay,
@@ -235,10 +236,10 @@ module.exports = exports = defineComponent( {
 				fiscalNumber: null,
 				employerId: 0,
 				smsOptin: null,
-				gateway: this.params.gateway || null,
 				variant: this.params.variant || null,
 				gateway_session_id: this.params.gateway_session_id || null
 			},
+			otherAmount: '',
 			thankYouUrl: null,
 			showDebug: false
 		};
@@ -352,26 +353,23 @@ module.exports = exports = defineComponent( {
 	methods: {
 		/**
 		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
-		 * (card, ach, applepay, ...), but only when the server offers it on the selected gateway.
+		 * (card, adyen_card, ach, applepay, ...), but only when the server offers it on the
+		 * gateway of that key.
 		 *
 		 * @param {string|null} wmfMethod WMF payment method code, e.g. from the payment_method param.
 		 * @return {string|null} The PaymentMethodForm key, or null if the method isn't active.
 		 */
 		toFormPaymentMethod( wmfMethod ) {
-			const gateway = this.params.gateway;
-			const isActive = ( this.params.paymentMethods || [] ).some(
-				( entry ) => entry.method === wmfMethod && entry.gateway === gateway
-			);
-			if ( !wmfMethod || !isActive ) {
+			const offeredGateways = ( this.params.paymentMethods || [] )
+				.filter( ( entry ) => entry.method === wmfMethod )
+				.map( ( entry ) => entry.gateway );
+			if ( !wmfMethod || offeredGateways.length === 0 ) {
 				return null;
 			}
-
-			const candidates = Object.keys( paymentMethodMap )
-				.filter( ( key ) => paymentMethodMap[ key ].method === wmfMethod );
-			// Gateway-specific keys are prefixed (adyen_card), the gravy ones are not (card)
-			return candidates.find( ( key ) => key.startsWith( gateway + '_' ) ) ||
-				candidates.find( ( key ) => !key.includes( '_' ) ) ||
-				null;
+			return Object.keys( paymentMethodMap ).find( ( key ) => {
+				const mapping = paymentMethodMap[ key ];
+				return mapping.method === wmfMethod && offeredGateways.includes( mapping.gateway );
+			} ) || null;
 		},
 		getFrequencyUnit() {
 			if ( !this.params.recurring ) {
@@ -386,7 +384,35 @@ module.exports = exports = defineComponent( {
 			return ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] === true;
 		},
 		selectAmount( value ) {
+			this.otherAmount = '';
 			this.donation.amount = value;
+		},
+		setAmount() {
+			const amount = Number( this.params.amount );
+			// Make sure it's actually a number
+			if ( !isFinite( amount ) || amount <= 0 ) {
+				return;
+			}
+			// Set the amounts
+			if ( this.presetAmounts.includes( amount ) ) {
+				this.selectAmount( amount );
+			} else {
+				this.setOtherAmount( String( amount ).trim() );
+			}
+		},
+		setOtherAmount( value ) {
+			this.otherAmount = value;
+			this.donation.amount = value;
+		},
+		/**
+		 * Copies what the donor typed in the details form into the donation.
+		 *
+		 * @param {Object} details Keyed by server field name, e.g. state_province
+		 */
+		updateDonorDetails( details ) {
+			for ( const [ fieldName, value ] of Object.entries( details ) ) {
+				this.donation[ donateParamMap[ fieldName ] ] = value;
+			}
 		},
 		redirectTargetUrl( targetUrl ) {
 			window.location.assign(
@@ -440,7 +466,7 @@ module.exports = exports = defineComponent( {
 				return;
 			}
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
-			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
+			mw.log.error( 'di_donate_' + getGateway( this.donation.paymentMethod ) + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
@@ -464,6 +490,9 @@ module.exports = exports = defineComponent( {
 				} );
 		}
 	},
+	created() {
+		this.setAmount();
+	},
 	mounted() {
 		const urlParams = new URLSearchParams( window.location.search );
 		// ?debug=1 shows the donation and params dump below the form, for local testing
@@ -478,8 +507,7 @@ module.exports = exports = defineComponent( {
 				amount: this.params.amount,
 				currency: this.params.currency,
 				country: this.params.country,
-				paymentMethod: this.params.payment_method,
-				gateway: this.params.gateway
+				paymentMethod: this.toFormPaymentMethod( this.params.payment_method )
 			} );
 			this.thankYouUrl = this.params.DonationInterfaceThankYouPage;
 			this.appState.setShowRecurringConvert( true );
@@ -487,6 +515,10 @@ module.exports = exports = defineComponent( {
 		// for debugging errors
 		if ( urlParams.get( 'debugError' ) ) {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+		}
+		// for debugging the loading spinner
+		if ( urlParams.get( 'debugLoading' ) ) {
+			this.appState.setLoading( true );
 		}
 		// DonateGatewayResult sends the donor back here with paymentFailed=1 when a
 		// payment that went through a redirect (such as 3DS) fails. Show the error

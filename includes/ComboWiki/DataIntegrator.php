@@ -112,6 +112,7 @@ class DataIntegrator {
 		'pay_the_fee',
 		'phone',
 		'postal_code',
+		'preSelect', // amount selection from emails
 		'recipient_id',
 		'recurring',
 		'recurring_payment_token',
@@ -172,6 +173,7 @@ class DataIntegrator {
 		'payment_method',
 		'payment_submethod',
 		'pay_the_fee',
+		'preSelect',
 		'phone',
 		'recurring',
 		'state_province',
@@ -268,6 +270,7 @@ class DataIntegrator {
 	 *  Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
 	 */
 	private static array $internalNames = [
+		'preSelect' => 'amount', // used in emails
 		'uselang' => 'language',
 		'wmf_campaign' => 'utm_campaign',
 		'wmf_medium' => 'utm_medium',

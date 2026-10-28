@@ -42,18 +42,6 @@
 	height: 30px;
 }
 
-.combo-wiki__sepa-fields-full-name {
-	padding-top: 16px;
-	display: flex;
-	justify-content: space-evenly;
-	gap: @size-2;
-}
-
-.combo-wiki__sepa-fields-full-name .cdx-field {
-	margin-top: 0;
-	flex: 1;
-}
-
 .combo-wiki__link-container {
 	display: flex;
 	flex-direction: column;
@@ -106,6 +94,7 @@
 
 	& .fieldset__label {
 		display: flex;
+		align-items: center;
 
 		& > :first-child {
 			flex: 1;
@@ -161,7 +150,12 @@
 		font-size: inherit;
 		line-height: 1.375;
 	}
+}
 
+// The details form PaymentMethodForm shows above the selected method's own part,
+// laid out like the card fields that follow it
+.combo-wiki__card,
+.combo-wiki__donor-details {
 	label {
 		display: block;
 		margin: 0.75em 0 0.25em;
@@ -170,6 +164,10 @@
 	.cdx-field {
 		margin: 0;
 	}
+}
+
+.combo-wiki__donor-details + .payment-method-form {
+	margin-top: 0;
 }
 
 .combo-wiki__card--loading {
@@ -195,12 +193,66 @@
 	}
 
 	.cdx-text-input,
+	.cdx-select,
 	.cdx-select-vue__handle {
 		min-width: 50px;
 	}
 
+	.cdx-select,
 	.cdx-select-vue {
 		display: block;
+	}
+
+	.cdx-select {
+		width: 100%;
+	}
+}
+
+// Codex's CSS-only select is coloured like a button and has no error state,
+// so give it the text inputs' colours in each state (disabled already matches).
+// These are the custom properties and fallbacks Codex's text input uses, rather than
+// the LESS tokens, which wmf-frds-tokens.less overrides with other colours.
+// The select type selector outranks Codex's own .cdx-select rules
+select.cdx-select.combo-wiki__select {
+	&:enabled {
+		background-color: var( --background-color-base, #fff );
+		color: var( --color-base, #202122 );
+		border-color: var( --border-color-base, #a2a9b1 );
+		box-shadow: inset 0 0 0 1px var( --box-shadow-color-transparent, transparent );
+		transition-duration: 0.25s;
+
+		&:hover {
+			background-color: var( --background-color-base, #fff );
+			color: var( --color-base, #202122 );
+			border-color: var( --border-color-interactive, #72777d );
+		}
+
+		// A text input has no pressed look, it shows its focus one
+		&:focus,
+		&:active {
+			background-color: var( --background-color-base, #fff );
+			color: var( --color-base, #202122 );
+			border-color: var( --border-color-progressive--focus, #36c );
+			box-shadow: inset 0 0 0 1px var( --box-shadow-color-progressive--focus, #36c );
+			outline: 1px solid transparent;
+		}
+	}
+
+	&.combo-wiki__select--error:enabled:not( :focus ):not( :active ) {
+		border-color: var( --border-color-error, #9f3526 );
+
+		&:hover {
+			border-color: var( --border-color-error--hover, #fc493b );
+		}
+	}
+
+	// Until a state is picked, show the label as the text inputs show their placeholders
+	&.combo-wiki__select--placeholder:enabled {
+		color: var( --color-placeholder, #72777d );
+	}
+
+	option {
+		color: var( --color-base, #202122 );
 	}
 }
 
@@ -215,32 +267,6 @@
 	flex-wrap: wrap;
 	gap: 0.5em;
 	margin-bottom: 1.5em;
-}
-
-.combo-wiki__loading-spinner {
-	z-index: 999;
-	display: block;
-	position: fixed;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	background: rgba( 128, 128, 128, 0.3 );
-}
-
-#loading {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	margin: -26px 0 0 -28px;
-}
-
-.visible {
-	display: block;
-}
-
-.hidden {
-	display: none;
 }
 
 /* Fullscreen dark overlay */

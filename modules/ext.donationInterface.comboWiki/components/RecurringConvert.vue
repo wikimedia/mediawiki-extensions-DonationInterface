@@ -121,6 +121,7 @@
 const { defineComponent } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 const { useAppState } = require( '../composables/useAppState.js' );
+const { getGateway } = require( '../api.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'RecurringConvert',
@@ -272,10 +273,10 @@ module.exports = exports = defineComponent( {
 				appState.setShowRecurringConvert( false );
 				this.$emit( 'recurring-convert-submit', updatedDonation );
 			} else {
-				const api = new mw.Api();
+				const mwApi = new mw.Api();
 				const payload = {
 					action: 'di_recurring_convert',
-					gateway: this.donation.gateway || 'gravy',
+					gateway: getGateway( this.donation.paymentMethod ),
 					utm_token: this.utmToken,
 					amount: amount
 				};
@@ -286,7 +287,7 @@ module.exports = exports = defineComponent( {
 				appState.setLoading( true );
 				appState.clearError();
 				try {
-					const response = await api.post( payload );
+					const response = await mwApi.post( payload );
 					const url = new URL( this.thankYouUrl, window.location.href );
 
 					if ( response && !response.error && response.result && !response.result.errors ) {

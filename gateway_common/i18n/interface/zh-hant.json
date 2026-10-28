@@ -234,7 +234,6 @@
 	"donate_interface-email-unsub-delay": "請靜候此更改內容生效，可能需等待四天時間。我們對於在此期間未收到您的電子郵件改到相當抱歉，若有其它問題請聯繫$1",
 	"donate_interface-email-unsub-fail": "在處理您的請求時發生錯誤，請聯絡<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-unsub-confirm": "您確認要退訂<b>$1</b>嗎？",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "您的定期捐款會透過 PayPal 處理，因此若您想更改電子郵件地址，則需要直接透過您的 PayPal 帳號更新您的電子郵件地址。如果您對更新聯絡資訊有任何疑問，請透過電子郵件地址：<a href=\"mailto:$1\">$1</a> 來聯絡我們的捐款者關係團隊。",
 	"donate_interface-email-primary-confirm": "已成功驗證您的電子郵件地址：$1。",
 	"donate_interface-email-primary-confirm-error": "確認您的電子郵件地址時出錯。請稍後再試。",
 	"donate_interface-email-explain": "我們會電郵給您一份收據來確認您的捐款。",

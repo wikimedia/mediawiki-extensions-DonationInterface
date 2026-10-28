@@ -99,7 +99,6 @@
 	"donate_interface-continue": "繼續",
 	"donate_interface-cancel": "取消",
 	"donate_interface-donation": "捐錢",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "你嘅定期捐款係透過 PayPal 處理，所以如果你想更改電郵地址，需要直接喺你嘅 PayPal 帳戶入面更新。如對更新聯絡資料有任何疑問，請聯絡我哋嘅捐款者關係團隊：<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-optin-fail": "處理你嘅請求嗰陣出錯。唔該聯絡 <a href=\"mailto:$1\">$1</a> 定係 <a href=\"$2\">撳呢度再試一次</a>。",
 	"donate_interface-faqs": "常見問題",
 	"donate_interface-tax-info": "税項扣除資訊",

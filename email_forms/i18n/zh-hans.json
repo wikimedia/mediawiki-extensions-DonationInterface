@@ -209,7 +209,7 @@
 	"emailpreferences-status-paused": "您的维基媒体电子邮件已暂停，直至$1 。",
 	"emailpreferences-status-unsubscribed": "您目前尚未订阅维基媒体的电子邮件。",
 	"emailpreferences-select-preference-message": "请在下方更改您的状态：",
-	"emailpreferences-transactional-note": "<strong>注意：</strong>暂停或取消订阅后，您仍将收到交易电子邮件，例如捐款收据。",
+	"emailpreferences-transactional-note": "注意：暂停或取消订阅后，您仍将收到交易电子邮件，例如捐款收据。",
 	"emailpreferences-success": "您保存电子邮件偏好设置的请求已提交。",
 	"emailpreferences-verify-email-sent": "我们已向您的新邮箱地址发送了确认链接。",
 	"emailpreferences-title": "电子邮件偏好设置",

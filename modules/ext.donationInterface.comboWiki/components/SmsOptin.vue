@@ -7,6 +7,8 @@
 		>
 			<cdx-text-input
 				id="phone"
+				autocomplete="tel"
+				maxlength="20"
 				:model-value="phone"
 				@update:model-value="updatePhone"
 			>
