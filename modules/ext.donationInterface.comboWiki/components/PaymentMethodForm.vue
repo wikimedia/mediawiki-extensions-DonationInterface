@@ -333,17 +333,12 @@ module.exports = exports = defineComponent( {
 
 		/**
 		 * @param {string} method Payment method key
-		 * @param {Object} config The method's paymentMethodConfig entry
-		 * @return {boolean} Whether the server offers the method on the selected gateway for this country
+		 * @return {boolean} Whether the server offers the method (and submethod, if the option
+		 *  is one) on the gateway of the method for this country
 		 */
-		const isOfferedByServer = ( method, config ) => {
-			// Only the selected gateway's client config is loaded (one adapter per request).
-			if ( ( config.gateway || 'gravy' ) !== params.gateway ) {
-				return false;
-			}
-			// The server must offer this method (and submethod, if the option is one).
+		const isOfferedByServer = ( method ) => {
 			const mapping = api.paymentMethodMap[ method ];
-			return !!mapping && gatewayByMethod[ methodKey( mapping.method, mapping.submethod ) ] === params.gateway;
+			return !!mapping && gatewayByMethod[ methodKey( mapping.method, mapping.submethod ) ] === mapping.gateway;
 		};
 
 		// Answers from the isAvailable checks, keyed by payment method: true once the
@@ -364,7 +359,7 @@ module.exports = exports = defineComponent( {
 				if ( isOneTime && config.supportsOneTime === false ) {
 					continue;
 				}
-				if ( !isOfferedByServer( method, config ) ) {
+				if ( !isOfferedByServer( method ) ) {
 					continue;
 				}
 				// Not shown until its check says the browser can use it, nor after it says it can't
@@ -417,7 +412,7 @@ module.exports = exports = defineComponent( {
 			// Ask about every offered method with a check, whatever the frequency, so a
 			// wallet is ready to show (or stays hidden) when the donor changes it
 			for ( const [ method, config ] of Object.entries( paymentMethodConfig ) ) {
-				if ( config.isAvailable && isOfferedByServer( method, config ) ) {
+				if ( config.isAvailable && isOfferedByServer( method ) ) {
 					config.isAvailable().then( ( available ) => {
 						if ( available ) {
 							availability[ method ] = true;

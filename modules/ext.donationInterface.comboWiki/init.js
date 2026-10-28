@@ -20,6 +20,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	DonationInterfaceThankYouPage: mw.config.get( 'DonationInterfaceThankYouPage' ),
 	wgForbiddenViewType: mw.config.get( 'wgForbiddenViewType' ),
 	wmf_token: mw.config.get( 'wmf_token' ),
+	wmf_tokens: mw.config.get( 'wmf_tokens' ),
 	wgUserLanguage: mw.config.get( 'wgUserLanguage' ),
 	adyenConfiguration: mw.config.get( 'adyenConfiguration' ),
 	gravyConfiguration: mw.config.get( 'gravyConfiguration' ),

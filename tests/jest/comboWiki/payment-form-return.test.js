@@ -20,6 +20,7 @@ const NEW_DONATION_PARAMS = {
 	order_id: '1336.1',
 	payment_method: 'cc',
 	gateway: 'gravy',
+	paymentMethods: [ { method: 'cc', gateway: 'gravy' } ],
 	language: 'en',
 	monthlyConvertReturn: false,
 	wgDonationInterfaceAmountRules: { currency: 'USD', min: 1, max: 12000 },
@@ -70,8 +71,7 @@ describe( 'ComboWiki return after a donation that qualifies for monthly convert'
 			amount: '10.00',
 			currency: 'USD',
 			country: 'US',
-			paymentMethod: 'cc',
-			gateway: 'gravy'
+			paymentMethod: 'card'
 		} );
 		expect( modal.props( 'chargedAmount' ) ).toBe( 10 );
 		expect( modal.props( 'thankYouUrl' ) ).toBe( THANK_YOU_URL );

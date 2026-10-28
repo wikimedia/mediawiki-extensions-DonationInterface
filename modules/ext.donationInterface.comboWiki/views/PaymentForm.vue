@@ -119,7 +119,7 @@
 					<p>
 						Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
 						{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-						{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
+						{{ donation.paymentMethod }} / Employer: {{ donation.employer }}
 					</p>
 					<p> Debug - Donation: {{ donation }}</p>
 					<p> Debug Request Params - {{ params }} </p>
@@ -149,7 +149,7 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
-const { paymentMethodMap, donateParamMap } = require( '../api.js' );
+const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -236,7 +236,6 @@ module.exports = exports = defineComponent( {
 				fiscalNumber: null,
 				employerId: 0,
 				smsOptin: null,
-				gateway: this.params.gateway || null,
 				variant: this.params.variant || null,
 				gateway_session_id: this.params.gateway_session_id || null
 			},
@@ -354,26 +353,23 @@ module.exports = exports = defineComponent( {
 	methods: {
 		/**
 		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
-		 * (card, ach, applepay, ...), but only when the server offers it on the selected gateway.
+		 * (card, adyen_card, ach, applepay, ...), but only when the server offers it on the
+		 * gateway of that key.
 		 *
 		 * @param {string|null} wmfMethod WMF payment method code, e.g. from the payment_method param.
 		 * @return {string|null} The PaymentMethodForm key, or null if the method isn't active.
 		 */
 		toFormPaymentMethod( wmfMethod ) {
-			const gateway = this.params.gateway;
-			const isActive = ( this.params.paymentMethods || [] ).some(
-				( entry ) => entry.method === wmfMethod && entry.gateway === gateway
-			);
-			if ( !wmfMethod || !isActive ) {
+			const offeredGateways = ( this.params.paymentMethods || [] )
+				.filter( ( entry ) => entry.method === wmfMethod )
+				.map( ( entry ) => entry.gateway );
+			if ( !wmfMethod || offeredGateways.length === 0 ) {
 				return null;
 			}
-
-			const candidates = Object.keys( paymentMethodMap )
-				.filter( ( key ) => paymentMethodMap[ key ].method === wmfMethod );
-			// Gateway-specific keys are prefixed (adyen_card), the gravy ones are not (card)
-			return candidates.find( ( key ) => key.startsWith( gateway + '_' ) ) ||
-				candidates.find( ( key ) => !key.includes( '_' ) ) ||
-				null;
+			return Object.keys( paymentMethodMap ).find( ( key ) => {
+				const mapping = paymentMethodMap[ key ];
+				return mapping.method === wmfMethod && offeredGateways.includes( mapping.gateway );
+			} ) || null;
 		},
 		getFrequencyUnit() {
 			if ( !this.params.recurring ) {
@@ -470,7 +466,7 @@ module.exports = exports = defineComponent( {
 				return;
 			}
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
-			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
+			mw.log.error( 'di_donate_' + getGateway( this.donation.paymentMethod ) + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
@@ -511,8 +507,7 @@ module.exports = exports = defineComponent( {
 				amount: this.params.amount,
 				currency: this.params.currency,
 				country: this.params.country,
-				paymentMethod: this.params.payment_method,
-				gateway: this.params.gateway
+				paymentMethod: this.toFormPaymentMethod( this.params.payment_method )
 			} );
 			this.thankYouUrl = this.params.DonationInterfaceThankYouPage;
 			this.appState.setShowRecurringConvert( true );

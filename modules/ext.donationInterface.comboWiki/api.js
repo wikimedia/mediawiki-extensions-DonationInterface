@@ -12,14 +12,14 @@ function init( config ) {
  * option is a single submethod with its own country rules (e.g. SEPA under rtbt).
  */
 const paymentMethodMap = {
-	card: { method: 'cc' },
-	adyen_card: { method: 'cc' },
-	paypal: { method: 'paypal' },
-	applepay: { method: 'apple' },
-	googlepay: { method: 'google' },
-	venmo: { method: 'venmo' },
-	ach: { method: 'dd', submethod: 'ach' },
-	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit' }
+	card: { method: 'cc', gateway: 'gravy' },
+	adyen_card: { method: 'cc', gateway: 'adyen' },
+	paypal: { method: 'paypal', gateway: 'gravy' },
+	applepay: { method: 'apple', gateway: 'gravy' },
+	googlepay: { method: 'google', gateway: 'gravy' },
+	venmo: { method: 'venmo', gateway: 'gravy' },
+	ach: { method: 'dd', submethod: 'ach', gateway: 'gravy' },
+	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'gravy' }
 };
 
 /**
@@ -39,6 +39,24 @@ function getServerPaymentMethod( paymentMethod ) {
 function getServerPaymentSubmethod( paymentMethod ) {
 	const mapping = paymentMethodMap[ paymentMethod ];
 	return mapping && mapping.submethod;
+}
+
+/**
+ * @param {string} paymentMethod A paymentMethodMap key (e.g. 'card', 'adyen_card')
+ * @return {string|undefined} The gateway that handles the payment method (e.g. 'gravy')
+ */
+function getGateway( paymentMethod ) {
+	const mapping = paymentMethodMap[ paymentMethod ];
+	return mapping && mapping.gateway;
+}
+
+/**
+ * @param {string} gateway
+ * @return {string} The edit token for the gateway, or the token of the selected
+ *  gateway when the page has no token for it
+ */
+function getToken( gateway ) {
+	return ( apiConfig.wmf_tokens || {} )[ gateway ] || apiConfig.wmf_token;
 }
 
 const frequencyUnitMap = {
@@ -111,11 +129,12 @@ const donateParamMap = {
  *  none was given) is undefined, and mw.Api drops undefined params, so the server never sees it.
  */
 function getBaseDonateParams( donation ) {
+	const gateway = getGateway( donation.paymentMethod );
 	const params = {
-		action: 'di_donate_' + ( donation.gateway || 'gravy' ),
-		gateway: donation.gateway || 'gravy',
+		action: 'di_donate_' + gateway,
+		gateway: gateway,
 		result_page: 'combowiki',
-		wmf_token: apiConfig.wmf_token,
+		wmf_token: getToken( gateway ),
 		amount: donation.amount,
 		currency: donation.currency,
 		country: donation.country,
@@ -152,13 +171,14 @@ function submitDonation( donation, paymentMethodData ) {
 }
 
 function createCheckoutSession( donation ) {
+	const gateway = getGateway( donation.paymentMethod );
 	const recurring = [ 'monthly', 'annual' ].includes( donation.frequency ) ? 1 : 0;
 	return apiPost( {
-		action: 'di_checkoutsession_' + ( donation.gateway || 'gravy' ),
-		gateway: donation.gateway || 'gravy',
+		action: 'di_checkoutsession_' + gateway,
+		gateway: gateway,
 		amount: donation.amount,
 		payment_method: getServerPaymentMethod( donation.paymentMethod ),
-		wmf_token: apiConfig.wmf_token,
+		wmf_token: getToken( gateway ),
 		country: donation.country,
 		currency: donation.currency,
 		recurring: recurring,
@@ -192,5 +212,6 @@ module.exports = {
 	paymentMethodMap,
 	donateParamMap,
 	createCheckoutSession,
-	apiPost
+	apiPost,
+	getGateway
 };
