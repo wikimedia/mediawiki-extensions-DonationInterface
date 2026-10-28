@@ -85,6 +85,10 @@ class DonationApi extends DonationApiBase {
 			'utm_source' => $this->defineParam( false ),
 			'utm_campaign' => $this->defineParam( false ),
 			'utm_medium' => $this->defineParam( false ),
+			'wmf_source' => $this->defineParam( false ),
+			'wmf_campaign' => $this->defineParam( false ),
+			'wmf_key' => $this->defineParam( false ),
+			'wmf_medium' => $this->defineParam( false ),
 			'referrer' => $this->defineParam( false ),
 			'recurring' => $this->defineParam( false ),
 			'variant' => $this->defineParam( false ),
@@ -143,5 +147,14 @@ class DonationApi extends DonationApiBase {
 		if ( $messages ) {
 			$this->getLogger()->debug( 'Client-side debug messages: ' . $messages );
 		}
+	}
+
+	protected function remapWmfParamsToUtm( array $params ): array {
+		foreach ( [ 'campaign', 'key', 'medium', 'source' ] as $suffix ) {
+			if ( !empty( $params[ "wmf_$suffix" ] ) ) {
+				$params[ "utm_$suffix" ] = $params[ "wmf_$suffix" ];
+			}
+		}
+		return $params;
 	}
 }
