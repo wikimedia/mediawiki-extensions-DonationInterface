@@ -137,7 +137,7 @@ const {
 	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
-const CountrySelector = require( '../components/CountrySelector.vue' );
+const CountrySelector = require( '../components/CountrySelectorInline.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
