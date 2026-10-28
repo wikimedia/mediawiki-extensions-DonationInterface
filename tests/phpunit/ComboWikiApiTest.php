@@ -25,7 +25,7 @@ class ComboWikiApiTest extends DonationInterfaceApiTestCase {
 	 */
 	public function testDonateApiTagsComboWikiDonations(): void {
 		$main = $this->apiMainForParams( [ 'result_page' => Donate::IDENTIFIER ] );
-		( new ComboWikiHooks() )->onApiBeforeMain( $main );
+		$this->newHooks()->onApiBeforeMain( $main );
 
 		$this->assertSame( Donate::IDENTIFIER, Context::get()->getSourceType() );
 	}
@@ -36,7 +36,7 @@ class ComboWikiApiTest extends DonationInterfaceApiTestCase {
 	 */
 	public function testDonateApiLeavesOtherDonationsAlone(): void {
 		$main = $this->apiMainForParams( [] );
-		( new ComboWikiHooks() )->onApiBeforeMain( $main );
+		$this->newHooks()->onApiBeforeMain( $main );
 
 		$this->assertSame( 'payments', Context::get()->getSourceType() );
 	}
@@ -46,5 +46,13 @@ class ComboWikiApiTest extends DonationInterfaceApiTestCase {
 		$context->setRequest( new FauxRequest( $params, true ) );
 		$main = new ApiMain( $context );
 		return $main;
+	}
+
+	private function newHooks(): ComboWikiHooks {
+		$services = $this->getServiceContainer();
+		return new ComboWikiHooks(
+			$services->getMainConfig(),
+			$services->getService( 'DonationInterface.LoggerFactory' )
+		);
 	}
 }

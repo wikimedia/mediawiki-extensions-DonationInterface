@@ -79,4 +79,11 @@ class DonationDetails {
 	public function setDataSources( array $dataSources ): void {
 		$this->dataSources = $dataSources;
 	}
+
+	public function updateValues( array $values, string $source ): void {
+		foreach ( $values as $key => $value ) {
+				$this->setValue( $key, $value );
+				$this->setSource( $key, $source );
+		}
+	}
 }

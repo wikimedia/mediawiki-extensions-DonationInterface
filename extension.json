@@ -1096,7 +1096,8 @@
 			"class": "MediaWiki\\Extension\\DonationInterface\\DonorPortal\\Hooks"
 		},
 		"ComboWikiHooks": {
-			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks"
+			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks",
+			"services": [ "MainConfig", "DonationInterface.LoggerFactory" ]
 		}
 	},
 	"config": {
