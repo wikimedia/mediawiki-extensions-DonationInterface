@@ -37,6 +37,11 @@ class DonateTest extends DonationInterfaceTestCase {
 	 */
 	private $cardPaymentProvider;
 
+	/**
+	 * The one SmashPig test config, used for every gateway
+	 */
+	private TestingProviderConfiguration $providerConfig;
+
 	public function setUp(): void {
 		parent::setUp();
 
@@ -79,14 +84,14 @@ class DonateTest extends DonationInterfaceTestCase {
 		] );
 
 		// Mock GravyAdapter::getCheckoutSession(), matching the pattern used in SecureFieldsCardTest.
-		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$this->providerConfig = $this->setSmashPigProvider( 'gravy' );
 		$this->cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
-		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $this->cardPaymentProvider );
+		$this->providerConfig->overrideObjectInstance( 'payment-provider/cc', $this->cardPaymentProvider );
 		$this->cardPaymentProvider->method( 'createPaymentSession' )->willReturn(
 			( new CreatePaymentSessionResponse() )->setSuccessful( true )->setPaymentSession( 'lorem-ipsum' )
 		);
-		$this->mockGravyProvidersOtherThanCard( $providerConfig );
-		$this->mockBraintreeClientToken( $providerConfig );
+		$this->mockGravyProvidersOtherThanCard( $this->providerConfig );
+		$this->mockBraintreeClientToken( $this->providerConfig );
 	}
 
 	public function testChoosesGravyForCreditCard(): void {
@@ -128,11 +133,9 @@ class DonateTest extends DonationInterfaceTestCase {
 	public function testExplicitlyRequestedSupportedGatewayOverridesPriorityRules(): void {
 		// The 'cc' priority rule would normally route to gravy, but adyen also
 		// supports cc/US/USD, so an explicit gateway request should win.
-		$adyenProviderConfig = $this->setSmashPigProvider( 'adyen' );
 		$mockAdyenProvider = $this->createMock( AdyenPaymentProvider::class );
 		$mockAdyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
-		$adyenProviderConfig->overrideObjectInstance( 'payment-provider/cc', $mockAdyenProvider );
-		$this->mockBraintreeClientToken( $adyenProviderConfig );
+		$this->providerConfig->overrideObjectInstance( 'payment-provider/cc', $mockAdyenProvider );
 
 		$this->assertChosenGateway(
 			[
@@ -1620,13 +1623,11 @@ class DonateTest extends DonationInterfaceTestCase {
 			],
 		] );
 		// The Adyen adapter can be given any of its methods on ComboWiki, so mock each one
-		$adyenProviderConfig = $this->setSmashPigProvider( 'adyen' );
 		foreach ( [ 'cc', 'google', 'apple', 'dd', 'ach', 'bt', 'ew', 'rtbt' ] as $paymentMethod ) {
 			$adyenProvider = $this->createMock( AdyenPaymentProvider::class );
 			$adyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
-			$adyenProviderConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $adyenProvider );
+			$this->providerConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $adyenProvider );
 		}
-		$this->mockBraintreeClientToken( $adyenProviderConfig );
 	}
 
 	/**
