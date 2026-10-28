@@ -231,13 +231,13 @@ class DonateTest extends DonationInterfaceTestCase {
 		return [
 			'US has PayPal and Venmo' => [ 'US', 'USD', [
 				'test-braintree-client.js',
-				'test-braintree-paypal-checkout.js',
+				'test-braintree-paypal-checkout-v6.js',
 				'test-braintree-venmo.js',
 				'test-braintree-data-collector.js',
 			] ],
 			'GB has only PayPal' => [ 'GB', 'GBP', [
 				'test-braintree-client.js',
-				'test-braintree-paypal-checkout.js',
+				'test-braintree-paypal-checkout-v6.js',
 				'test-braintree-data-collector.js',
 			] ],
 		];
@@ -258,6 +258,7 @@ class DonateTest extends DonationInterfaceTestCase {
 				'test' => [
 					'clientScript' => 'test-braintree-client.js',
 					'paypalScript' => 'test-braintree-paypal-checkout.js',
+					'paypalCheckoutV6Script' => 'test-braintree-paypal-checkout-v6.js',
 					'venmoScript' => 'test-braintree-venmo.js',
 					'deviceScript' => 'test-braintree-data-collector.js',
 				],

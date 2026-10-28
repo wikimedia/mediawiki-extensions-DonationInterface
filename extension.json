@@ -582,6 +582,7 @@
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/BraintreePayPal.vue",
 				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
 				"modules/ext.donationInterface.comboWiki/components/TaxMessage.vue",
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",

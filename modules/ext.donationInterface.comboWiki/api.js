@@ -15,6 +15,7 @@ const paymentMethodMap = {
 	card: { method: 'cc', gateway: 'gravy' },
 	adyen_card: { method: 'cc', gateway: 'adyen' },
 	paypal: { method: 'paypal', gateway: 'gravy' },
+	braintree_paypal: { method: 'paypal', gateway: 'braintree' },
 	applepay: { method: 'apple', gateway: 'gravy' },
 	googlepay: { method: 'google', gateway: 'gravy' },
 	venmo: { method: 'venmo', gateway: 'gravy' },

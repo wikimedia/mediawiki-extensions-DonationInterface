@@ -160,6 +160,7 @@ $wgBraintreeGatewayAccountInfo = [];
 $wgBraintreeGatewayAccountInfo['test'] = [
 	'clientScript' => 'test-braintree-client.js',
 	'paypalScript' => 'test-braintree-paypal-checkout.js',
+	'paypalCheckoutV6Script' => 'test-braintree-paypal-checkout-v6.js',
 	'venmoScript' => 'test-braintree-venmo.js',
 	'deviceScript' => 'test-braintree-data-collector.js',
 ];

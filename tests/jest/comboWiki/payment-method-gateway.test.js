@@ -55,7 +55,7 @@ describe( 'ComboWiki payment methods from more than one gateway', () => {
 	} );
 
 	it( 'does not offer a method on a gateway that has no form for it', () => {
-		const methods = mountMethodForm( [ { method: 'paypal', gateway: 'braintree' } ] ).vm.availablePaymentMethods;
+		const methods = mountMethodForm( [ { method: 'venmo', gateway: 'braintree' } ] ).vm.availablePaymentMethods;
 		expect( methods ).toEqual( [] );
 	} );
 } );

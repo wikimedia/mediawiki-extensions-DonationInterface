@@ -71,7 +71,7 @@ class BraintreeClientConfig implements GatewayClientConfig {
 	private function getScripts(): array {
 		$scripts = [ $this->adapter->getAccountConfig( 'clientScript' ) ];
 		if ( in_array( 'paypal', $this->paymentMethods, true ) ) {
-			$scripts[] = $this->adapter->getAccountConfig( 'paypalScript' );
+			$scripts[] = $this->adapter->getAccountConfig( 'paypalCheckoutV6Script' );
 		}
 		if ( in_array( 'venmo', $this->paymentMethods, true ) ) {
 			$scripts[] = $this->adapter->getAccountConfig( 'venmoScript' );

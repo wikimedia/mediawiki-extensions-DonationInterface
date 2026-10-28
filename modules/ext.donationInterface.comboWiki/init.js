@@ -24,6 +24,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	wgUserLanguage: mw.config.get( 'wgUserLanguage' ),
 	adyenConfiguration: mw.config.get( 'adyenConfiguration' ),
 	gravyConfiguration: mw.config.get( 'gravyConfiguration' ),
+	braintreeConfiguration: mw.config.get( 'braintreeConfiguration' ),
 	script_path: mw.config.get( 'script_path' ),
 	DonationInterfaceOtherWaysURL: mw.config.get( 'DonationInterfaceOtherWaysURL' ),
 	wgDonationInterfaceMonthlyConvertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),

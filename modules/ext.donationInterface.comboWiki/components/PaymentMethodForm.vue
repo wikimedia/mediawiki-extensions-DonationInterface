@@ -58,6 +58,7 @@ const ACHComponent = require( './ACHComponent.vue' );
 const AdyenCardForm = require( './AdyenCardForm.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
 const SEPAComponent = require( './SEPAComponent.vue' );
+const BraintreePayPal = require( './BraintreePayPal.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
@@ -72,6 +73,7 @@ module.exports = exports = defineComponent( {
 		'googlepay-form': GooglePayComponent,
 		'ach-form': ACHComponent,
 		'adyen-card-form': AdyenCardForm,
+		'braintree-paypal-form': BraintreePayPal,
 		'sepa-form': SEPAComponent
 	},
 	props: {
@@ -272,6 +274,14 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				extraFormFields: getFormFieldsFor( 'paypal' ),
 				validationRules: getValidationRulesFor( 'paypal' )
+			},
+			braintree_paypal: {
+				label: mw.message( 'combowiki-method-paypal' ).text(),
+				component: 'braintree-paypal-form',
+				error: onError,
+				submit: submitDonation,
+				extraFormFields: getFormFieldsFor( 'braintree_paypal' ),
+				validationRules: getValidationRulesFor( 'braintree_paypal' )
 			},
 			venmo: {
 				label: mw.message( 'combowiki-method-venmo' ).text(),
