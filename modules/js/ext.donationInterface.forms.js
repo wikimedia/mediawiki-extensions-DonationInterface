@@ -126,8 +126,10 @@
 	 * @param {function(result)} successCallback will be called with response's 'result' property
 	 * @param {Array} extraData will be merged into the data collected from the form
 	 * @param {string} action action param to pass to MW API, defaults to 'donate'
+	 * @param {Function} [failureCallback] called after the error is shown when the API reports
+	 *  an error or validation errors, or the request fails, e.g. so a payment sheet can be closed
 	 */
-	function callDonateApi( successCallback, extraData, action ) {
+	function callDonateApi( successCallback, extraData, action, failureCallback ) {
 		di.forms.disable();
 		di.forms.clean();
 		$( '#topError' ).html( '' );
@@ -203,11 +205,17 @@
 					alert( mw.msg( 'donate_interface-error-msg-general' ) );
 					// Show continue button in 2nd section if it exists
 					$( '#paymentContinue' ).show();
+					if ( failureCallback ) {
+						failureCallback( data );
+					}
 				} else if ( typeof data.result !== 'undefined' ) {
 					if ( data.result.errors ) {
 						mw.donationInterface.validation.showErrors( data.result.errors );
 						// Show continue button in 2nd section if it exists
 						$( '#paymentContinue' ).show();
+						if ( failureCallback ) {
+							failureCallback( data.result );
+						}
 					} else {
 						successCallback( data.result );
 					}
@@ -216,6 +224,9 @@
 			error: function ( xhr ) {
 				// FIXME too
 				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+				if ( failureCallback ) {
+					failureCallback( xhr );
+				}
 			},
 			complete: function () {
 				di.forms.enable();

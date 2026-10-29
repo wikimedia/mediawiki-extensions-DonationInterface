@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-dont-send-email": "Denme de baja de todo.",
+	"emailpreferences-expired-link-title": "Lo sentimos, tu enlace ha caducado.",
+	"emailpreferences-send-new-link": "Enviar enlace de inicio de sesión",
+	"emailpreferences-new-link-sent": "Te enviaremos un nuevo enlace en breve. Por favor, revisa tu bandeja de entrada.",
+	"emailpreferences-header-link-advocacy": "Defensa",
+	"emailpreferences-send-email": "Me encanta que Wikimedia Foundation me contacte, ¡envíenme todo!",
+	"emailpreferences-snooze-email": "Pausar los correos electrónicos por {{PLURAL:$1|un día|$1 días}}.",
+	"emailpreferences-status-subscribed": "Actualmente, tu suscripción a los correos electrónicos de Wikimedia está activa.",
+	"emailpreferences-status-paused": "Los correos electrónicos de Wikimedia están pausados hasta $1.",
+	"emailpreferences-status-unsubscribed": "Actualmente, tu suscripción a los correos electrónicos de Wikimedia no está activa.",
+	"emailpreferences-select-preference-message": "Cambia tu estado a continuación:",
+	"emailpreferences-transactional-note": "Nota: luego de activar la pausa o darte de baja, seguirás recibiendo correos electrónicos de transacciones, como recibos de donaciones.",
+	"emailpreferences-success": "Se envió tu solicitud para guardar tus preferencias de correo electrónico.",
+	"emailpreferences-verify-email-sent": "Enviamos un enlace de confirmación a tu nueva dirección de correo electrónico.",
+	"emailpreferences-confirmemail-title": "Confirmar correo electrónico"
+}

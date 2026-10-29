@@ -208,7 +208,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$selectedLang = 'pt-br';
 					break;
 				case 'es_PR':
-					$selectedLang = 'es-formal';
+				case 'es_MX':
+					$selectedLang = 'es-419';
 					break;
 				default:
 					$selectedLang = explode( '_', $preferences[ 'preferred_language' ] )[0];
