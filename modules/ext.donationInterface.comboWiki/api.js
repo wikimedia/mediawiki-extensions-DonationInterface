@@ -14,6 +14,7 @@ function init( config ) {
 const paymentMethodMap = {
 	card: { method: 'cc', gateway: 'gravy' },
 	adyen_card: { method: 'cc', gateway: 'adyen' },
+	adyen_applepay: { method: 'apple', gateway: 'adyen' },
 	paypal: { method: 'paypal', gateway: 'gravy' },
 	braintree_paypal: { method: 'paypal', gateway: 'braintree' },
 	applepay: { method: 'apple', gateway: 'gravy' },
@@ -208,10 +209,11 @@ function createCheckoutSession( donation ) {
 }
 
 function validateApplePayPaymentSession( payload ) {
+	const gateway = getGateway( payload.paymentMethod );
 	const params = {
-		action: 'di_applesession_gravy',
+		action: `di_applesession_${ gateway }`,
 		validation_url: payload.validationURL,
-		wmf_token: apiConfig.wmf_token,
+		wmf_token: getToken( gateway ),
 		payment_method: getServerPaymentMethod( payload.paymentMethod ),
 		country: payload.country,
 		currency: payload.currency,

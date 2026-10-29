@@ -2,7 +2,6 @@
 	<div
 		id="applepay-container"
 		class="payment-method-form"
-		data-autoscroll
 	>
 		<apple-pay-button
 			v-if="showApplePayButtonFlag"

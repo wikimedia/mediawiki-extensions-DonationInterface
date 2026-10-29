@@ -591,7 +591,8 @@
 				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
 				"modules/ext.donationInterface.comboWiki/components/OptIn.vue",
 				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue",
-				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue"
+				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue",
+				"modules/ext.donationInterface.comboWiki/components/AdyenApplePayComponent.vue"
 			],
 			"messages": [
 				"combowiki-title",

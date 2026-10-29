@@ -59,4 +59,75 @@ function overrideWithFormEntries( paymentMethodData, formEntries ) {
 	return result;
 }
 
-module.exports = { loadScript, unloadScript, overrideWithFormEntries };
+/**
+ * Given an amount in major currency units, e.g. dollars, returns the
+ * amount in minor units for the currency, e.g. cents. For non-fractional
+ * currencies just rounds the amount to the nearest whole number.
+ *
+ * @param {number} amount
+ * @param {string} currency
+ * @return {number} amount in minor units for specified currency
+ */
+function amountInMinorUnits( amount, currency ) {
+	const threeDecimals = mw.config.get( 'DonationInterfaceThreeDecimalCurrencies' ),
+		noDecimals = mw.config.get( 'DonationInterfaceNoDecimalCurrencies' );
+
+	if ( noDecimals.includes( currency ) ) {
+		return Math.round( amount );
+	}
+	if ( threeDecimals.includes( currency ) ) {
+		return Math.round( amount * 1000 );
+	}
+	return Math.round( amount * 100 );
+}
+
+// Kept for the page's lifetime so every Adyen component on the page shares one checkout
+let adyenCheckoutPromise = null;
+
+/**
+ * @param {Object} adyenConfiguration From Special:Donate, without Vue proxies
+ * @param {string} country The donation's country
+ * @return {Promise<Object>} The Adyen checkout for the page, once Adyen's SDK has loaded
+ */
+function getAdyenCheckout( adyenConfiguration, country ) {
+	if ( !adyenCheckoutPromise ) {
+		adyenCheckoutPromise = loadScript( adyenConfiguration.script.src )
+			.then( () => window.AdyenWeb.AdyenCheckout(
+				Object.assign( {}, adyenConfiguration, { countryCode: country } )
+			) )
+			.catch( ( e ) => {
+				// Not kept, so a later call can try again
+				adyenCheckoutPromise = null;
+				throw e;
+			} );
+	}
+	return adyenCheckoutPromise;
+}
+
+/**
+ * The Adyen ApplePay component config, without the callbacks. The readiness check
+ * and AdyenApplePayComponent both build the component from it, so they can't disagree.
+ *
+ * @param {Object} donation
+ * @return {Object}
+ */
+function getAdyenApplePayConfiguration( donation ) {
+	const adyenConfiguration = mw.config.get( 'adyenConfiguration' );
+	return {
+		countryCode: donation.country,
+		buttonLocale: adyenConfiguration.locale,
+		buttonType: 'donate',
+		showPayButton: true,
+		requiredBillingContactFields: adyenConfiguration.appleRequiredBillingContactFields,
+		requiredShippingContactFields: adyenConfiguration.appleRequiredShippingContactFields
+	};
+}
+
+module.exports = {
+	loadScript,
+	unloadScript,
+	overrideWithFormEntries,
+	amountInMinorUnits,
+	getAdyenCheckout,
+	getAdyenApplePayConfiguration
+};

@@ -432,6 +432,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(),
 			'script' => $this->getAccountConfig( 'Script' ),
 			'googleScript' => $this->getAccountConfig( 'GoogleScript' ),
+			'appleRequiredBillingContactFields' => [ 'name', 'postalAddress' ],
+			'appleRequiredShippingContactFields' => [ 'name', 'email' ]
 		];
 	}
 

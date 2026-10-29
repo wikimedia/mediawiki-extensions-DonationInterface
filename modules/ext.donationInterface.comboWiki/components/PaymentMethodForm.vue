@@ -49,7 +49,7 @@ const { defineComponent, toRaw, computed, onMounted, inject, reactive, ref } = r
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const { overrideWithFormEntries } = require( '../utils.js' );
-const { isApplePayAvailable, isGooglePayAvailable } = require( '../walletAvailability.js' );
+const { isApplePayAvailable, isGooglePayAvailable, isAdyenApplePayAvailable } = require( '../walletAvailability.js' );
 const PaymentMethodFormFields = require( './PaymentMethodFormFields.vue' );
 const GravyCardForm = require( './GravyCardForm.vue' );
 const GravyRedirectComponent = require( './GravyRedirectComponent.vue' );
@@ -59,6 +59,7 @@ const AdyenCardForm = require( './AdyenCardForm.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
 const SEPAComponent = require( './SEPAComponent.vue' );
 const BraintreePayPal = require( './BraintreePayPal.vue' );
+const AdyenApplePayComponent = require( './AdyenApplePayComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
@@ -74,7 +75,8 @@ module.exports = exports = defineComponent( {
 		'ach-form': ACHComponent,
 		'adyen-card-form': AdyenCardForm,
 		'braintree-paypal-form': BraintreePayPal,
-		'sepa-form': SEPAComponent
+		'sepa-form': SEPAComponent,
+		'adyen-applepay-form': AdyenApplePayComponent
 	},
 	props: {
 		donation: {
@@ -142,14 +144,21 @@ module.exports = exports = defineComponent( {
 			appState.setLoading( true );
 			api.submitDonation( toRaw( props.donation ), payload )
 				.then( ( result ) => {
+					let isFailed = false;
 					// how do we want to display validation errors
 					if ( result.result.isFailed || result.result.errors ) {
+						isFailed = true;
 						ctx.emit( 'donationError', result.result.errors );
+						if ( errorCallback ) {
+							errorCallback( { errors: result.result.errors } );
+						}
 					}
-					if ( successCallback ) {
-						successCallback( result );
+					if ( !isFailed ) {
+						if ( successCallback ) {
+							successCallback( result );
+						}
+						ctx.emit( 'donationSuccess', result );
 					}
-					ctx.emit( 'donationSuccess', result );
 					appState.setLoading( false );
 				} )
 				.catch( ( code, failure ) =>  {
@@ -237,6 +246,7 @@ module.exports = exports = defineComponent( {
 		 *
 		 * @property {string} label Display text for the payment method's selector button.
 		 * @property {string} component Name of the registered component that renders the method's form.
+		 * @property {string} gateway Gateway for the payment method.
 		 * @property {boolean} supportsOneTime Flag to show support for one time transaction (default: True).
 		 * @property {boolean} supportsMonthly Flag to show support for monthly recurring transaction (default: True).
 		 * @property {boolean} supportsAnnual Flag to show support for Annual recurring transaction (default: True).
@@ -336,6 +346,17 @@ module.exports = exports = defineComponent( {
 				error: onError,
 				extraFormFields: getFormFieldsFor( 'sepadirectdebit' ),
 				validationRules: getValidationRulesFor( 'sepadirectdebit' )
+			},
+			adyen_applepay: {
+				label: mw.message( 'combowiki-method-applepay' ).text(),
+				component: 'adyen-applepay-form',
+				gateway: 'adyen',
+				submit: submitDonation,
+				error: onError,
+				presubmit: validateApplePay,
+				isAvailable: () => isAdyenApplePayAvailable( toRaw( params.adyenConfiguration ), toRaw( props.donation ) ),
+				extraFormFields: getFormFieldsFor( 'applepay' ),
+				validationRules: getValidationRulesFor( 'applepay' )
 			}
 		};
 

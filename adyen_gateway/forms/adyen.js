@@ -1,7 +1,7 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
-	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
 	const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
+	const { getBestApplePayContactName, mapAppleNetworkToSubmethod } = require( 'ext.donationInterface.applePayHelper' );
 	const redirectPaymentMethods = [ 'ideal' ];
 	// Adyen Web's component classes. window.AdyenWeb only exists once the Adyen
 	// script has loaded, so these are set in setAdyenComponents() from setup()
@@ -248,25 +248,6 @@
 		return new Promise( ( resolve, reject ) => {
 			resolve( AdyenCheckout );
 		} );
-	}
-
-	function mapAppleNetworkToSubmethod( network ) {
-		network = network.toLowerCase();
-		switch ( network ) {
-			case 'amex':
-			case 'discover':
-			case 'jcb':
-			case 'visa':
-				return network;
-			case 'cartesbancaires':
-				return 'cb';
-			case 'electron':
-				return 'visa-electron';
-			case 'mastercard':
-				return 'mc';
-			default:
-				return '';
-		}
 	}
 
 	function getEWalletComponents( submethod ) {
