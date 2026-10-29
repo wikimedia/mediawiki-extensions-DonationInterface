@@ -319,6 +319,16 @@ module.exports = exports = defineComponent( {
 				extraFormFields: getFormFieldsFor( 'googlepay' ),
 				validationRules: getValidationRulesFor( 'googlepay' )
 			},
+			adyen_googlepay: {
+				label: mw.message( 'combowiki-method-googlepay' ).text(),
+				component: 'googlepay-form',
+				submit: submitDonation,
+				error: onError,
+				gateway: 'adyen',
+				isAvailable: () => isGooglePayAvailable( params.adyenConfiguration ),
+				extraFormFields: getFormFieldsFor( 'adyen_googlepay' ),
+				validationRules: getValidationRulesFor( 'adyen_googlepay' )
+			},
 			sepadirectdebit: {
 				label: mw.message( 'combowiki-method-sepa' ).text(),
 				component: 'sepa-form',

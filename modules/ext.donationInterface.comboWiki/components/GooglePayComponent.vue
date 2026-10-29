@@ -9,9 +9,42 @@
 <script>
 const { defineComponent, toRaw, ref } = require( 'vue' );
 const { getGooglePaymentsClient, isGooglePayAvailable } = require( '../walletAvailability.js' );
+const { getGateway } = require( '../api.js' );
+
+/**
+ * For each gateway: its client config from Special:Donate, and how Google tokenizes the
+ * card for it. The donate API sends the token to the gateway as payment_token.
+ */
+const GATEWAYS = {
+	gravy: {
+		configKey: 'gravyConfiguration',
+		getTokenizationParameters: ( config ) => ( {
+			gateway: 'gr4vy',
+			gatewayMerchantId: config.gravyGooglePayMerchantId
+		} ),
+		// Gravy's Google Pay API requires the card's last digits and networ
+		getExtraData: ( paymentMethodInfo ) => ( {
+			card_suffix: paymentMethodInfo.cardDetails,
+			card_scheme: paymentMethodInfo.cardNetwork
+		} )
+	},
+	adyen: {
+		configKey: 'adyenConfiguration',
+		getTokenizationParameters: ( config ) => ( {
+			gateway: 'adyen',
+			// Called gatewayMerchantId, but it is our Adyen merchant account name
+			gatewayMerchantId: config.merchantAccountName
+		} ),
+		// Adyen's submethod for the card, as on Special:AdyenCheckoutGateway
+		getExtraData: ( paymentMethodInfo ) => {
+			const network = paymentMethodInfo.cardNetwork.toLowerCase();
+			return { payment_submethod: network === 'mastercard' ? 'mc' : network };
+		}
+	}
+};
 
 module.exports = exports = defineComponent( {
-	name: 'GravyGoogleForm',
+	name: 'GooglePayComponent',
 	components: {},
 	inject: [ 'params' ],
 	props: {
@@ -23,25 +56,32 @@ module.exports = exports = defineComponent( {
 		donorDetails: {
 			type: Object,
 			default: null
+		},
+		paymentMethod: {
+			type: String,
+			required: true
 		}
 	},
 	emits: [ 'submit', 'error' ],
-	setup() {
-		const gravyConfig = ref( '' );
+	setup( props ) {
+		// The gateway in paymentMethodMap, which the donate API posts to (see api.js).
+		const gateway = GATEWAYS[ getGateway( props.paymentMethod ) ];
+		const config = ref( '' );
 		return {
-			gravyConfig
+			gateway,
+			config
 		};
 	},
 	methods: {
 		getClient() {
 			// Google posts the requests to its iframe, so they must not contain Vue proxies
-			return getGooglePaymentsClient( toRaw( this.gravyConfig ) );
+			return getGooglePaymentsClient( toRaw( this.config ) );
 		},
 		async displayGooglePayButton() {
 			// PaymentMethodForm only shows Google Pay once this check passed, so this is
 			// normally answered from cache. If it fails now, tell the donor rather than
 			// leaving them with a selected method and no button.
-			if ( !await isGooglePayAvailable( toRaw( this.gravyConfig ) ) ) {
+			if ( !await isGooglePayAvailable( toRaw( this.config ) ) ) {
 				this.emitUnavailable();
 				return;
 			}
@@ -86,7 +126,7 @@ module.exports = exports = defineComponent( {
 			] );
 		},
 		getPaymentRequest() {
-			const config = toRaw( this.gravyConfig );
+			const config = toRaw( this.config );
 			const paymentRequest = {
 				apiVersion: 2,
 				apiVersionMinor: 0
@@ -102,13 +142,9 @@ module.exports = exports = defineComponent( {
 					}
 				}
 			};
-			const gravyGooglePayMerchantId = config.gravyGooglePayMerchantId;
 			const tokenizationSpecification = {
 				type: 'PAYMENT_GATEWAY',
-				parameters: {
-					gateway: 'gr4vy',
-					gatewayMerchantId: gravyGooglePayMerchantId
-				}
+				parameters: this.gateway.getTokenizationParameters( config )
 			};
 			cardPaymentMethod.tokenizationSpecification = tokenizationSpecification;
 			paymentRequest.allowedPaymentMethods = [ cardPaymentMethod ];
@@ -145,10 +181,8 @@ module.exports = exports = defineComponent( {
 						state_province: donorInfo.administrativeArea,
 						city: donorInfo.locality,
 						street_address: donorInfo.address1,
-						payment_token: paymentToken,
-						card_suffix: paymentMethodInfo.cardDetails,
-						card_scheme: paymentMethodInfo.cardNetwork
-					}, paymentData );
+						payment_token: paymentToken
+					}, this.gateway.getExtraData( paymentMethodInfo ), paymentData );
 
 					this.$emit( 'submit', donationParameters, null, this.handleFailedPaymentResult );
 				} )
@@ -159,7 +193,7 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	created() {
-		this.gravyConfig = this.params.gravyConfiguration;
+		this.config = this.params[ this.gateway.configKey ];
 	},
 	mounted() {
 		this.displayGooglePayButton();

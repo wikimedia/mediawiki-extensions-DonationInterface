@@ -22,15 +22,32 @@ class AdyenClientConfig implements GatewayClientConfig {
 	) {
 	}
 
+	/**
+	 * Google Pay requires the googleEnvironment to be set to either TEST or PRODUCTION.
+	 * Here we map the Adyen environment to the Google environment.
+	 * - If the Adyen environment is test, set the googleEnvironment to TEST.
+	 * - If the Adyen environment is live, set the googleEnvironment to PRODUCTION.
+	 *
+	 * @param array $adyenConfiguration The Adyen configuration object
+	 * @return array The Adyen configuration object with the googleEnvironment set
+	 */
+	private function addGoogleEnvironment( array $adyenConfiguration ): array {
+		$adyenEnvironment = $adyenConfiguration['environment'];
+		$adyenConfiguration['googleEnvironment'] = $adyenEnvironment === 'test' ? 'TEST' : 'PRODUCTION';
+		return $adyenConfiguration;
+	}
+
 	/** @inheritDoc */
 	public function getVars(): array {
+		$adyenConfiguration = $this->adapter->getCheckoutConfiguration( [
+			'country' => $this->routingParams['country'],
+			'currency' => $this->routingParams['currency'],
+			'amount' => $this->routingParams['amount'],
+			'language' => $this->routingParams['language'],
+		] );
+		$adyenConfiguration = $this->addGoogleEnvironment( $adyenConfiguration );
 		return [
-			'adyenConfiguration' => $this->adapter->getCheckoutConfiguration( [
-				'country' => $this->routingParams['country'],
-				'currency' => $this->routingParams['currency'],
-				'amount' => $this->routingParams['amount'],
-				'language' => $this->routingParams['language'],
-			] ),
+			'adyenConfiguration' => $adyenConfiguration,
 		];
 	}
 

@@ -162,8 +162,8 @@ describe( 'ComboWiki wallets below the details form', () => {
 	const donation = { frequency: 'monthly', amount: 10, currency: 'AUD', country: 'AU' };
 	const donorDetails = ( valid ) => ( { valid, validate: jest.fn( () => valid ) } );
 	// Neither wallet's SDK loads in jsdom, so these call the click handlers directly
-	const mountWallet = ( component, details ) => VueTestUtils.mount( component, {
-		props: { donation, donorDetails: details },
+	const mountWallet = ( component, details, paymentMethod ) => VueTestUtils.mount( component, {
+		props: { donation, donorDetails: details, paymentMethod },
 		global: { provide: { params: { gravyConfiguration: { googleScript: 'https://pay.google.com/gp/p/js/pay.js' } } } }
 	} );
 
@@ -179,14 +179,14 @@ describe( 'ComboWiki wallets below the details form', () => {
 
 		it( 'does not open the payment sheet while the details are invalid', () => {
 			const details = donorDetails( false );
-			mountWallet( GooglePayComponent, details ).vm.onButtonClicked();
+			mountWallet( GooglePayComponent, details, 'googlepay' ).vm.onButtonClicked();
 
 			expect( details.validate ).toHaveBeenCalled();
 			expect( loadPaymentData ).not.toHaveBeenCalled();
 		} );
 
 		it( 'opens the payment sheet once the details are valid', () => {
-			mountWallet( GooglePayComponent, donorDetails( true ) ).vm.onButtonClicked();
+			mountWallet( GooglePayComponent, donorDetails( true ), 'googlepay' ).vm.onButtonClicked();
 
 			expect( loadPaymentData ).toHaveBeenCalled();
 		} );
