@@ -213,8 +213,29 @@ function validateApplePayPaymentSession( payload ) {
 	return apiPost( params );
 }
 
+/**
+ * Send a client-side error to the server log
+ *
+ * @param {Object} details
+ * @param {string} details.message
+ * @param {string} [details.file]
+ * @param {number} [details.line]
+ * @param {number} [details.col]
+ * @param {string} [details.stack]
+ * @return {Promise}
+ */
+function logClientError( details ) {
+	return apiPost( Object.assign( {
+		action: 'logPaymentsFormError',
+		userAgent: navigator.userAgent
+	}, details ) ).catch( ( code ) => {
+		mw.log.error( 'logPaymentsFormError failed', code );
+	} );
+}
+
 module.exports = {
 	init,
+	logClientError,
 	validateApplePayPaymentSession,
 	submitDonation,
 	paymentMethodMap,

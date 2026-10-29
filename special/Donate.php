@@ -494,6 +494,13 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
+		if ( $this->getConfig()->get( 'DonationInterfaceLogClientErrors' ) ) {
+			// Read by comboWiki errorLogger.js, which only installs when this is set
+			$vars['wgDonationInterfaceClientErrorLogIgnorePatterns'] = $this->getConfig()->get(
+				'DonationInterfaceClientErrorLogIgnorePatterns'
+			);
+		}
+
 		if ( !$this->getSelectedAdapter() ) {
 			return;
 		}

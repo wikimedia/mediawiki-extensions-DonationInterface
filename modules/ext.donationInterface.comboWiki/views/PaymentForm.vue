@@ -123,7 +123,7 @@ const AmountSelector = require( '../components/AmountSelector.vue' );
 const { getAppeal } = require( '../appeals.js' );
 const { getFeeAmount, minAmountFunction, getFormattedAmount, getPresetAmounts } = require( '../amountHelper.js' );
 const { useAppState } = require( '../composables/useAppState.js' );
-const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
+const { paymentMethodMap, donateParamMap, getGateway, logClientError } = require( '../api.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
@@ -378,20 +378,26 @@ module.exports = exports = defineComponent( {
 
 			}
 		},
-		handleDonateError( code, failure ) {
+		handleDonateError( error, failure ) {
 			this.appState.setLoading( false );
 			// Override the default error message if the type of error is fixable by donors taking
 			// a specific action. These errors should be specific and leave zero ambiguity.
-			if ( code && code.type === 'validation' ) {
-				this.appState.setError( code.messages.join( ' ' ) );
+			if ( error && error.type === 'validation' ) {
+				this.appState.setError( error.messages.join( ' ' ) );
 				return;
 			}
 			let errorMessage = this.$i18n( 'combowiki-payment-failed' ).text();
-			if ( code && code.type && code.message ) {
-				errorMessage = code.type + ': ' + code.message;
+			if ( error && error.type && error.message ) {
+				errorMessage = error.type + ': ' + error.message;
 			}
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + errorMessage );
-			mw.log.error( 'di_donate_' + getGateway( this.donation.paymentMethod ) + ' failed', code, failure );
+			const action = 'di_donate_' + getGateway( this.donation.paymentMethod );
+			mw.log.error( action + ' failed', error, failure );
+			logClientError( {
+				message: action + ' failed for order_id ' + this.params.order_id + ': ' +
+					JSON.stringify( { error, failure } ),
+				file: 'PaymentForm.vue'
+			} );
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
@@ -409,8 +415,8 @@ module.exports = exports = defineComponent( {
 				.then( ( result ) => {
 					this.handleDonateResult( result );
 				} )
-				.catch( ( code, failure ) => {
-					this.handleDonateError( code, failure );
+				.catch( ( error, failure ) => {
+					this.handleDonateError( error, failure );
 				} );
 		}
 	},
