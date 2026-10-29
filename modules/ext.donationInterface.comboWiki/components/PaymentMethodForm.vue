@@ -17,26 +17,28 @@
 				{{ paymentMethodConfig[method].label }}
 			</cdx-button>
 			<template v-if="paymentMethodConfig[paymentMethod]">
-				<!-- The details the selected method asks for, shared by all methods -->
-				<payment-method-form-fields
-					v-if="hasFormFields( paymentMethod )"
-					:key="paymentMethod"
-					ref="donorFields"
-					:donation="donation"
-					:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
-					:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
-					@update:details="( details ) => $emit( 'onDonorDetailsChange', details )"
-					@update:valid="( valid ) => { donorDetails.valid = valid; }"
-				></payment-method-form-fields>
-				<component
-					:is="paymentMethodConfig[paymentMethod].component"
-					:donation="donation"
-					:payment-method="paymentMethod"
-					:donor-details="hasFormFields( paymentMethod ) ? donorDetails : null"
-					@submit="paymentMethodConfig[paymentMethod].submit"
-					@error="paymentMethodConfig[paymentMethod].error"
-					@presubmit="paymentMethodConfig[paymentMethod].presubmit"
-				></component>
+				<div>
+					<!-- The details the selected method asks for, shared by all methods -->
+					<payment-method-form-fields
+						v-if="hasFormFields( paymentMethod )"
+						:key="paymentMethod"
+						ref="donorFields"
+						:donation="donation"
+						:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
+						:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
+						@update:details="( details ) => $emit( 'onDonorDetailsChange', details )"
+						@update:valid="( valid ) => { donorDetails.valid = valid; }"
+					></payment-method-form-fields>
+					<component
+						:is="paymentMethodConfig[paymentMethod].component"
+						:donation="donation"
+						:payment-method="paymentMethod"
+						:donor-details="hasFormFields( paymentMethod ) ? donorDetails : null"
+						@submit="paymentMethodConfig[paymentMethod].submit"
+						@error="paymentMethodConfig[paymentMethod].error"
+						@presubmit="paymentMethodConfig[paymentMethod].presubmit"
+					></component>
+				</div>
 			</template>
 		</div>
 	</div>

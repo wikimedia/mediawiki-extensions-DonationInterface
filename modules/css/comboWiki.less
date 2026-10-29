@@ -135,17 +135,22 @@
 	background-color: #f4f9f4;
 }
 
-.combo-wiki__card {
+.combo-wiki__card,
+.combo-adyen-card {
 	.secure-fields__input {
+		display: block;
+		padding: 4px 8px;
+	}
+
+	.secure-fields__input,
+	div.adyen-checkout__input-wrapper {
 		width: 100%;
 		border: 1px solid #a2a9b1;
 		border-radius: 0;
 		margin-top: 0.25em;
-		display: block;
 		box-sizing: border-box;
 		min-height: 32px;
 		height: 34px;
-		padding: 4px 8px;
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.375;
@@ -156,7 +161,8 @@
 // laid out like the card fields that follow it
 .combo-wiki__card,
 .combo-wiki__donor-details {
-	label {
+	label,
+	.adyen-checkout__label {
 		display: block;
 		margin: 0.75em 0 0.25em;
 	}
@@ -535,4 +541,171 @@ select.cdx-select.combo-wiki__select {
 	.combo-wiki__container {
 		padding: @size-4;
 	}
+}
+
+span.adyen-checkout__input,
+input.adyen-checkout__input,
+button.adyen-checkout__dropdown__button {
+	border: 0;
+	border-radius: @border-radius-base;
+	min-height: @min-size-interactive-pointer;
+	transition-property: @transition-property-base;
+	transition-duration: @transition-duration-medium;
+}
+
+/* Slight darkening of border (when not active/focused or on error) */
+
+span.adyen-checkout__input:hover,
+input.adyen-checkout__input:hover,
+button.adyen-checkout__dropdown__button:hover {
+	border: 0;
+	border-color: @border-color-interactive;
+}
+
+/* Active/focus styles */
+
+/* Note: When an input element within a mini-iframe receives focus, the
+   wrapper outside the iframe can get an additional class added to it.
+   Also, override the hover styles set above. */
+span.adyen-checkout__input--focus,
+input.adyen-checkout__input--focus,
+span.adyen-checkout__input--focus:hover {
+	border: 0;
+}
+
+div.adyen-checkout__input-wrapper:focus,
+div.adyen-checkout__input-wrapper:focus-within,
+div.adyen-checkout__input-wrapper:active,
+div.adyen-checkout__input-wrapper:hover,
+button.adyen-checkout__dropdown__button--active,
+button.adyen-checkout__dropdown__button--active:hover,
+button.adyen-checkout__dropdown__button:active,
+button.adyen-checkout__dropdown__button:active:hover,
+button.adyen-checkout__dropdown__button:focus,
+button.adyen-checkout__dropdown__button:focus:hover {
+	outline: @outline-base--focus;
+	border-color: @border-color-progressive--focus;
+	box-shadow: @box-shadow-inset-small @box-shadow-color-progressive--focus;
+	margin-bottom: 0;
+}
+
+/* Adyen Web v6 also draws a border and a dark focus ring on the wrapper around
+   each input. We style the input itself (above), so remove the wrapper's in every
+   state (hover, focus, error...). The id outranks all of Adyen's wrapper selectors,
+   and the radius is inherited by the input inside. */
+div.adyen-checkout__input-wrapper {
+	border: 0;
+	border-radius: @border-radius-base;
+	box-shadow: none;
+}
+
+div.adyen-checkout__dropdown input.adyen-checkout__filter-input {
+	margin-bottom: 0.1em;
+}
+/* Field labels */
+
+/* Style label text like Codex's .cdx-label__label__text, so Adyen's labels match
+   the Codex labels of our own fields. Adyen renders the markup, so the class can't
+   be added; copy its styles instead. */
+span.adyen-checkout__label__text {
+	padding-bottom: 0;
+	/* The label's spacing is set with our other labels' in comboWiki.less,
+	   so drop Adyen's own */
+	margin-bottom: 0;
+	color: @color-base;
+	font-weight: @font-weight-bold;
+	line-height: inherit;
+
+	/* inherit cancels Adyen's font size; it is then inherited from the
+	   enclosing element, as for Codex labels. */
+	font-size: inherit;
+}
+
+/* By default Adyen changes the color of field labels when focused or invalid.
+   Codex doesn't, so remove that behaviour from Adyen fields. */
+.adyen-checkout__label--focused span.adyen-checkout__label__text,
+.adyen-checkout__label span.adyen-checkout__label__text--error {
+	color: @color-base;
+}
+
+/* Text inside Adyen's dropdowns */
+
+/* Match the text styles Adyen sets for its inputs in an inline \3c style> element
+   inside the iframes, which we can't change. (Adyen's own styles aren't consistent.) */
+.adyen-checkout__dropdown__button,
+.adyen-checkout__dropdown__element {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: normal;
+	padding: 5px 8px 5px 8px;
+	height: 40px;
+}
+
+.adyen-checkout__dropdown__button {
+	margin-bottom: 0.2em;
+}
+
+.adyen-checkout__field-wrapper > .adyen-checkout__field:first-child {
+	margin-right: 0;
+}
+
+/* Harmonize border styles for error states, removing normal hover styles.
+   iframe-wrappers get classes added when the field has an error */
+span.adyen-checkout__input--error,
+span.adyen-checkout__input--error:hover,
+input.adyen-checkout__input--error,
+input.adyen-checkout__input--error:hover,
+button.adyen-checkout__dropdown__button--invalid,
+button.adyen-checkout__dropdown__button--invalid:hover {
+	/* Override focus stylinging (above) */
+	box-shadow: inherit;
+
+	/* Note: coordinate with errorHighlight in skinOverride.css */
+	border-color: @border-color-error;
+}
+
+/* Error message text */
+span.adyen-checkout__error-text {
+	/* For error messages, cancel the text sizes set by Adyen; these properties are
+	   then inherited from the enclosing element, set in the vector skin. */
+	font-size: inherit;
+	line-height: inherit;
+
+	/* Harmonize error text color. Note: coordinate with Vector skin */
+	color: #f00;
+}
+
+/* Dropdown-specific details (used for bank selection in rtbt/ideal */
+
+/* Remove border for inner input field inside drop-down */
+.adyen-checkout__dropdown__button input.adyen-checkout__filter-input,
+.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
+	border: 0 !important;
+	box-shadow: none !important;
+	height: 36px;
+	margin: 2px;
+	outline: 0;
+}
+
+/* Tweak the border radius for dropdown options list */
+.adyen-checkout__dropdown__list {
+	border-radius: 0 0 @border-radius-base @border-radius-base;
+}
+
+/* Hide the 'all fields are required' text in the new Checkout form */
+div.adyen-checkout__card-input p.adyen-checkout-form-instruction {
+	display: none !important;
+}
+
+div.adyen-checkout__input-wrapper > input {
+	margin-bottom: 0 !important;
+}
+
+.adyen-checkout-contextual-text {
+	display: none !important;
+}
+
+.adyen-checkout__label {
+	padding-bottom: @spacing-50;
 }
