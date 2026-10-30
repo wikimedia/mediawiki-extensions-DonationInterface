@@ -94,11 +94,11 @@ function isGooglePayAvailable( gravyConfiguration ) {
  * Asks Adyen's ApplePay component rather than ApplePaySession directly: it loads Apple's
  * SDK itself (so ApplePaySession exists outside Safari) and needs the page on https.
  *
- * @param {Object} adyenConfiguration From Special:Donate, without Vue proxies
  * @param {Object} donation
  * @return {Promise<boolean>} Whether Adyen offers Apple Pay and the donor's browser can use it
  */
-function isAdyenApplePayAvailable( adyenConfiguration, donation ) {
+function isAdyenApplePayAvailable( donation ) {
+	const adyenConfiguration = mw.config.get( 'adyenConfiguration' );
 	// Only set when the selected gateway is Adyen
 	if ( !adyenConfiguration ) {
 		return Promise.resolve( false );
@@ -110,11 +110,11 @@ function isAdyenApplePayAvailable( adyenConfiguration, donation ) {
 		return Promise.resolve( false );
 	}
 	if ( !adyenApplePayReadyPromise ) {
-		adyenApplePayReadyPromise = getAdyenCheckout( adyenConfiguration, donation.country )
+		adyenApplePayReadyPromise = getAdyenCheckout( donation.country )
 			// Never mounted: AdyenApplePayComponent builds its own with the callbacks
 			.then( ( checkout ) => new window.AdyenWeb.ApplePay(
 				checkout,
-				getAdyenApplePayConfiguration( adyenConfiguration, donation )
+				getAdyenApplePayConfiguration( donation )
 			).isAvailable() )
 			.then( () => true )
 			.catch( ( e ) => {

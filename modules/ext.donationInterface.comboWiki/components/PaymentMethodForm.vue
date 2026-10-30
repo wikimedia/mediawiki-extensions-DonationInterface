@@ -372,7 +372,7 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: validateApplePay,
-				isAvailable: () => isAdyenApplePayAvailable( toRaw( params.adyenConfiguration ), toRaw( props.donation ) ),
+				isAvailable: () => isAdyenApplePayAvailable( toRaw( props.donation ) ),
 				extraFormFields: getFormFieldsFor( 'applepay' ),
 				validationRules: getValidationRulesFor( 'applepay' )
 			}

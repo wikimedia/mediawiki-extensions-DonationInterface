@@ -5,6 +5,7 @@ jest.mock( '../../../modules/ext.donationInterface.comboWiki/utils.js', () => ( 
 } ) );
 
 const { loadScript } = require( '../../../modules/ext.donationInterface.comboWiki/utils.js' );
+const { when } = require( 'jest-when' );
 const { isApplePayAvailable, isGooglePayAvailable } = require( '../../../modules/ext.donationInterface.comboWiki/walletAvailability.js' );
 
 const GRAVY_CONFIGURATION = {
@@ -116,11 +117,13 @@ describe( 'ComboWiki Adyen Apple Pay availability', () => {
 		isAvailable = jest.fn( () => Promise.resolve() );
 		ApplePay = jest.fn( () => ( { isAvailable } ) );
 		window.AdyenWeb = { ApplePay };
+		when( mw.config.get ).calledWith( 'adyenConfiguration' ).mockReturnValue( ADYEN_CONFIGURATION );
 	} );
 
 	it( 'is unavailable without an Adyen configuration', async () => {
+		when( mw.config.get ).calledWith( 'adyenConfiguration' ).mockReturnValue( undefined );
 		const { isAdyenApplePayAvailable } = loadFreshAvailability();
-		expect( await isAdyenApplePayAvailable( undefined, DONATION ) ).toBe( false );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( false );
 		expect( getAdyenCheckout ).not.toHaveBeenCalled();
 	} );
 
@@ -129,33 +132,34 @@ describe( 'ComboWiki Adyen Apple Pay availability', () => {
 		const configuration = Object.assign( {}, ADYEN_CONFIGURATION, {
 			paymentMethodsResponse: { paymentMethods: [ { type: 'scheme' } ] }
 		} );
-		expect( await isAdyenApplePayAvailable( configuration, DONATION ) ).toBe( false );
+		when( mw.config.get ).calledWith( 'adyenConfiguration' ).mockReturnValue( configuration );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( false );
 		expect( getAdyenCheckout ).not.toHaveBeenCalled();
 	} );
 
 	it( 'is unavailable when Adyen\'s SDK fails to load, and asks again next time', async () => {
 		const { isAdyenApplePayAvailable } = loadFreshAvailability();
 		getAdyenCheckout.mockRejectedValueOnce( new Error( 'blocked' ) );
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( false );
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( true );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( false );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( true );
 		expect( getAdyenCheckout ).toHaveBeenCalledTimes( 2 );
 	} );
 
 	it( 'is unavailable when the component\'s isAvailable() rejects, and asks again next time', async () => {
 		const { isAdyenApplePayAvailable } = loadFreshAvailability();
 		isAvailable.mockRejectedValueOnce( new Error( 'Apple Pay is not available on this device' ) );
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( false );
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( true );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( false );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( true );
 		expect( isAvailable ).toHaveBeenCalledTimes( 2 );
 	} );
 
 	it( 'is available when the component says so, asking only once', async () => {
 		const { isAdyenApplePayAvailable } = loadFreshAvailability();
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( true );
-		expect( await isAdyenApplePayAvailable( ADYEN_CONFIGURATION, DONATION ) ).toBe( true );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( true );
+		expect( await isAdyenApplePayAvailable( DONATION ) ).toBe( true );
 
 		expect( isAvailable ).toHaveBeenCalledTimes( 1 );
-		expect( getAdyenCheckout ).toHaveBeenCalledWith( ADYEN_CONFIGURATION, 'US' );
+		expect( getAdyenCheckout ).toHaveBeenCalledWith( 'US' );
 		expect( ApplePay ).toHaveBeenCalledWith( { checkout: true }, APPLE_PAY_CONFIGURATION );
 	} );
 } );

@@ -9,7 +9,7 @@
 /* global ApplePayError */
 
 const { defineComponent, onBeforeUnmount, onMounted, inject, toRaw, watch } = require( 'vue' );
-const { getAdyenCheckout, getAdyenApplePayConfiguration, amountInMinorUnits } = require( '../utils.js' );
+const { getAdyenCheckout, getAdyenApplePayConfiguration, handleAdyenError, amountInMinorUnits } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenApplePay',
@@ -68,38 +68,11 @@ module.exports = exports = defineComponent( {
 			ctx.emit( 'submit', extraData, handleSuccessfulSubmitPaymentResult( actions ), handleFailedPaymentResult( actions ) );
 		}
 		function handleError( error ) {
-			// Ignore blank errors, matching the existing Adyen integration.
-			if ( typeof error.error === 'string' && error.error === '' ) {
-				return;
-			}
-			// Send error on donor-initiated cancellations
-			if ( error && error.cause && error.cause.statusCode === 'CANCELED' ) {
-				location.assign( mw.config.get( 'DonationInterfaceCancelUrl' ) );
-				return;
-			}
-			// The donor closed the Apple Pay sheet. Adyen reports that as a CANCEL error
-			if ( error && error.name === 'CANCEL' ) {
-				return;
-			}
-			if ( typeof error.error === 'string' && error.error.slice( 0, 8 ) === 'error.va' ) {
-				// T349600 Log validation error codes only if sf-cc-num.02 donate_interface-error-msg-card-number-do-not-match-card-brand)
-				// with date time and time zone for adyen to investigate their card validation js issue
-				if ( error.error === 'error.va.sf-cc-num.02' ) {
-					error.error = 'Adyen error: ' + error.error + ' on ' + new Date().toString();
-				} else {
-					return;
-				}
-			} else {
-				// handle component error
-				ctx.emit( 'error', {
-					type: 'validation',
-					messages: [ mw.message(
-						'donate_interface-error-msg-general',
-						params.DonationInterfaceOtherWaysURL
-					).plain() ]
-				} );
-			}
-			ctx.emit( 'error', error );
+			handleAdyenError(
+				error,
+				( e ) => ctx.emit( 'error', e ),
+				params.DonationInterfaceOtherWaysURL
+			);
 		}
 
 		function onValidationSuccess( resolve ) {
@@ -165,14 +138,14 @@ module.exports = exports = defineComponent( {
 				return;
 			}
 
-			await setupAdyen( adyenConfiguration );
+			await setupAdyen();
 		} );
 
-		async function setupAdyen( adyenConfiguration ) {
+		async function setupAdyen() {
 			try {
 				const donation = toRaw( props.donation );
 				// The same checkout and config PaymentMethodForm's readiness check used
-				const checkout = await getAdyenCheckout( adyenConfiguration, donation.country );
+				const checkout = await getAdyenCheckout( donation.country );
 				const config = Object.assign(
 					getAdyenApplePayConfiguration( donation ),
 					{
