@@ -175,10 +175,29 @@ module.exports = exports = defineComponent( {
 				const { AdyenCheckout } = window.AdyenWeb;
 				this.setLocaleAndTranslations( checkoutConfig, config.locale );
 				this.checkout = await AdyenCheckout( checkoutConfig );
-
+				const placeholders = {
+					cardNumber: mw.msg( 'donate_interface-credit-card-number' ),
+					expiryDate: mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+					securityCodeThreeDigits: mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+					securityCodeFourDigits: mw.msg( 'donate_interface-cvv-placeholder-4-digits' )
+				};
 				this.card = new window.AdyenWeb.Card( this.checkout, {
 					showBrandsUnderCardNumber: false,
-					locale: checkoutConfig.locale
+					locale: checkoutConfig.locale,
+					placeholders: placeholders,
+					styles: {
+						base: {
+							fontSize: '17.5px',
+							fontSmoothing: 'antialiased',
+							fontFamily: 'sans-serif',
+							lineHeight: '1.375;',
+							fontWeight: '400'
+						},
+						placeholder: {
+							color: '#72777d',
+							fontWeight: '400'
+						}
+					}
 				} );
 
 				this.card.mount( '#combo-adyen-card' );
