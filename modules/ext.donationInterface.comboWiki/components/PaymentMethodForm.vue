@@ -2,50 +2,74 @@
 	<!-- Payment method form component -->
 	<div class="fieldset">
 		<div class="fieldset__label">
-			<p class="text text--base">
-				<strong>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</strong>
-			</p>
+			<h3>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h3>
 		</div>
-		<div>
-			<cdx-button
-				v-for="method in availablePaymentMethods"
-				:key="method"
-				:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
-				:disabled="disabled"
-				@click="selectPaymentMethod( method )"
-			>
-				{{ paymentMethodConfig[method].label }}
-			</cdx-button>
-			<template v-if="paymentMethodConfig[paymentMethod]">
-				<div>
-					<!-- The details the selected method asks for, shared by all methods -->
-					<payment-method-form-fields
-						v-if="hasFormFields( paymentMethod )"
-						:key="paymentMethod"
-						ref="donorFields"
-						:donation="donation"
-						:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
-						:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
-						@update:details="( details ) => $emit( 'onDonorDetailsChange', details )"
-						@update:valid="( valid ) => { donorDetails.valid = valid; }"
-					></payment-method-form-fields>
+		<!-- No form fields to fill in: show the method's own button so one click submits -->
+		<div
+			class="combo-wiki__payment-method-buttons"
+			:class="{ 'combo-wiki__direct-methods--disabled': disabled }"
+			:inert="disabled"
+		>
+			<!-- Loop through all available payment methods, separate the buttons by direct or form payment methods -->
+			<template v-for="method in availablePaymentMethods" :key="method">
+				<!-- The click is captured to select the method before the button submits -->
+				<div
+					v-if="!hasFormFields( method )"
+					id="ready-to-submit-methods"
+					:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
+					@click.capture="selectPaymentMethod( method )"
+				>
 					<component
-						:is="paymentMethodConfig[paymentMethod].component"
+						:is="paymentMethodConfig[method].component"
 						:donation="donation"
-						:payment-method="paymentMethod"
-						:donor-details="hasFormFields( paymentMethod ) ? donorDetails : null"
-						@submit="paymentMethodConfig[paymentMethod].submit"
-						@error="paymentMethodConfig[paymentMethod].error"
-						@presubmit="paymentMethodConfig[paymentMethod].presubmit"
-					></component>
+						:payment-method="method"
+						@submit="( ...args ) => submitDonation( method, ...args )"
+						@error="paymentMethodConfig[method].error"
+						@presubmit="paymentMethodConfig[method].presubmit"
+					>
+					</component>
+				</div>
+				<div v-else class="combo-wiki__payment-method-buttons">
+					<cdx-button
+						:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
+						:disabled="disabled"
+						@click="selectPaymentMethod( method )"
+					>
+						{{ paymentMethodConfig[method].label }}
+					</cdx-button>
 				</div>
 			</template>
 		</div>
+		<!-- Additional form fields for payment method -->
+		<template v-if="hasFormFields( paymentMethod )">
+			<div id="select-method-and-fillout-form">
+				<!-- Main shared payment method form fields -->
+				<payment-method-form-fields
+					:key="paymentMethod"
+					ref="donorFields"
+					:donation="donation"
+					:form-fields="paymentMethodConfig[paymentMethod].formFields"
+					:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
+					@update:details="( details ) => $emit( 'onDonorDetailsChange', details )"
+					@update:valid="( valid ) => { donorDetails.valid = valid; }"
+				></payment-method-form-fields>
+
+				<component
+					:is="paymentMethodConfig[paymentMethod].component"
+					:donation="donation"
+					:payment-method="paymentMethod"
+					:donor-details="donorDetails"
+					@submit="( ...args ) => submitDonation( paymentMethod, ...args )"
+					@error="paymentMethodConfig[paymentMethod].error"
+					@presubmit="paymentMethodConfig[paymentMethod].presubmit"
+				></component>
+			</div>
+		</template>
 	</div>
 </template>
 
 <script>
-const { defineComponent, toRaw, computed, onMounted, inject, reactive, ref } = require( 'vue' );
+const { defineComponent, toRaw, computed, inject, onMounted, reactive, ref } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const { overrideWithFormEntries } = require( '../utils.js' );
@@ -114,11 +138,11 @@ module.exports = exports = defineComponent( {
 			return ( mapping && rulesForMethod[ mapping.submethod || mapping.method ] ) || {};
 		};
 
-		// The selected method's details form, rendered once above the method's component
+		// The selected form method's details form, rendered once above the method's component
 		const donorFields = ref();
 		/**
-		 * What the selected method's component knows of the details form, passed as its
-		 * donorDetails prop. A method without form fields gets null instead.
+		 * What the selected form method's component knows of the details form, passed as its
+		 * donorDetails prop. One-click methods don't get it, as they have no details form.
 		 *
 		 * @property {boolean} valid Whether the details are valid, kept up to date by the form
 		 * @property {Function} validate Shows the errors and returns whether the details are valid;
@@ -134,15 +158,18 @@ module.exports = exports = defineComponent( {
 		/**
 		 * Submits the donation via the API and emits donationSuccess/donationError with the result.
 		 *
+		 * @param {string} paymentMethod The submitting method's key, as props.donation may not have it yet
 		 * @param {Object} [payload] Extra payment-method-specific data to merge into the donation params.
 		 * @param {Function} [successCallback] Called with the API result on success.
 		 * @param {Function} [errorCallback] Called with the failure details on error.
 		 */
-		const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
-			// What the donor entered in the details form wins over e.g. a wallet's address
-			payload = overrideWithFormEntries( payload, donorDetails.getValues() );
+		const submitDonation = ( paymentMethod, payload = {}, successCallback = null, errorCallback = null ) => {
+			if ( hasFormFields( paymentMethod ) ) {
+				const formEntries = donorDetails.getValues();
+				payload = overrideWithFormEntries( payload, formEntries );
+			}
 			appState.setLoading( true );
-			api.submitDonation( toRaw( props.donation ), payload )
+			api.submitDonation( Object.assign( {}, toRaw( props.donation ), { paymentMethod } ), payload )
 				.then( ( result ) => {
 					let isFailed = false;
 					// how do we want to display validation errors
@@ -161,7 +188,7 @@ module.exports = exports = defineComponent( {
 					}
 					appState.setLoading( false );
 				} )
-				.catch( ( code, failure ) =>  {
+				.catch( ( code, failure ) => {
 					ctx.emit( 'donationError', code, failure );
 					if ( errorCallback ) {
 						errorCallback( failure );
@@ -250,39 +277,35 @@ module.exports = exports = defineComponent( {
 		 * @property {boolean} supportsOneTime Flag to show support for one time transaction (default: True).
 		 * @property {boolean} supportsMonthly Flag to show support for monthly recurring transaction (default: True).
 		 * @property {boolean} supportsAnnual Flag to show support for Annual recurring transaction (default: True).
-		 * @property {Function} submit Called to submit the donation once the payment method's form is complete.
 		 * @property {Function} [error] Called when the payment method reports an error.
 		 * @property {Function} [presubmit] Called before submit to prepare the payment method (e.g. create a session or validate).
 		 * @property {Function} [isAvailable] Resolves to whether the donor's browser can use the method
 		 *  (e.g. a wallet); the method is only shown once it resolves to true. Without it, always available.
-		 * @property {Object} [extraFormFields] Extra form fields to include in the payment method form, already filtered by country.
+		 * @property {Object} [formFields] Extra form fields to include in the payment method form, already filtered by country.
 		 */
 		const paymentMethodConfig = {
 			card: {
 				label: mw.message( 'combowiki-method-card' ).text(),
 				component: 'card-form',
-				submit: submitDonation,
 				error: onError,
 				presubmit: getGravyCheckoutSession,
-				extraFormFields: getFormFieldsFor( 'card' ),
+				formFields: getFormFieldsFor( 'card' ),
 				validationRules: getValidationRulesFor( 'card' )
 			},
 			adyen_card: {
 				label: mw.message( 'combowiki-method-adyen-card' ).text(),
 				component: 'adyen-card-form',
 				gateway: 'adyen',
-				submit: submitDonation,
 				error: onError,
 				presubmit: getAdyenCheckoutSession,
-				extraFormFields: getFormFieldsFor( 'adyen_card' ),
+				formFields: getFormFieldsFor( 'adyen_card' ),
 				validationRules: getValidationRulesFor( 'adyen_card' )
 			},
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'paypal-form',
 				error: onError,
-				submit: submitDonation,
-				extraFormFields: getFormFieldsFor( 'paypal' ),
+				formFields: getFormFieldsFor( 'paypal' ),
 				validationRules: getValidationRulesFor( 'paypal' )
 			},
 			braintree_paypal: {
@@ -290,43 +313,39 @@ module.exports = exports = defineComponent( {
 				component: 'braintree-paypal-form',
 				error: onError,
 				submit: submitDonation,
-				extraFormFields: getFormFieldsFor( 'braintree_paypal' ),
+				formFields: getFormFieldsFor( 'braintree_paypal' ),
 				validationRules: getValidationRulesFor( 'braintree_paypal' )
 			},
 			venmo: {
 				label: mw.message( 'combowiki-method-venmo' ).text(),
 				component: 'venmo-form',
 				error: onError,
-				submit: submitDonation,
-				extraFormFields: getFormFieldsFor( 'venmo' ),
+				formFields: getFormFieldsFor( 'venmo' ),
 				validationRules: getValidationRulesFor( 'venmo' )
 			},
 			applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
 				component: 'applepay-form',
-				submit: submitDonation,
 				error: onError,
 				presubmit: validateApplePay,
 				isAvailable: () => isApplePayAvailable( params.gravyConfiguration ),
-				extraFormFields: getFormFieldsFor( 'applepay' ),
+				formFields: getFormFieldsFor( 'applepay' ),
 				validationRules: getValidationRulesFor( 'applepay' )
 			},
 			ach: {
 				label: mw.message( 'combowiki-method-ach' ).text(),
 				component: 'ach-form',
-				submit: submitDonation,
 				error: onError,
 				supportsOneTime: false,
-				extraFormFields: getFormFieldsFor( 'ach' ),
+				formFields: getFormFieldsFor( 'ach' ),
 				validationRules: getValidationRulesFor( 'ach' )
 			},
 			googlepay: {
 				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
-				submit: submitDonation,
 				error: onError,
 				isAvailable: () => isGooglePayAvailable( params.gravyConfiguration ),
-				extraFormFields: getFormFieldsFor( 'googlepay' ),
+				formFields: getFormFieldsFor( 'googlepay' ),
 				validationRules: getValidationRulesFor( 'googlepay' )
 			},
 			adyen_googlepay: {
@@ -336,15 +355,14 @@ module.exports = exports = defineComponent( {
 				error: onError,
 				gateway: 'adyen',
 				isAvailable: () => isGooglePayAvailable( params.adyenConfiguration ),
-				extraFormFields: getFormFieldsFor( 'adyen_googlepay' ),
+				formFields: getFormFieldsFor( 'adyen_googlepay' ),
 				validationRules: getValidationRulesFor( 'adyen_googlepay' )
 			},
 			sepadirectdebit: {
 				label: mw.message( 'combowiki-method-sepa' ).text(),
 				component: 'sepa-form',
-				submit: submitDonation,
 				error: onError,
-				extraFormFields: getFormFieldsFor( 'sepadirectdebit' ),
+				formFields: getFormFieldsFor( 'sepadirectdebit' ),
 				validationRules: getValidationRulesFor( 'sepadirectdebit' )
 			},
 			adyen_applepay: {
@@ -420,10 +438,10 @@ module.exports = exports = defineComponent( {
 		 */
 		const hasFormFields = ( method ) => {
 			const config = paymentMethodConfig[ method ];
-			return !!config && Object.keys( config.extraFormFields ).length > 0;
+			return !!config && config.formFields && Object.keys( config.formFields ).length > 0;
 		};
 
-		// A ref, so the form updates when the selection changes here (e.g. in markUnavailable)
+		// A ref, so the form section updates when the selection changes here (e.g. cleared below)
 		const selectedPaymentMethod = ref( props.donation.paymentMethod || '' );
 
 		/**
@@ -434,6 +452,16 @@ module.exports = exports = defineComponent( {
 		const selectPaymentMethod = ( method ) => {
 			selectedPaymentMethod.value = method;
 			ctx.emit( 'onPaymentMethodChange', method );
+			// Drop donation fields values if not needed in the newly selected method
+			const thisMethodFormFields = method ? paymentMethodConfig[ method ].formFields : {};
+			const formFieldsToRemove = {};
+			const supportedMethodFieldNames = Object.keys( api.donateParamMap );
+			for ( const fieldName of supportedMethodFieldNames ) {
+				if ( !( fieldName in thisMethodFormFields ) ) {
+					formFieldsToRemove[ fieldName ] = undefined;
+				}
+			}
+			ctx.emit( 'onDonorDetailsChange', formFieldsToRemove );
 		};
 
 		/**
@@ -469,12 +497,13 @@ module.exports = exports = defineComponent( {
 
 		return {
 			selectPaymentMethod,
-			availablePaymentMethods,
-			paymentMethod: selectedPaymentMethod,
-			paymentMethodConfig,
+			submitDonation,
 			donorFields,
 			donorDetails,
-			hasFormFields
+			availablePaymentMethods,
+			hasFormFields,
+			paymentMethod: selectedPaymentMethod,
+			paymentMethodConfig
 		};
 	}
 } );

@@ -97,7 +97,17 @@ module.exports = exports = defineComponent( {
 						this.onButtonClicked();
 					}, 100 ),
 					allowedPaymentMethods: [ 'CARD', 'TOKENIZED_CARD' ],
-					buttonType: 'donate'
+					// Not 'plain' (logo only): for donors with a saved card, it also shows the
+					// card brand and last four digits next to the logo
+					buttonType: 'donate',
+					// Fill #googlepay-container so the row decides the height, like the other buttons
+					// https://developer.squareup.com/reference/sdks/web/payments/enums/GooglePayButtonSizeMode
+					buttonSizeMode: 'fill',
+					// Look like the other payment method buttons (default cdx-button: light, bordered,
+					// @border-radius-base which is 2px) https://developers.google.com/pay/api/web/reference/request-objects#ButtonOptions
+					buttonColor: 'white',
+					buttonBorderType: 'default_border',
+					buttonRadius: 2
 				} );
 				container.appendChild( button );
 			} catch ( err ) {

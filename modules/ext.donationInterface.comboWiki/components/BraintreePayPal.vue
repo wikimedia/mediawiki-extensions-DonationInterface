@@ -1,10 +1,14 @@
 <template>
-	<div class="payment-method-form" data-autoscroll>
+	<div
+		id="braintree-paypal"
+		class="payment-method-form"
+		data-autoscroll
+	>
 		<!-- PayPal's own button, defined by the PayPal SDK that loadPayPalSDK() loads -->
 		<paypal-button
 			v-show="ready"
 			type="pay"
-			class="combo-wiki__button-submit"
+			class="combo-wiki__button-submit paypal-button"
 			@click="startPayPal"
 		></paypal-button>
 	</div>

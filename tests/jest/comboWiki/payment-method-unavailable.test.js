@@ -36,6 +36,7 @@ function mountForm( { appleFormFields = {}, paymentMethod = '', paymentMethods =
 }
 
 const AU_APPLE_FIELDS = { state_province: true };
+const row = ( wrapper ) => wrapper.findAll( '#ready-to-submit-methods > *' );
 
 describe( 'ComboWiki wallets the browser may not support', () => {
 	beforeEach( () => {
@@ -48,26 +49,27 @@ describe( 'ComboWiki wallets the browser may not support', () => {
 		const wrapper = mountForm();
 		await VueTestUtils.flushPromises();
 
-		expect( wrapper.vm.availablePaymentMethods ).not.toContain( 'applepay' );
-		expect( wrapper.vm.availablePaymentMethods ).toContain( 'googlepay' );
+		expect( wrapper.findComponent( ApplePayComponent ).exists() ).toBe( false );
+		expect( wrapper.findComponent( GooglePayComponent ).exists() ).toBe( true );
 	} );
 
-	it( 'offers the wallets the browser can use', async () => {
+	it( 'shows the wallets the browser can use in the one-click row', async () => {
 		const wrapper = mountForm();
 		await VueTestUtils.flushPromises();
-		expect( wrapper.vm.availablePaymentMethods ).toEqual( [ 'card', 'paypal', 'applepay', 'googlepay' ] );
+		expect( row( wrapper ) ).toHaveLength( 3 );
 	} );
 
-	it( 'never offers a wallet the browser can\'t use, nor shows an error', async () => {
+	it( 'never shows a wallet the browser can\'t use, nor an error', async () => {
 		isGooglePayAvailable.mockResolvedValue( false );
 		const wrapper = mountForm();
 		await VueTestUtils.flushPromises();
 
-		expect( wrapper.vm.availablePaymentMethods ).toEqual( [ 'card', 'paypal', 'applepay' ] );
+		expect( row( wrapper ) ).toHaveLength( 2 );
+		expect( wrapper.findComponent( GooglePayComponent ).exists() ).toBe( false );
 		expect( wrapper.emitted( 'donationError' ) ).toBeUndefined();
 	} );
 
-	it( 'never offers a wallet the browser can\'t use when it has form fields either', async () => {
+	it( 'never offers a wallet the browser can\'t use in the form section either', async () => {
 		isApplePayAvailable.mockResolvedValue( false );
 		const wrapper = mountForm( { appleFormFields: AU_APPLE_FIELDS } );
 		await VueTestUtils.flushPromises();
@@ -107,14 +109,13 @@ describe( 'ComboWiki wallets the browser may not support', () => {
 		expect( wrapper.emitted( 'onPaymentMethodChange' ) ).toBeUndefined();
 	} );
 
-	it( 'does the same for a selected wallet with form fields', async () => {
+	it( 'switches to card and stops offering a selected form wallet that reports it unavailable later', async () => {
 		const wrapper = mountForm( { appleFormFields: AU_APPLE_FIELDS, paymentMethod: 'applepay' } );
 		await VueTestUtils.flushPromises();
 
 		const error = { type: 'validation', messages: [ 'Apple Pay is not available.' ] };
 		wrapper.findComponent( ApplePayComponent ).vm.$emit( 'error', error );
 		await VueTestUtils.flushPromises();
-
 		expect( wrapper.emitted( 'donationError' ) ).toEqual( [ [ error ] ] );
 		expect( wrapper.emitted( 'onPaymentMethodChange' ) ).toBeUndefined();
 	} );

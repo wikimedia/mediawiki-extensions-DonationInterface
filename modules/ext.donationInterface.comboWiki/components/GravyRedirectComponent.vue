@@ -1,22 +1,12 @@
 <template>
-	<!-- Below a details form (e.g. state in AU), so it reads as the submit button -->
-	<div v-if="donorDetails" class="payment-method-form">
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			@click="submitDonation"
-		>
-			{{ donateLabel }}
-		</cdx-button>
-	</div>
 	<cdx-button
-		v-else
-		data-autoscroll
-		class="cdx-button cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-medium cdx-button--framed combo-wiki__button-submit"
+		:action="donorDetails ? 'progressive' : 'default'"
+		:weight="donorDetails ? 'primary' : 'normal'"
+		:class="{ 'payment-method-form combo-wiki__button-submit': donorDetails }"
+		:data-autoscroll="donorDetails ? null : ''"
 		@click="submitDonation"
 	>
-		{{ label }}
+		{{ buttonLabel }}
 	</cdx-button>
 </template>
 
@@ -50,26 +40,17 @@ module.exports = exports = defineComponent( {
 	emits: [ 'submit' ],
 
 	computed: {
-		// Just the method name, like the other payment method buttons
-		label() {
-			if ( this.paymentMethod === 'paypal' ) {
-				return this.$i18n( 'combowiki-method-paypal' ).text();
+		buttonLabel() {
+			const method = this.paymentMethod;
+			if ( ![ 'paypal', 'venmo' ].includes( method ) ) {
+				return '';
 			}
-			if ( this.paymentMethod === 'venmo' ) {
-				return this.$i18n( 'combowiki-method-venmo' ).text();
+			// This prop is passed only within the form component, so not one-click section
+			if ( this.donorDetails ) {
+				return this.$i18n( `combowiki-donate-with-${ method }` ).text();
 			}
-			// should only have paypal or venmo for redirect
-			return '';
-		},
-		// Below the fields, so it reads as the submit button rather than another method to pick
-		donateLabel() {
-			if ( this.paymentMethod === 'paypal' ) {
-				return this.$i18n( 'combowiki-donate-with-paypal' ).text();
-			}
-			if ( this.paymentMethod === 'venmo' ) {
-				return this.$i18n( 'combowiki-donate-with-venmo' ).text();
-			}
-			return '';
+			// If here, the text is for a button in the one-click section
+			return this.$i18n( `combowiki-method-${ method }` ).text();
 		}
 	},
 

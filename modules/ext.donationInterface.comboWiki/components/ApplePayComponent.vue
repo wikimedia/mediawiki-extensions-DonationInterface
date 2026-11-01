@@ -8,8 +8,8 @@
 			id="applepay-btn"
 			ref="applePayButtonElementRef"
 			class="button combo-wiki__button-submit"
-			buttonstyle="black"
-			type="donate"
+			:buttonstyle="donorDetails ? 'black' : 'white-outline'"
+			:type="donorDetails ? 'donate' : 'plain'"
 			:locale="locale"
 			@click="handleApplePaySubmitClick"
 		></apple-pay-button>

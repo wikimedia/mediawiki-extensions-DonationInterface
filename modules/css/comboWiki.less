@@ -6,6 +6,7 @@
 @size-container: 99.75rem;
 @size-icon-x-large: 2.75rem;
 @size-icon-large: 2.25rem;
+@space-between-payment-btn: 0.5em;
 /* Imports */
 @import 'mediawiki.skin.variables.less';
 @import 'wmf-frds-tokens.less';
@@ -56,6 +57,13 @@
 	box-shadow: inset 0 0 0 2px @border-color-progressive;
 }
 
+// Payment methods with no form are submit buttons, inert until the donation is complete
+// TODO: remove this once we use validation for 'shared' fields
+.combo-wiki__direct-methods--disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 .cdx-button.combo-wiki__button-submit,
 .cdx-button:disabled.combo-wiki__button-submit {
 	margin-top: 2em;
@@ -63,6 +71,62 @@
 
 .combo-wiki__error-summary {
 	margin-top: 2em;
+}
+
+.combo-wiki__payment-method-buttons {
+	// The height of the other payment method buttons (.cdx-button with the FRDS 16px 24px padding)
+	@direct-method-button-height: 54px;
+	display: flex;
+	justify-content: space-between;
+	gap: @space-between-payment-btn;
+	flex-wrap: wrap; /* or balance  with > div max-width: 50%; */
+	margin-bottom: @space-between-payment-btn;
+
+	.payment-method-form,
+	.combo-wiki__button-submit {
+		margin-top: 0;
+	}
+
+	> button,
+	> div {
+		flex: auto;
+		min-width: 0;
+	}
+
+	> button.cdx-button {
+		width: fit-content;
+		max-width: 100%;
+	}
+
+	// Same as .combo-wiki__option--selected.cdx-button, drawn as an outline so it shows on top of
+	// the wallet SDK buttons too
+	> .combo-wiki__option--selected {
+		outline: 2px solid @border-color-progressive;
+		outline-offset: -2px;
+	}
+
+	.cdx-button {
+		width: 100%;
+		height: @direct-method-button-height;
+	}
+	// Google Pay fills this container (buttonSizeMode: 'fill')
+	#applepay-container,
+	#googlepay-container,
+	.combo-wiki__button-submit.paypal-button {
+		height: @direct-method-button-height;
+		width: 100%;
+		min-width: 150px;
+	}
+
+	// Apple's SDK sizes the button from these custom properties, not from height/width
+	// https://developer.apple.com/documentation/applepayontheweb/styling-the-apple-pay-button-using-css
+	#applepay-btn {
+		padding: 0;
+		--apple-pay-button-height: calc( @direct-method-button-height - 2px );
+		--apple-pay-button-width: 100%;
+		--apple-pay-button-border-radius: @border-radius-base;
+		display: block;
+	}
 }
 
 .combo-wiki__wrapper {
@@ -182,6 +246,38 @@
 
 .payment-method-form {
 	margin-top: 2em;
+}
+
+#select-method-and-fillout-form {
+	@submit-button-height: 54px;
+
+	// Google Pay fills this container (buttonSizeMode: 'fill')
+	#applepay-container,
+	#googlepay-container,
+	.combo-wiki__button-submit.paypal-button,
+	button.combo-wiki__button-submit {
+		margin-top: @size-8;
+		min-height: @submit-button-height;
+		height: auto;
+		width: 50%;
+		white-space: normal;
+	}
+
+	@media screen and ( max-width: @max-width-breakpoint-mobile ) {
+		button.combo-wiki__button-submit {
+			width: 100%;
+		}
+	}
+
+	// Apple's SDK sizes the button from these custom properties, not from height/width
+	// https://developer.apple.com/documentation/applepayontheweb/styling-the-apple-pay-button-using-css
+	#applepay-btn {
+		padding: 0;
+		--apple-pay-button-height: calc( @submit-button-height - 2px );
+		--apple-pay-button-width: 100%;
+		--apple-pay-button-border-radius: @border-radius-base;
+		display: block;
+	}
 }
 
 .combo-wiki__card-fields-row {

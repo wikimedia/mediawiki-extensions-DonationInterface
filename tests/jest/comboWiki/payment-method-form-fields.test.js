@@ -156,6 +156,18 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 
 		expect( api.submitDonation.mock.lastCall[ 1 ] ).toEqual( { state_province: 'NSW', city: 'Sydney', payment_token: 'tok' } );
 	} );
+
+	it( 'keeps one-click buttons when the method has no fields', async () => {
+		const wrapper = await mountForm( {
+			paymentMethod: 'braintree_paypal',
+			frequency: 'yearly',
+			params: Object.assign( {}, {
+				paymentMethods: [ { method: 'paypal', gateway: 'braintree' } ],
+				DonationInterfaceFormFields: { method: { paypal: {} } }
+		} ) } );
+		expect( wrapper.findComponent( PaymentMethodFormFields ).exists() ).toBe( false );
+		expect( wrapper.find( 'div#braintree-paypal' ).exists() ).toBe( true );
+	} );
 } );
 
 describe( 'ComboWiki wallets below the details form', () => {

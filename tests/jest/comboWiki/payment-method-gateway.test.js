@@ -13,7 +13,9 @@ const CARD_ON_GRAVY = [
 	{ method: 'cc', gateway: 'gravy' },
 	{ method: 'paypal', gateway: 'gravy' }
 ];
-
+const VENMO_ON_BRAINTREE = [
+	{ method: 'venmo', gateway: 'braintree' }
+];
 function mountMethodForm( paymentMethods ) {
 	return VueTestUtils.shallowMount( PaymentMethodForm, {
 		props: {
@@ -47,16 +49,18 @@ function mountPaymentForm( paymentMethods ) {
 
 describe( 'ComboWiki payment methods from more than one gateway', () => {
 	it( 'offers the Adyen card form when the server sends cards to Adyen, next to Gravy PayPal', () => {
-		expect( mountMethodForm( CARD_ON_ADYEN ).vm.availablePaymentMethods ).toEqual( [ 'adyen_card', 'paypal' ] );
+		const availablePaymentMethods = mountMethodForm( CARD_ON_ADYEN ).vm.availablePaymentMethods;
+		expect( availablePaymentMethods ).toEqual( [ 'adyen_card', 'paypal' ] );
 	} );
 
 	it( 'offers the Gravy card form when the server sends cards to Gravy', () => {
-		expect( mountMethodForm( CARD_ON_GRAVY ).vm.availablePaymentMethods ).toEqual( [ 'card', 'paypal' ] );
+		const availablePaymentMethods = mountMethodForm( CARD_ON_GRAVY ).vm.availablePaymentMethods;
+		expect( availablePaymentMethods ).toEqual( [ 'card', 'paypal' ] );
 	} );
 
 	it( 'does not offer a method on a gateway that has no form for it', () => {
-		const methods = mountMethodForm( [ { method: 'venmo', gateway: 'braintree' } ] ).vm.availablePaymentMethods;
-		expect( methods ).toEqual( [] );
+		const availablePaymentMethods = mountMethodForm( VENMO_ON_BRAINTREE ).vm.availablePaymentMethods;
+		expect( availablePaymentMethods ).toEqual( [] );
 	} );
 } );
 
