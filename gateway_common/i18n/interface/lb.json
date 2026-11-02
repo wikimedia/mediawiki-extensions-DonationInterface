@@ -170,7 +170,7 @@
 	"donate_interface-bt-account_holder": "Numm vum Titulär vum Konto",
 	"donate_interface-rtbt-issuer_id": "Wielt Är Bank",
 	"donate_interface-email-unsub-button": "Ofbestellen",
-	"donate_interface-email-unsub-success": "Dir gouft vun eiser Mailinglëscht erofgeholl",
+	"donate_interface-email-unsub-success": "Dir gouft erfollegräich vun eiser Mailing-Lëscht erofgeholl",
 	"donate_interface-email-unsub-delay": "Gitt eis véier (4) Deeg, bis datt d'Ännerunge gemaach sinn. Mir entschëllegen eis, wann Dir bis dohin nach E-Maile sollt kréien. Wann Dir iergendeng Fro hutt, kontaktéiert wgl. $1",
 	"donate_interface-email-unsub-fail": "Et ass e Feeler geschitt, wéi mir Är Ufro behandelt hunn. Kontaktéiert wgl. <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Sidd dir sécher datt Dir keng Informatioune per Mail op <b>$1</b> méi kréie wëllt?",

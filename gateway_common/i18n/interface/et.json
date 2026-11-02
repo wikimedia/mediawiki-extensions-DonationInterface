@@ -11,7 +11,7 @@
 	},
 	"combowiki-frequency-annual": "Anneta igal aastal",
 	"combowiki-country-placeholder": "Vali enda maa",
-	"combowiki-cover-fees": "Katan meeleldi tehingutasud",
+	"combowiki-cover-fees": "Lisan meeleldi $1, et katta tehingutasud, nii et kogu annetatav summa jääb alles annetusena",
 	"combowiki-stay-in-touch-heading": "Kas tohime sinuga ühendust võtta?",
 	"combowiki-optin-yes": "Jah. Kirjutage mulle e-kirjatsi, kuidas saan Vikipeediat toetada.",
 	"combowiki-optin-no": "Ei. Ärge saatke mulle teatud aja järel e-kirju Vikipeedia toetamisvõimaluste kohta.",
@@ -62,7 +62,7 @@
 	"donate_interface-error-msg-validation": "Palun paranda vormis esinevad tõrked.",
 	"donate_interface-error-msg-invalid-amount": "Palun sisesta sobiv summa",
 	"donate_interface-error-msg-invalid-email": "Palun sisesta sobiv e-posti aadress, nt nimi@domeen.ee",
-	"donate_interface-error-msg-card-num": "Palun sisesta kehtiv krediitkaardinumber ühest vastuvõetavast krediitkaarditüübist",
+	"donate_interface-error-msg-card-num": "Palun sisesta kehtiv krediitkaardinumber",
 	"donate_interface-error-msg-amex": "Palun sisesta American Expressi kaardi õige number.",
 	"donate_interface-error-msg-mc": "Palun sisesta Mastercardi õige number.",
 	"donate_interface-error-msg-visa": "Palun sisesta Visa-kaardi õige number.",
@@ -141,6 +141,6 @@
 	"donate_interface-monthly-convert-decline": "Ei, aitäh! Annetan ühekordselt $1.",
 	"donate_interface-monthly-convert-text": "Igakuine annetus on parim viis tagada Vikipeedia hea käekäik.",
 	"donate_interface-monthly-convert-change-amount": "Jah, annetan igakuidaselt, aga muu summa",
-	"donate_interface-monthly-convert-enter-amount-short": "Siseseta igakuiselt annetatav summa",
+	"donate_interface-monthly-convert-enter-amount-short": "Sisesta igakuiselt annetatav summa",
 	"donate_interface-monthly-convert-action-button": "Anneta igakuiselt"
 }
