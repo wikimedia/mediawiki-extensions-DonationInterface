@@ -456,9 +456,12 @@ module.exports = exports = defineComponent( {
 			const thisMethodFormFields = method ? paymentMethodConfig[ method ].formFields : {};
 			const formFieldsToRemove = {};
 			const supportedMethodFieldNames = Object.keys( api.donateParamMap );
-			for ( const fieldName of supportedMethodFieldNames ) {
-				if ( !( fieldName in thisMethodFormFields ) ) {
-					formFieldsToRemove[ fieldName ] = undefined;
+			// Don't bother checking if method has no form fields
+			if ( thisMethodFormFields ) {
+				for ( const fieldName of supportedMethodFieldNames ) {
+					if ( !( fieldName in thisMethodFormFields ) ) {
+						formFieldsToRemove[ fieldName ] = undefined;
+					}
 				}
 			}
 			ctx.emit( 'onDonorDetailsChange', formFieldsToRemove );
