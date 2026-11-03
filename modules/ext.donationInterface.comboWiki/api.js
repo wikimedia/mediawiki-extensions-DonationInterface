@@ -22,6 +22,7 @@ const paymentMethodMap = {
 	venmo: { method: 'venmo', gateway: 'gravy' },
 	ach: { method: 'dd', submethod: 'ach', gateway: 'gravy' },
 	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'gravy' },
+	adyen_sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'adyen' },
 	adyen_googlepay: { method: 'google', gateway: 'adyen' }
 };
 

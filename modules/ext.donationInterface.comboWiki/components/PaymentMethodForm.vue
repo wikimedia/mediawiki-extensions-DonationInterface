@@ -82,6 +82,7 @@ const ACHComponent = require( './ACHComponent.vue' );
 const AdyenCardForm = require( './AdyenCardForm.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
 const SEPAComponent = require( './SEPAComponent.vue' );
+const AdyenSEPA = require( './AdyenSEPA.vue' );
 const BraintreePayPal = require( './BraintreePayPal.vue' );
 const AdyenApplePayComponent = require( './AdyenApplePayComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
@@ -100,6 +101,7 @@ module.exports = exports = defineComponent( {
 		'adyen-card-form': AdyenCardForm,
 		'braintree-paypal-form': BraintreePayPal,
 		'sepa-form': SEPAComponent,
+		'adyen-sepa-form': AdyenSEPA,
 		'adyen-applepay-form': AdyenApplePayComponent
 	},
 	props: {
@@ -362,6 +364,14 @@ module.exports = exports = defineComponent( {
 				label: mw.message( 'combowiki-method-sepa' ).text(),
 				component: 'sepa-form',
 				error: onError,
+				formFields: getFormFieldsFor( 'sepadirectdebit' ),
+				validationRules: getValidationRulesFor( 'sepadirectdebit' )
+			},
+			adyen_sepadirectdebit: {
+				label: mw.message( 'combowiki-method-sepa' ).text(),
+				component: 'adyen-sepa-form',
+				error: onError,
+				gateway: 'adyen',
 				formFields: getFormFieldsFor( 'sepadirectdebit' ),
 				validationRules: getValidationRulesFor( 'sepadirectdebit' )
 			},
