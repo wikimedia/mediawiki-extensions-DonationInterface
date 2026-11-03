@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Guycn2"
+			"Guycn2",
+			"Neriah",
+			"YaronSh"
 		]
 	},
 	"donorportal-title": "פורטל התורמים של קרן ויקימדיה",
@@ -124,9 +126,9 @@
 	"emailpreferences-change-email": "שינוי כתובת דוא״ל",
 	"emailpreferences-country": "מדינה או אזור",
 	"emailpreferences-dont-send-email": "בטלו את המינוי שלי לכל הדברים.",
-	"emailpreferences-expired-link-title": "מצטערים, הקישור שלך פג",
-	"emailpreferences-send-new-link": "נא לשלוח קישור לכניסה",
-	"emailpreferences-new-link-sent": "נשלח לך קישור חדש בקרוב. נא לבדוק את תיבת הדואר הנכנס שלך.",
+	"emailpreferences-expired-link-title": "מצטערים, תוקף הקישור פג",
+	"emailpreferences-send-new-link": "שליחת קישור להתחברות",
+	"emailpreferences-new-link-sent": "קישור חדש יישלח בקרוב. יש לבדוק את תיבת הדואר הנכנס.",
 	"emailpreferences-footer-learn_more": "מידע נוסף על <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">העמותות המקומיות והמיזמים שלהן</a>.",
 	"emailpreferences-footer-questions_email": "אם יש לך שאלות כלשהן, נא לשלוח דוא״ל אל <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"emailpreferences-footer-text_license": "הטקסט זמין לפי תנאי <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">רישיון קריאייטיב קומונז ייחוס-שיתוף זהה</a>; עשויים לחול תנאים נוספים. ר' <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">תנאי שימוש</a> או <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">מדיניות פרטיות</a> לפרטים.",
@@ -145,7 +147,7 @@
 	"emailpreferences-snooze-email": "להשהות שליחת דוא״ל {{PLURAL:$1|ליום אחד|ליומיים|ל־$1 ימים}}.",
 	"emailpreferences-success": "בקשתך לשמור את העדפות הדוא״ל שלך נשלחה.",
 	"emailpreferences-title": "העדפות דוא״ל",
-	"emailpreferences-confirmemail-title": "אישור כתובת דוא\"ל",
+	"emailpreferences-confirmemail-title": "אימות כתובת דוא״ל",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "התרומה הקבועה שלך",
 	"recurupgrade-add": "להוסיף $1",
