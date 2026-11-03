@@ -961,6 +961,18 @@ class DonationData implements LogPrefixProvider {
 		$tracking_data = $this->getCleanTrackingData( true );
 		$current_hash = sha1( serialize( $tracking_data ) );
 
+		// Add these after hashing so we can just fire them off on the first pageload and not consider
+		// it an update when they are missing after any API post
+		foreach ( [ 'gclid', 'fbclid', 'rdt_cid' ] as $conversionParam ) {
+			[ $value, $source ] = $this->sourceHarvest( $conversionParam );
+			if ( $value ) {
+				// At most one of these values should ever be populated
+				$tracking_data['ad_param_id'] = $conversionParam;
+				$tracking_data['ad_click_identifier'] = $value;
+				break;
+			}
+		}
+
 		if ( $this->trackingDataUpdated( $current_hash ) ) {
 			$ctid = $this->sendToContributionTrackingQueue( $tracking_data, $ctid );
 			// Add a hash of the current tracking data to help prevent duplicate queue msgs

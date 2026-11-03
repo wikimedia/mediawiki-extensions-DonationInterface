@@ -112,6 +112,17 @@ class ContributionTrackingHelper {
 		$contributionTrackingDataUpdated = $this->trackingDataUpdated( $currentHash );
 
 		if ( $contributionTrackingDataUpdated ) {
+			// Add conversion params after hashing so we can just fire them off on the first
+			// pageload and not consider it an update when they are missing after any API post
+			foreach ( [ 'gclid', 'fbclid', 'rdt_cid' ] as $conversionParam ) {
+				$value = $dataObject->getValue( $conversionParam );
+				if ( $value ) {
+					// At most one of these values should ever be populated
+					$trackingData['ad_param_id'] = $conversionParam;
+					$trackingData['ad_click_identifier'] = $value;
+					break;
+				}
+			}
 			$fn = __FUNCTION__;
 			$logger = $this->logger;
 			$this->logger->info( __FUNCTION__ . ": Contribution tracking data has changed, sending to queue with DeferredUpdates" );
