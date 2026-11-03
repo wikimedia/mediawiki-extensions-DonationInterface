@@ -1,6 +1,6 @@
 <template>
 	<div
-		id="combo-adyen-apple"
+		id="applepay-container"
 	>
 	</div>
 </template>
@@ -180,6 +180,8 @@ module.exports = exports = defineComponent( {
 							currency: donation.currency,
 							value: amountInMinorUnits( donation.amount, donation.currency )
 						},
+						buttonColor: 'white-outline',
+						buttonType: 'donate',
 						onSubmit: handleSubmit,
 						onError: handleError,
 						onValidateMerchant: validateApplePayPaymentSession(),
@@ -190,7 +192,7 @@ module.exports = exports = defineComponent( {
 				// Asked again in case the answer changed since PaymentMethodForm's check
 				await applePayComponent.isAvailable();
 
-				applePayComponent.mount( '#combo-adyen-apple' );
+				applePayComponent.mount( '#applepay-container' );
 
 			} catch ( error ) {
 				mw.log.error( 'combowiki applepay unload failed', error );
