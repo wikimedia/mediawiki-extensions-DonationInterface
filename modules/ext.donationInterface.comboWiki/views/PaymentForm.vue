@@ -114,19 +114,20 @@
 					@recurring-convert-submit="submitPreModalDonation"
 				></recurring-convert>
 			</section>
-			<aside class="combo-wiki__appeal">
-				<template v-if="showDebug">
-					<p>
-						Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
-						{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-						{{ donation.paymentMethod }} / Employer: {{ donation.employer }}
-					</p>
-					<p> Debug - Donation: {{ donation }}</p>
-					<p> Debug Request Params - {{ params }} </p>
-				</template>
-			</aside>
+			<component :is="appeal" v-if="appeal"></component>
 		</div>
 	</main>
+	<div v-if="showDebug" class="combo-wiki__debug">
+		<pre>
+Debug -
+Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} /
+Fee: {{ feeAmount }} /
+Email Opt-in:{{ donation.optIn }} /
+Payment Method: {{ donation.paymentMethod }} /
+Employer: {{ donation.employer }}</pre>
+		<pre> Debug - Donation: {{ donation }}</pre>
+		<pre> Debug Request Params - {{ params }} </pre>
+	</div>
 </template>
 
 <script>
@@ -147,6 +148,7 @@ const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
+const { getAppeal } = require( '../appeals.js' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
 const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
@@ -245,6 +247,9 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		appeal() {
+			return getAppeal( this.params.appeal );
+		},
 		amountHeading() {
 			return getAmountHeading( this.donation.frequency );
 		},

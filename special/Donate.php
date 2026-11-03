@@ -167,6 +167,7 @@ class Donate extends UnlistedSpecialPage {
 			'payment_submethod' => $this->donationDetails->getValue( 'payment_submethod' ),
 			'recurring' => $this->donationDetails->getValue( 'recurring' ),
 			'variant' => $this->donationDetails->getValue( 'variant' ),
+			'appeal' => $request->getVal( 'appeal' ),
 			'language' => $this->donationDetails->getValue( 'language', $this->getLanguage()->getCode() ),
 			'gateway' => $this->donationDetails->getValue( 'gateway' ),
 			'opt_in' => $this->donationDetails->getValue( 'opt_in' ),
