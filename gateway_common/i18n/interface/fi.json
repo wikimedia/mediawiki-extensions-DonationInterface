@@ -28,6 +28,9 @@
 		]
 	},
 	"combowiki-title": "Tue Wikimediaa",
+	"combowiki-country-search-placeholder": "Valitse maa ja valuutta",
+	"combowiki-country-label": "Maa",
+	"combowiki-country-no-results": "Hakuasi vastaavia maita ei löydy",
 	"donate_interface": "Tue Wikimediaa",
 	"donate_interface-desc": "Lahjoitussivu, joka yhdistää yhdyskäytävälaajennukset.",
 	"donate_interface-langonly-desc": "Paljastaa vain DonationInterfacen järjestelmäviestit",
@@ -98,7 +101,7 @@
 	"donate_interface-error-msg-invalid-currency": "Valitse kelvollinen valuutta",
 	"donate_interface-error-msg-invalid-device-data": "Jotain meni pieleen laitetietojen kanssa.",
 	"donate_interface-error-msg-invalid-email": "Syötä kelvollinen sähköpostiosoite, esim. name@domain.com",
-	"donate_interface-error-msg-card-num": "Syötä kelvollinen luottokortin numero. Luottokortin tyypin täytyy olla yksi hyväksytyistä tyypeistä",
+	"donate_interface-error-msg-card-num": "Anna kelvollinen luottokortin numero.",
 	"donate_interface-error-msg-amex": "Syötä oikea luottokortin numero American Expressille.",
 	"donate_interface-error-msg-mc": "Syötä oikea luottokortin numero Mastercardille.",
 	"donate_interface-error-msg-visa": "Syötä oikea luottokortin numero Visalle.",
