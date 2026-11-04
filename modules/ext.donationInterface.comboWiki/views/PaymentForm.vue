@@ -458,7 +458,13 @@ module.exports = exports = defineComponent( {
 			if ( this.donation.frequency === 'once' && !response.redirect ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
-				this.redirectTargetUrl( response.redirect );
+				// Payment method components should handle responses with formData
+				// To prevent two redirects racing each other
+				const hasFormData = response.formData && Object.keys( response.formData ).length > 0;
+				if ( !hasFormData ) {
+					this.redirectTargetUrl( response.redirect );
+				}
+
 			}
 		},
 		handleDonateError( code, failure ) {
