@@ -53,6 +53,7 @@ class DataNormalizer {
 		// TODO: go through these and delete / update any legacy reference
 		$this->normalizeLanguage();
 		$this->normalizeRecurring();
+		$this->normalizeUtms();
 		$this->normalizeUtmSource();
 		$this->normalizeAmount();
 		$this->normalizeIpCountry();
@@ -258,6 +259,22 @@ class DataNormalizer {
 		}
 
 		$this->dataObject->setValue( 'language', $language );
+	}
+
+	/**
+	 * Pass through utms from the url
+	 * If there are none set, default to spontaneous
+	 */
+	protected function normalizeUtms(): void {
+		$defaults = [
+			'utm_campaign' => 'spontaneous',
+			'utm_medium' => 'spontaneous'
+		];
+		foreach ( $defaults as $key => $default ) {
+			if ( !$this->dataObject->isValueSet( $key ) ) {
+				$this->dataObject->setValue( $key, $default );
+			}
+		}
 	}
 
 	/**

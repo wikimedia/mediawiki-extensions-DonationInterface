@@ -5,6 +5,7 @@ const { reactive } = require( 'vue' );
 
 const PaymentForm = require( '../../../modules/ext.donationInterface.comboWiki/views/PaymentForm.vue' );
 const PaymentMethodForm = require( '../../../modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue' );
+const { donateParamMap } = require( '../../../modules/ext.donationInterface.comboWiki/api.js' );
 
 // cdx-field gives its input a generated id, so find the inputs by placeholder (the i18n key here)
 const input = ( wrapper, key ) => wrapper.find( `input[placeholder^="donate_interface-donor-${ key }"]` );
@@ -24,7 +25,9 @@ function mountCardAndSepa( donation, extraParams = {} ) {
 		props: {
 			donation,
 			onOnDonorDetailsChange: ( details ) => {
-				Object.assign( donation, { firstName: details.first_name, email: details.email } );
+				for ( const [ fieldName, value ] of Object.entries( details ) ) {
+					donation[ donateParamMap[ fieldName ] ] = value;
+				}
 			}
 		},
 		global: {
@@ -113,5 +116,20 @@ describe( 'ComboWiki donor details in the donation', () => {
 		await button( wrapper, 'combowiki-method-card' ).trigger( 'click' );
 		expect( input( wrapper, 'first_name' ).element.value ).toBe( 'Jo' );
 		expect( input( wrapper, 'email' ).element.value ).toBe( 'jo@example.org' );
+	} );
+
+	it( 'drops what the donor typed when they switch to a method that does not ask for it', async () => {
+		const donation = newDonation();
+		const wrapper = mountCardAndSepa( donation, {
+			DonationInterfaceFormFields: { method: { cc: { first_name: true, email: true }, sepadirectdebit: { email: true } } }
+		} );
+		await input( wrapper, 'first_name' ).setValue( 'Jo' );
+		await input( wrapper, 'first_name' ).trigger( 'blur' );
+		await input( wrapper, 'email' ).setValue( 'jo@example.org' );
+		await input( wrapper, 'email' ).trigger( 'blur' );
+
+		await button( wrapper, 'combowiki-method-sepa' ).trigger( 'click' );
+		expect( donation.firstName ).toBeUndefined();
+		expect( donation.email ).toBe( 'jo@example.org' );
 	} );
 } );

@@ -14,12 +14,16 @@ function init( config ) {
 const paymentMethodMap = {
 	card: { method: 'cc', gateway: 'gravy' },
 	adyen_card: { method: 'cc', gateway: 'adyen' },
+	adyen_applepay: { method: 'apple', gateway: 'adyen' },
 	paypal: { method: 'paypal', gateway: 'gravy' },
+	braintree_paypal: { method: 'paypal', gateway: 'braintree' },
 	applepay: { method: 'apple', gateway: 'gravy' },
 	googlepay: { method: 'google', gateway: 'gravy' },
 	venmo: { method: 'venmo', gateway: 'gravy' },
 	ach: { method: 'dd', submethod: 'ach', gateway: 'gravy' },
-	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'gravy' }
+	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'gravy' },
+	adyen_sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit', gateway: 'adyen' },
+	adyen_googlepay: { method: 'google', gateway: 'adyen' }
 };
 
 /**
@@ -70,6 +74,18 @@ const frequencyUnitMap = {
  */
 function getFrequencyUnit( frequency ) {
 	return frequencyUnitMap[ frequency ];
+}
+
+/**
+ * @return {string} The utm_key from the URL if it exists, otherwise calculate
+ */
+function getUtmKey() {
+	const urlUtmKey = ( apiConfig.wmfParams || {} ).utm_key;
+	if ( urlUtmKey ) {
+		return urlUtmKey;
+	}
+	const secondsOnPage = Math.round( ( Date.now() - apiConfig.pageLoadedAt ) / 1000 );
+	return 'vw_' + window.innerWidth + '~vh_' + window.innerHeight + '~time_' + secondsOnPage;
 }
 
 /**
@@ -147,6 +163,7 @@ function getBaseDonateParams( donation ) {
 		variant: donation.variant,
 		employer: getEmployer( donation.employer ),
 		employer_id: getEmployerId( donation.employerId ),
+		utm_key: getUtmKey(),
 		recurring: getRecurring( donation.frequency ),
 		frequency_unit: getFrequencyUnit( donation.frequency )
 	};
@@ -193,10 +210,11 @@ function createCheckoutSession( donation ) {
 }
 
 function validateApplePayPaymentSession( payload ) {
+	const gateway = getGateway( payload.paymentMethod );
 	const params = {
-		action: 'di_applesession_gravy',
+		action: `di_applesession_${ gateway }`,
 		validation_url: payload.validationURL,
-		wmf_token: apiConfig.wmf_token,
+		wmf_token: getToken( gateway ),
 		payment_method: getServerPaymentMethod( payload.paymentMethod ),
 		country: payload.country,
 		currency: payload.currency,

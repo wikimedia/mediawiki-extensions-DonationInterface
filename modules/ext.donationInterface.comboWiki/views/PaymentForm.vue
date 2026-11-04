@@ -325,7 +325,11 @@ module.exports = exports = defineComponent( {
 			return Object.assign( {}, this.donation, { amount: total } );
 		},
 		giftComplete() {
-			return this.donation.frequency !== null && this.donation.amount !== null;
+			// Payment method buttons that submit straight away rely on this being a complete donation
+			return this.donation.frequency !== null &&
+				Number( this.donation.amount ) > 0 &&
+				!!this.donation.country &&
+				!!this.donation.currency;
 		},
 		formattedAmount() {
 			return ( amount ) => {

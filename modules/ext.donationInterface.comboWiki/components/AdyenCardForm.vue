@@ -1,6 +1,6 @@
 <template>
 	<div class="combo-wiki__card payment-method-form" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
-		<div id="combo-adyen-card" data-autoscroll></div>
+		<div id="combo-adyen-card"></div>
 		<cdx-button
 			action="progressive"
 			weight="primary"
@@ -14,10 +14,9 @@
 </template>
 
 <script>
-/* global AdyenCheckout */
-
-const { defineComponent } = require( 'vue' );
+const { defineComponent, toRaw } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const { getAdyenCheckout, handleAdyenError } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenCardForm',
@@ -29,9 +28,6 @@ module.exports = exports = defineComponent( {
 	inject: [ 'params' ],
 
 	props: {
-		// Unused, but PaymentMethodForm passes it to every payment method form,
-		// so declaring it keeps it from falling through as a DOM attribute
-		// eslint-disable-next-line vue/no-unused-properties
 		donation: {
 			type: Object,
 			required: true
@@ -56,26 +52,34 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
-		loadScript( src ) {
-			return new Promise( ( resolve, reject ) => {
-				const node = document.createElement( 'script' );
-
-				node.src = src;
-				node.onload = resolve;
-				node.onerror = reject;
-
-				document.body.append( node );
-			} );
-		},
-
-		async setupAdyen( config ) {
+		async setupAdyen() {
 			try {
-				const checkoutConfig = {
-					clientKey: config.clientKey,
-					environment: config.environment,
-					locale: config.locale,
-					paymentMethodsResponse: config.paymentMethodsResponse,
-
+				// Shared with the other Adyen components on the page, so the callbacks
+				// are set on the card rather than on the checkout
+				this.checkout = await getAdyenCheckout( this.donation.country );
+				const placeholders = {
+					cardNumber: mw.msg( 'donate_interface-credit-card-number' ),
+					expiryDate: mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+					securityCodeThreeDigits: mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+					securityCodeFourDigits: mw.msg( 'donate_interface-cvv-placeholder-4-digits' )
+				};
+				this.card = new window.AdyenWeb.Card( this.checkout, {
+					showBrandsUnderCardNumber: false,
+					showPayButton: false,
+					placeholders: placeholders,
+					styles: {
+						base: {
+							fontSize: '17.5px',
+							fontSmoothing: 'antialiased',
+							fontFamily: 'sans-serif',
+							lineHeight: '1.375;',
+							fontWeight: '400'
+						},
+						placeholder: {
+							color: '#72777d',
+							fontWeight: '400'
+						}
+					},
 					onChange: ( state ) => {
 						this.formValid = state.isValid;
 					},
@@ -87,12 +91,6 @@ module.exports = exports = defineComponent( {
 					onError: ( error ) => {
 						this.handleError( error );
 					}
-				};
-
-				this.checkout = await AdyenCheckout( checkoutConfig );
-
-				this.card = this.checkout.create( 'card', {
-					showBrandsUnderCardNumber: false
 				} );
 
 				this.card.mount( '#combo-adyen-card' );
@@ -114,12 +112,11 @@ module.exports = exports = defineComponent( {
 		},
 
 		handleError( error ) {
-			// Ignore blank errors, matching the existing Adyen integration.
-			if ( error && typeof error.error === 'string' && error.error === '' ) {
-				return;
-			}
-
-			this.$emit( 'error', error );
+			handleAdyenError(
+				error,
+				( shownError ) => this.$emit( 'error', shownError ),
+				this.params.DonationInterfaceOtherWaysURL
+			);
 		},
 
 		handleSubmit( state, component ) {
@@ -217,19 +214,14 @@ module.exports = exports = defineComponent( {
 	},
 
 	async mounted() {
-		const config = this.params.adyenConfiguration;
+		const config = toRaw( this.params.adyenConfiguration );
 
 		if ( !config ) {
 			this.$emit( 'error', 'adyen-configuration-missing' );
 			return;
 		}
 
-		try {
-			await this.loadScript( config.script.src );
-			await this.setupAdyen( config );
-		} catch ( error ) {
-			this.handleError( error );
-		}
+		await this.setupAdyen();
 	},
 
 	beforeUnmount() {

@@ -76,7 +76,7 @@
 		<section class="auth__display">
 			<figure>
 				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Sunrise_View_of_Inle_Lake.jpg/1280px-Sunrise_View_of_Inle_Lake.jpg"
+					src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Sunrise_View_of_Inle_Lake.jpg/1280px-Sunrise_View_of_Inle_Lake.jpg"
 					:alt="figureAltText"
 				>
 				<figcaption v-html="figureCaption"></figcaption>

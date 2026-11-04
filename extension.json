@@ -575,7 +575,6 @@
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/ErrorDisplay.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
-				"modules/ext.donationInterface.comboWiki/components/CountrySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/CountrySelectorInline.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/AdyenCardForm.vue",
@@ -583,6 +582,7 @@
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/BraintreePayPal.vue",
 				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
 				"modules/ext.donationInterface.comboWiki/components/TaxMessage.vue",
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
@@ -591,7 +591,9 @@
 				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
 				"modules/ext.donationInterface.comboWiki/components/OptIn.vue",
 				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue",
-				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue"
+				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue",
+				"modules/ext.donationInterface.comboWiki/components/AdyenApplePayComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/AdyenSEPA.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -703,7 +705,28 @@
 				"combowiki-optin-no-text",
 				"combowiki-optin-no-to-yes-text",
 				"combowiki-optin-description",
-				"combowiki-donor-privacy-policy"
+				"combowiki-donor-privacy-policy",
+				"donate_interface-credit-card-number",
+				"donate_interface-credit-card-expiration",
+				"donate_interface-cvv",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-cvv-placeholder-3-digits",
+				"donate_interface-cvv-placeholder-4-digits",
+				"donate_interface-error-msg-expiration",
+				"donate_interface-error-msg-expiry-date-field-invalid",
+				"donate_interface-error-msg-incomplete-field",
+				"donate_interface-error-msg-field-not-valid",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-card-number-do-not-match-card-brand",
+				"donate_interface-error-msg-unsupported-card-entered",
+				"donate_interface-error-msg-card-too-old",
+				"donate_interface-error-msg-date-too-far-in-the-future",
+				"donate_interface-error-msg-card-num",
+				"donate_interface-error-msg-invalid-cvv-format",
+				"donate_interface-rtbt-issuer_id",
+				"donate_interface-bt-account_holder",
+				"donate_interface-ach-invalid-account-number-count",
+				"donate_interface-ach-invalid-routing-number-count"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {
@@ -782,6 +805,18 @@
 		"ext.donationInterface.applePayHelper": {
 			"packageFiles": [ "modules/js/ext.donationInterface.applePayHelper.js" ]
 		},
+		"ext.donationInterface.walletFallback": {
+			"packageFiles": [ "modules/js/ext.donationInterface.walletFallback.js" ],
+			"messages": [
+				"donate_interface-donor-first_name",
+				"donate_interface-donor-last_name",
+				"donate_interface-donor-email",
+				"donate_interface-submit-button",
+				"donate_interface-error-msg-first_name",
+				"donate_interface-error-msg-last_name",
+				"donate_interface-error-msg-email"
+			]
+		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
 		},
@@ -790,7 +825,8 @@
 			"styles": "adyen_gateway/forms/adyen.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.applePayHelper"
+				"ext.donationInterface.applePayHelper",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
@@ -828,7 +864,8 @@
 			"styles": "adyen_gateway/forms/adyen.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.jaVariant02"
+				"ext.donationInterface.jaVariant02",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
@@ -873,7 +910,10 @@
 		"ext.donationInterface.braintree": {
 			"scripts": "braintree_gateway/forms/braintree.js",
 			"styles": "braintree_gateway/forms/braintree.css",
-			"dependencies": "ext.donationInterface.forms"
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.walletFallback"
+			]
 		},
 		"ext.donationInterface.dlocal.scripts": {
 			"scripts": "dlocal_gateway/forms/dlocal.js",
@@ -903,7 +943,8 @@
 			"styles": "gravy_gateway/forms/gravy.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.applePayHelper"
+				"ext.donationInterface.applePayHelper",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
@@ -990,7 +1031,6 @@
 			"scripts": "modules/js/ext.donationInterface.monthlyConvert.js",
 			"styles": "modules/css/monthlyConvert.css",
 			"dependencies": [
-				"web2017-polyfills",
 				"mediawiki.util"
 			],
 			"messages": [
@@ -1056,7 +1096,8 @@
 			"class": "MediaWiki\\Extension\\DonationInterface\\DonorPortal\\Hooks"
 		},
 		"ComboWikiHooks": {
-			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks"
+			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks",
+			"services": [ "MainConfig", "DonationInterface.LoggerFactory" ]
 		}
 	},
 	"config": {

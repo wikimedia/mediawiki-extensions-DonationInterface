@@ -5,6 +5,7 @@
 			"AhmedG612"
 		]
 	},
+	"combowiki-title": "Taageer Wikimedia",
 	"combowiki-amount-heading-once": "Dooro qaddar hal-mar ah",
 	"combowiki-amount-heading-monthly": "Dooro qaddar bille ah",
 	"combowiki-amount-heading-annual": "Dooro qaddar sannadle ah",
@@ -13,6 +14,11 @@
 	"combowiki-frequency-monthly": "Bixi bille ah",
 	"combowiki-intro-heading": "Taageer Wikipedia, oo ah ishaada maalinlaha ah ee aqoonta lagu kalsoonaan karo.",
 	"combowiki-intro-text": "Waad ku mahadsan tahay qaadashada tallaabadan, taageeradaadu waa muhiim! Sii wad taageeridda ildan weyn ee aqoonta ee ay dadku dhiseen, dadka loogu talagalay. Ka dhig Wikipedia mid sii kobcaysa.",
+	"combowiki-country-placeholder": "Dooro waddankaaga",
+	"combowiki-country-search-placeholder": "Dooro waddan iyo lacag",
+	"combowiki-country-label": "Wadanka",
+	"combowiki-country-change": "[ isbeddel ]",
+	"combowiki-country-no-results": "Dalal iswaafaqaya lama helin",
 	"combowiki-cover-fees": "Waxaan si deeqsinimo leh ugu dari doonaa $1 si aan u daboolo khidmadaha macaamilka, si aad u haysato 100% deeqdayda.",
 	"combowiki-stay-in-touch-heading": "Ma sii wada xiriiri karnaa?",
 	"combowiki-donor-privacy-policy": "Siyaasadda asturnaanta deeq bixiyayaasha",
@@ -28,6 +34,7 @@
 	"donate_interface-donor-employer-plain": "Loo shaqeeye",
 	"donate_interface-confirmation-yes": "Haa",
 	"donate_interface-confirmation-no": "Maya",
+	"donate_interface-error-msg-card-num": "Fadlan geli lambarka kaarka deynta oo sax ah",
 	"donate_interface-informationsharing": "Ma iibineeno mana ka ganacsaneeno macluumaadkaaga qof kale.  Tabaruc ahaan, waxaa ogolaatay in macluumaadkaaga la wadaagto Wikimedia Foundation, oo ah hey'ad samafal oo marti galisa Wikipedia iyo mashruucyada kale ee Wikimedia, iyo adeega ee bixiso iyada oo la raacaayo  <a href=\"$1\">siyaasada deeq bixiyaheena</a>. Wikimedia Foundation iyo  adeeg bixiyayaasheeda oo degan Maraykanka iyo dalal kale oo sharciyadooda asturnaanta laga yaabo inaysan u dhigmin mid kaaga oo kale. Macluumaad dheeri ah fadlan ka akhri  <a href=\"$1\">siyaasada deeq bixiyaheena</a>.",
 	"donate_interface-taxded-msg-x": "Wikimedia Foundation waa urur caalami ah oo aan macaash doon ahayn kaas oo taageera ururrada maxalliga ah iyo kuwa madaxbannaan ee adduunka oo dhan. Xaaladdeenna <a href=\"$2\">cashuur-dhaaf</a> way kala duwan tahay iyadoo ku xiran sharciyada waddan kasta. <b>Deeqaha la siiyo Wikimedia Foundation lagama jari karo cashuurta $1</b>. Haddii aad qabto wax su'aalo ah oo ku saabsan cashuur-dhaafka ama dhimista cashuurta, waxaan kugu martiqaadaynaa inaad la xiriirto <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-taxded-msg-y": "Wikimedia Foundation waa <a href=\"$1\">hay'ad daryeel bulsho oo la aqoonsan yahay (ANBI)</a>.",

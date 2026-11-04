@@ -81,7 +81,7 @@ class Donate extends UnlistedSpecialPage {
 	 * While allowing for all the other fields to be filtered by payment_methods.yaml overrides as by design
 	 * (e.g. showing postal code for US only in the Credit Card form and not in Venmo which doesn't need it)
 	 */
-	private const FIELDS_OUTSIDE_PAYMENT_METHOD_FORMS = [ 'sms_opt_in', 'phone', 'opt_in', 'employer' ];
+	private const FIELDS_OUTSIDE_PAYMENT_METHOD_FORMS = [ 'country', 'sms_opt_in', 'phone', 'opt_in', 'employer' ];
 
 	/**
 	 * Keys in payment_methods.yaml validation blocks that have no input on the form. They are
@@ -481,11 +481,14 @@ class Donate extends UnlistedSpecialPage {
 			'gateway' => $this->selectedGateway,
 			'paymentMethods' => $this->getPaymentMethodsWithMonthlyConvert(),
 			'wmfParams' => [
+				'utm_campaign' => $this->donationDetails->getValue( 'utm_campaign' ),
+				'utm_key' => $this->donationDetails->getValue( 'utm_key' ),
 				'utm_medium' => $this->donationDetails->getValue( 'utm_medium' ),
 			],
 			'monthlyConvertReturn' => $this->isMonthlyConvertReturn,
 		] );
 		$this->addCountriesConfig( $vars );
+		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
 		$selectedAdapter = $this->getSelectedAdapter();

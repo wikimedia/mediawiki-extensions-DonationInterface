@@ -11,9 +11,9 @@ const GooglePayComponent = require( '../../../modules/ext.donationInterface.comb
 
 const OTHER_WAYS_URL = 'https://example.org/ways-to-give';
 
-function mountWallet( component ) {
+function mountWallet( component, paymentMethod ) {
 	return VueTestUtils.mount( component, {
-		props: { donation: { amount: 10, currency: 'USD', country: 'US' } },
+		props: { donation: { amount: 10, currency: 'USD', country: 'US' }, paymentMethod },
 		global: {
 			provide: {
 				params: {
@@ -74,20 +74,20 @@ describe( 'ComboWiki Google Pay the browser cannot use', () => {
 
 	it( 'shows the donor an error when pay.js fails to load', async () => {
 		loadScript.mockReturnValue( Promise.reject( new Error( 'blocked' ) ) );
-		await expectUnsupportedError( mountWallet( GooglePayComponent ), 'donate_interface-error-msg-google_pay_unsupported' );
+		await expectUnsupportedError( mountWallet( GooglePayComponent, 'googlepay' ), 'donate_interface-error-msg-google_pay_unsupported' );
 	} );
 
 	it( 'shows the donor an error when the readiness check fails', async () => {
 		loadScript.mockReturnValue( Promise.resolve() );
 		googleClient.isReadyToPay.mockRejectedValue( new Error( 'third-party cookies blocked' ) );
-		await expectUnsupportedError( mountWallet( GooglePayComponent ), 'donate_interface-error-msg-google_pay_unsupported' );
+		await expectUnsupportedError( mountWallet( GooglePayComponent, 'googlepay' ), 'donate_interface-error-msg-google_pay_unsupported' );
 		expect( googleClient.createButton ).not.toHaveBeenCalled();
 	} );
 
 	it( 'shows the donor an error when Google Pay is not ready to pay', async () => {
 		loadScript.mockReturnValue( Promise.resolve() );
 		googleClient.isReadyToPay.mockResolvedValue( { result: false } );
-		await expectUnsupportedError( mountWallet( GooglePayComponent ), 'donate_interface-error-msg-google_pay_unsupported' );
+		await expectUnsupportedError( mountWallet( GooglePayComponent, 'googlepay' ), 'donate_interface-error-msg-google_pay_unsupported' );
 		expect( googleClient.createButton ).not.toHaveBeenCalled();
 	} );
 } );

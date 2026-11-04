@@ -1,5 +1,6 @@
 /*global braintree:true, paypal:true*/
 ( function ( $, mw ) {
+	const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 	/* Paypal iFrame comes with a zIndex of 100. Inorder to stack the autocomplete
 	menu above the Paypal button, we need to set the zIndex to be at least a step higher.
 	The mediawiki library for the menu item sets the autocomplete menu zIndex to 1 step higher
@@ -54,7 +55,7 @@
 			allowDesktop: true,
 			mobileWebFallBack: true,
 			allowNewBrowserTab: true,
-			allowDesktopWebLogin: true, // force web login, QR code depreciate
+			allowDesktopWebLogin: false, // true to force web login, hide QR code
 			paymentMethodUsage: getPaymentMethodUsage(),
 			totalAmount: getAmountValue()
 		};
@@ -92,9 +93,23 @@
 	}
 
 	function handleVenmoSuccess( payload ) {
-		di.forms.callDonateApi(
-			handleApiResult, buildVenmoSendData( payload ), 'di_donate_braintree'
-		);
+		const sendData = buildVenmoSendData( payload );
+		if ( !hasValidWalletName( sendData.first_name ) ||
+			!hasValidWalletName( sendData.last_name ) ||
+			!hasValidWalletEmail( sendData.email ) ) {
+			showWalletFallbackFields(
+				$( '#venmo-button' ),
+				sendData.email,
+				( firstName, lastName, email ) => {
+					sendData.first_name = firstName;
+					sendData.last_name = lastName;
+					sendData.email = email;
+					di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+				}
+			);
+		} else {
+			di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+		}
 	}
 
 	function displayVenmoButton( venmoInstance ) {
@@ -177,9 +192,22 @@
 							street_address: payload.details.shippingAddress
 						};
 
-						di.forms.callDonateApi(
-							handleApiResult, sendData, 'di_donate_braintree'
-						);
+						if ( !hasValidWalletName( sendData.first_name ) ||
+							!hasValidWalletName( sendData.last_name ) ||
+							!hasValidWalletEmail( sendData.email ) ) {
+							showWalletFallbackFields(
+								$( '#paypal-button' ),
+								sendData.email,
+								( firstName, lastName, email ) => {
+									sendData.first_name = firstName;
+									sendData.last_name = lastName;
+									sendData.email = email;
+									di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+								}
+							);
+						} else {
+							di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+						}
 					} );
 				},
 

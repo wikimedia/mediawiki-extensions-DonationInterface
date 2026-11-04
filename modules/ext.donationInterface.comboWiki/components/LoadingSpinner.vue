@@ -1,5 +1,5 @@
 <template>
-	<div class="combo-wiki__loading-spinner" v-show="loading">
+	<div v-show="loading" class="combo-wiki__loading-spinner">
 		<div class="combo-wiki__loading-stack">
 			<img
 				id="loading"

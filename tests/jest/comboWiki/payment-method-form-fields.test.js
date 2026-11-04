@@ -156,14 +156,26 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 
 		expect( api.submitDonation.mock.lastCall[ 1 ] ).toEqual( { state_province: 'NSW', city: 'Sydney', payment_token: 'tok' } );
 	} );
+
+	it( 'keeps one-click buttons when the method has no fields', async () => {
+		const wrapper = await mountForm( {
+			paymentMethod: 'braintree_paypal',
+			frequency: 'yearly',
+			params: Object.assign( {}, {
+				paymentMethods: [ { method: 'paypal', gateway: 'braintree' } ],
+				DonationInterfaceFormFields: { method: { paypal: {} } }
+		} ) } );
+		expect( wrapper.findComponent( PaymentMethodFormFields ).exists() ).toBe( false );
+		expect( wrapper.find( 'div#braintree-paypal' ).exists() ).toBe( true );
+	} );
 } );
 
 describe( 'ComboWiki wallets below the details form', () => {
 	const donation = { frequency: 'monthly', amount: 10, currency: 'AUD', country: 'AU' };
 	const donorDetails = ( valid ) => ( { valid, validate: jest.fn( () => valid ) } );
 	// Neither wallet's SDK loads in jsdom, so these call the click handlers directly
-	const mountWallet = ( component, details ) => VueTestUtils.mount( component, {
-		props: { donation, donorDetails: details },
+	const mountWallet = ( component, details, paymentMethod ) => VueTestUtils.mount( component, {
+		props: { donation, donorDetails: details, paymentMethod },
 		global: { provide: { params: { gravyConfiguration: { googleScript: 'https://pay.google.com/gp/p/js/pay.js' } } } }
 	} );
 
@@ -179,14 +191,14 @@ describe( 'ComboWiki wallets below the details form', () => {
 
 		it( 'does not open the payment sheet while the details are invalid', () => {
 			const details = donorDetails( false );
-			mountWallet( GooglePayComponent, details ).vm.onButtonClicked();
+			mountWallet( GooglePayComponent, details, 'googlepay' ).vm.onButtonClicked();
 
 			expect( details.validate ).toHaveBeenCalled();
 			expect( loadPaymentData ).not.toHaveBeenCalled();
 		} );
 
 		it( 'opens the payment sheet once the details are valid', () => {
-			mountWallet( GooglePayComponent, donorDetails( true ) ).vm.onButtonClicked();
+			mountWallet( GooglePayComponent, donorDetails( true ), 'googlepay' ).vm.onButtonClicked();
 
 			expect( loadPaymentData ).toHaveBeenCalled();
 		} );
