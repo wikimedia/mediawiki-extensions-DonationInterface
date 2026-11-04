@@ -1,4 +1,4 @@
-/* global describe it expect */
+/* global describe it expect jest */
 
 const { reactive } = require( 'vue' );
 const { useFieldValidation } = require( '../../../modules/ext.donationInterface.comboWiki/composables/useFieldValidation.js' );
@@ -73,5 +73,69 @@ describe( 'useFieldValidation', () => {
 
 		expect( validation.validateAll() ).toEqual( [] );
 		expect( validation.isValid.value ).toBe( true );
+	} );
+} );
+
+describe( 'useFieldValidation callback and warning rules', () => {
+	// As PaymentMethodFormFields adds them for email: the format is an error, a likely typo a warning
+	const looksLikeTypo = jest.fn( ( value ) => value.endsWith( '@gmial.com' ) );
+	const EMAIL_RULES = {
+		email: [
+			{ required: true, message: 'Please enter your email' },
+			{ pattern: '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$', message: 'Please enter a valid email' },
+			{ callback: looksLikeTypo, message: 'Did you mean gmail.com?', warning: true }
+		]
+	};
+
+	const setupEmail = ( email ) => {
+		const fields = reactive( { email } );
+		return { fields, validation: useFieldValidation( EMAIL_RULES, fields ) };
+	};
+
+	it( 'shows a warning, keyed by status, when a warning rule fails on blur', () => {
+		const { validation } = setupEmail( 'jo@gmial.com' );
+
+		validation.onBlur( 'email' );
+
+		expect( looksLikeTypo ).toHaveBeenCalledWith( 'jo@gmial.com' );
+		expect( validation.status.email ).toBe( 'warning' );
+		expect( validation.messages.email ).toEqual( { warning: 'Did you mean gmail.com?' } );
+	} );
+
+	it( 'is still valid while a field only has a warning', () => {
+		const { validation } = setupEmail( 'jo@gmial.com' );
+
+		// validateAll reports the field so the warning shows; status tells it from an error
+		expect( validation.validateAll() ).toEqual( [ 'email' ] );
+		expect( validation.status.email ).toBe( 'warning' );
+		expect( validation.isValid.value ).toBe( true );
+	} );
+
+	it( 'shows an error instead of the warning when an error rule also fails', () => {
+		const { validation } = setupEmail( 'not an email@gmial.com' );
+
+		validation.onBlur( 'email' );
+
+		expect( validation.status.email ).toBe( 'error' );
+		expect( validation.messages.email ).toEqual( { error: 'Please enter a valid email' } );
+		expect( validation.isValid.value ).toBe( false );
+	} );
+
+	it( 'does not run the callback for an empty field', () => {
+		const { validation } = setupEmail( '' );
+
+		expect( validation.validateAll() ).toEqual( [ 'email' ] );
+		expect( validation.messages.email ).toEqual( { error: 'Please enter your email' } );
+		expect( looksLikeTypo ).not.toHaveBeenCalled();
+	} );
+
+	it( 'clears the warning when the donor edits the field', () => {
+		const { validation } = setupEmail( 'jo@gmial.com' );
+		validation.onBlur( 'email' );
+
+		validation.onInput( 'email' );
+
+		expect( validation.status.email ).toBe( 'default' );
+		expect( validation.messages.email ).toEqual( {} );
 	} );
 } );

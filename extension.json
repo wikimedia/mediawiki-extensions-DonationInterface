@@ -547,13 +547,20 @@
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js"
 			]
 		},
+		"ext.donationInterface.mailcheck": {
+			"packageFiles": [ "resources/lib/mailcheck/mailcheck.js" ],
+			"messages": [
+				"donate_interface-did-you-mean"
+			]
+		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
 				"ext.donationInterface.currencyRates",
 				"donationInterface.skinOverride",
 				"vue",
 				"@wikimedia/codex",
-				"ext.donationInterface.applePayHelper"
+				"ext.donationInterface.applePayHelper",
+				"ext.donationInterface.mailcheck"
 			],
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
@@ -565,6 +572,7 @@
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
 				"modules/ext.donationInterface.comboWiki/composables/useFieldValidation.js",
+				"modules/ext.donationInterface.comboWiki/composables/useMailCheck.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
 				"modules/ext.donationInterface.comboWiki/views/PaymentForm.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/ForbiddenPageContainer.vue",

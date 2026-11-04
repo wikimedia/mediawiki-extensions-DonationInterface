@@ -12,7 +12,8 @@ const { reactive, computed } = require( 'vue' );
  *
  * @param {Object} rules Rules keyed by field name, from DonateValidationRules
  *  (e.g. DonateValidationRules.method.cc). Each rule has a message, and either
- *  required: true or a pattern.
+ *  required: true, a pattern, or a callback that returns true when the value fails.
+ *  A rule with warning: true shows as a warning and doesn't make the form invalid.
  * @param {Object} fields The form's reactive field values, keyed by field name
  * @return {Object} status and messages for each field's cdx-field, plus onBlur,
  *  onInput, validateAll and isValid
@@ -40,12 +41,21 @@ function useFieldValidation( rules, fields ) {
 		if ( rule.pattern ) {
 			return !isEmpty( name ) && !new RegExp( rule.pattern ).test( String( fields[ name ] ) );
 		}
+		if ( rule.callback ) {
+			return !isEmpty( name ) && rule.callback( String( fields[ name ] ) );
+		}
 		return false;
 	} );
 
+	// cdx-field shows the message keyed by the field's status
 	const showResult = ( name, failedRule ) => {
-		status[ name ] = failedRule ? 'error' : 'default';
-		messages[ name ] = failedRule ? { error: failedRule.message } : {};
+		if ( !failedRule ) {
+			status[ name ] = 'default';
+			messages[ name ] = {};
+			return;
+		}
+		status[ name ] = failedRule.warning ? 'warning' : 'error';
+		messages[ name ] = { [ status[ name ] ]: failedRule.message };
 	};
 
 	return {
@@ -74,9 +84,10 @@ function useFieldValidation( rules, fields ) {
 			}
 		},
 		/**
-		 * Checks every field, including empty required ones, and shows the errors.
+		 * Checks every field, including empty required ones, and shows the errors and warnings.
 		 *
-		 * @return {string[]} The invalid field names, in the form's field order
+		 * @return {string[]} The names of the fields with an error or a warning, in the
+		 *  form's field order. Check status to tell them apart.
 		 */
 		validateAll() {
 			return fieldNames.filter( ( name ) => {
@@ -85,7 +96,11 @@ function useFieldValidation( rules, fields ) {
 				return Boolean( failedRule );
 			} );
 		},
-		isValid: computed( () => fieldNames.every( ( name ) => !findFailedRule( name, true ) ) )
+		// A warning doesn't stop the donor submitting
+		isValid: computed( () => fieldNames.every( ( name ) => {
+			const failedRule = findFailedRule( name, true );
+			return !failedRule || Boolean( failedRule.warning );
+		} ) )
 	};
 }
 
