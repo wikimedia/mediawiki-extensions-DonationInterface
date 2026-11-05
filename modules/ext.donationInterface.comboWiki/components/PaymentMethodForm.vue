@@ -295,7 +295,7 @@ module.exports = exports = defineComponent( {
 				validationRules: getValidationRulesFor( 'card' )
 			},
 			adyen_card: {
-				label: mw.message( 'combowiki-method-adyen-card' ).text(),
+				label: mw.message( 'combowiki-method-card' ).text(),
 				component: 'adyen-card-form',
 				gateway: 'adyen',
 				error: onError,

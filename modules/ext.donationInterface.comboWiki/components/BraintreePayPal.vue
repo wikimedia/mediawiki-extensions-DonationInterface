@@ -7,7 +7,7 @@
 		<!-- PayPal's own button, defined by the PayPal SDK that loadPayPalSDK() loads -->
 		<paypal-button
 			v-show="ready"
-			type="pay"
+			type="donate"
 			class="combo-wiki__button-submit paypal-button"
 			@click="startPayPal"
 		></paypal-button>

@@ -31,7 +31,6 @@
 	"combowiki-monthly-convert-failed": "Your one-time donation was successful, but we could not set up your monthly donation. Reference: $1",
 	"combowiki-payment-method-heading": "Donate with your preferred payment method",
 	"combowiki-method-card": "Card",
-	"combowiki-method-adyen-card": "Adyen Card",
 	"combowiki-method-paypal": "PayPal",
 	"combowiki-method-venmo": "Venmo",
 	"combowiki-method-applepay": "Apple Pay",

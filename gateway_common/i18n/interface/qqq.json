@@ -63,7 +63,6 @@
 	"combowiki-monthly-convert-failed": "Error message shown on the ComboWiki donation form when the donor's one-time donation succeeded but converting it to a monthly donation failed. Parameters:\n* $1 - the order ID of the completed one-time donation, for the donor to quote to donor services",
 	"combowiki-payment-method-heading": "Heading above the payment method selector on the ComboWiki donation form.",
 	"combowiki-method-card": "Label for the credit/debit card payment method option on the ComboWiki donation form.\n{{Identical|Card}}",
-	"combowiki-method-adyen-card": "Label for the Adyen credit/debit card payment method option on the ComboWiki donation form.\n{{Identical|Card}}",
 	"combowiki-method-paypal": "Label for the PayPal payment method option on the ComboWiki donation form.\n{{Identical|PayPal}}",
 	"combowiki-method-venmo": "Label for the Venmo payment method option on the ComboWiki donation form.\n{{Identical|Venmo}}",
 	"combowiki-method-applepay": "Label for the Apple Pay payment method option on the ComboWiki donation form.\n{{Identical|Apple Pay}}",
