@@ -690,7 +690,6 @@ class Donate extends UnlistedSpecialPage {
 				$this->logger
 			),
 			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
-				$adapter,
 				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER ),
 				$this->getConfig()
 			),
