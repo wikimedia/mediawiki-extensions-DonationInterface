@@ -32,13 +32,44 @@ abstract class GatewayClientConfig {
 
 	abstract protected function getConfigPrefix(): string;
 
-	protected function getAccountConfig( string $element ): mixed {
+	protected function getAccountArray(): array {
 		$key = $this->getConfigPrefix() . 'GatewayAccountInfo';
-		$accounts = $this->config->get( $key );
+		$accountArray = $this->config->get( $key );
+		if ( !is_array( $accountArray ) ) {
+			throw new \RuntimeException( 'Account configuration ' . $key . ' is not an array.' );
+		}
+		return $accountArray;
+	}
+
+	protected function getAccountConfig( string $element ): mixed {
+		$accounts = $this->getAccountArray();
 		$firstAccount = array_shift( $accounts );
 		if ( !is_array( $firstAccount ) ) {
-			throw new \RuntimeException( 'Missing config array ' . $key );
+			throw new \RuntimeException(
+				'Account configuration for ' . $this->getConfigPrefix() . ' must be an array.'
+			);
 		}
 		return $firstAccount[$element];
+	}
+
+	protected function getAccountName(): string {
+		$accounts = $this->getAccountArray();
+		$accountNames = array_keys( $accounts );
+		return array_shift( $accountNames );
+	}
+
+	protected function getGoogleAllowedNetworks( string $country, string $currency ): array {
+		$networks = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
+		// https://developers.google.com/pay/api/web/guides/resources/supported-payment-networks#interac
+		if ( $country === 'CA' && $currency === 'CAD' ) {
+			$networks[] = 'INTERAC';
+		}
+		return $networks;
+	}
+
+	protected function getLocale( string $language, string $country ): string {
+		// Keep only the base language code, e.g. "pt_BR" or "pt-BR" -> "pt"
+		$baseLanguage = preg_split( '/[_-]/', $language, 2 )[0];
+		return "{$baseLanguage}-{$country}";
 	}
 }

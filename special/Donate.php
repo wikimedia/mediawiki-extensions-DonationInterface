@@ -685,8 +685,9 @@ class Donate extends UnlistedSpecialPage {
 				$this->getConfig()
 			),
 			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig(
-				$adapter, $this->routingParams,
-				$this->getConfig()
+				$this->routingParams,
+				$this->getConfig(),
+				$this->logger
 			),
 			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
 				$adapter,
