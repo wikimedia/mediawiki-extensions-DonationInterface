@@ -3,17 +3,24 @@
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
 use GravyAdapter;
+use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
 
 /**
  * The Gravy config for the ComboWiki frontend, and a DNS prefetch for the Apple Pay script.
  */
-class GravyClientConfig implements GatewayClientConfig {
+class GravyClientConfig extends GatewayClientConfig {
 
 	public function __construct(
 		private readonly GravyAdapter $adapter,
-		private readonly array $paymentMethods
+		private readonly array $paymentMethods,
+		Config $mwConfig
 	) {
+		$this->config = $mwConfig;
+	}
+
+	protected function getConfigPrefix(): string {
+		return 'Gravy';
 	}
 
 	/** @inheritDoc */
@@ -26,8 +33,8 @@ class GravyClientConfig implements GatewayClientConfig {
 	/** @inheritDoc */
 	public function addResources( OutputPage $out ): void {
 		$walletScripts = [
-			'apple' => $this->adapter->getAccountConfig( 'AppleScript' ),
-			'google' => $this->adapter->getAccountConfig( 'GoogleScript' ),
+			'apple' => $this->getAccountConfig( 'AppleScript' ),
+			'google' => $this->getAccountConfig( 'GoogleScript' ),
 		];
 		foreach ( array_unique( $this->paymentMethods ) as $paymentMethod ) {
 			$href = $walletScripts[$paymentMethod] ?? null;

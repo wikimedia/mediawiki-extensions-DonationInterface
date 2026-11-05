@@ -681,11 +681,17 @@ class Donate extends UnlistedSpecialPage {
 		return match ( true ) {
 			$adapter instanceof GravyAdapter => new GravyClientConfig(
 				$adapter,
-				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ) ),
-			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig( $adapter, $this->routingParams ),
+				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ),
+				$this->getConfig()
+			),
+			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig(
+				$adapter, $this->routingParams,
+				$this->getConfig()
+			),
 			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
 				$adapter,
-				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER )
+				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER ),
+				$this->getConfig()
 			),
 			default => null,
 		};
@@ -925,6 +931,7 @@ class Donate extends UnlistedSpecialPage {
 
 		// Get all the special fields for the given country and its supported payment methods
 		$fieldsForMethods = [];
+		$sharedFieldsFull = [];
 		foreach ( $paymentMethods as $paymentMethod ) {
 			// An adapter throws for methods it does not handle, so use the adapter of the method's gateway.
 			// Only the selected gateway has an adapter for now, so methods of other gateways are skipped.
@@ -966,6 +973,7 @@ class Donate extends UnlistedSpecialPage {
 		$language = $this->routingParams['language'];
 
 		$rulesForMethods = [];
+		$sharedRules = [];
 		foreach ( $paymentMethods as $paymentMethod ) {
 			$adapter = $this->adapters[$paymentMethod['gateway']] ?? null;
 			if ( !$adapter ) {
@@ -990,7 +998,7 @@ class Donate extends UnlistedSpecialPage {
 		);
 
 		return [
-			'shared' => MessageUtils::translateValidationRules( $sharedRules, $country, $language ) ?: (object)[],
+			'shared' => MessageUtils::translateValidationRules( $sharedRules, $country, $language ) ?: [],
 			'method' => $rulesForMethods,
 		];
 	}
