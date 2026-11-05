@@ -680,7 +680,7 @@ class Donate extends UnlistedSpecialPage {
 	private function getClientConfig( GatewayAdapter $adapter ): ?GatewayClientConfig {
 		return match ( true ) {
 			$adapter instanceof GravyAdapter => new GravyClientConfig(
-				$adapter,
+				$this->routingParams,
 				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ),
 				$this->getConfig()
 			),
