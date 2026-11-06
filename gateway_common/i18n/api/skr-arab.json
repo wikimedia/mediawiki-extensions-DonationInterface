@@ -4,8 +4,28 @@
 			"Saraiki"
 		]
 	},
+	"apihelp-donate-param-wmf_source": "ٹریکنگ ویریبل۔",
+	"apihelp-donate-param-wmf_key": "ٹریکنگ ویریبل۔",
+	"apihelp-donate-param-wmf_campaign": "ٹریکنگ ویریبل۔",
+	"apihelp-donate-param-wmf_medium": "ٹریکنگ ویریبل۔",
 	"apihelp-di_donate_adyen-param-postal_code": "پوسٹل کوڈ۔",
+	"apihelp-di_donate_adyen-param-wmf_source": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_adyen-param-wmf_key": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_adyen-param-wmf_campaign": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_adyen-param-wmf_medium": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_dlocal-param-wmf_source": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_dlocal-param-wmf_key": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_dlocal-param-wmf_campaign": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_dlocal-param-wmf_medium": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_gravy-param-wmf_source": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_gravy-param-wmf_key": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_gravy-param-wmf_campaign": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_gravy-param-wmf_medium": "ٹریکنگ ویریبل۔",
 	"apihelp-di_donate_braintree-param-first_name": "پہلا ناں۔",
 	"apihelp-di_donate_braintree-param-full_name": "پورا ناں",
+	"apihelp-di_donate_braintree-param-wmf_source": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_braintree-param-wmf_key": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_braintree-param-wmf_campaign": "ٹریکنگ ویریبل۔",
+	"apihelp-di_donate_braintree-param-wmf_medium": "ٹریکنگ ویریبل۔",
 	"apihelp-submitPayment-param-email": "ای میل پتہ۔"
 }

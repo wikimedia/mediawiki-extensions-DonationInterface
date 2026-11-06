@@ -54,7 +54,6 @@
 	"combowiki-monthly-convert-failed": "Uw eenmalige donatie is gelukt, maar we konden uw maandelijkse donatie niet instellen. Referentie: $1",
 	"combowiki-payment-method-heading": "Doneer met uw favoriete betaalmethode",
 	"combowiki-method-card": "Kaart",
-	"combowiki-method-adyen-card": "Adyen-kaart",
 	"combowiki-method-sepa": "SEPA-incasso",
 	"combowiki-your-details-heading": "Uw gegevens",
 	"combowiki-donate-with-paypal": "Via PayPal doneren",
