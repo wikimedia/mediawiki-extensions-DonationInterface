@@ -1,6 +1,7 @@
 <template>
 	<div class="combo-wiki__card payment-method-form" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
 		<div id="combo-adyen-card"></div>
+		<div id="combo-adyen-card-action-container"></div>
 		<cdx-button
 			action="progressive"
 			weight="primary"
@@ -119,6 +120,24 @@ module.exports = exports = defineComponent( {
 			);
 		},
 
+		handleSubmitSuccess( result ) {
+			if ( !this.checkout ) {
+				this.handleError( 'missing-adyen-config' );
+				return;
+			}
+			const response = result.result;
+
+			if ( response && response.formData && Object.keys( response.formData ).length > 0 ) {
+				this.checkout.createFromAction( {
+					paymentMethodType: 'scheme',
+					url: response.redirect,
+					data: response.formData,
+					method: 'POST',
+					type: 'redirect'
+				} ).mount( '#combo-adyen-card-action-container' );
+			}
+		},
+
 		handleSubmit( state, component ) {
 			if ( !state.isValid ) {
 				return;
@@ -165,7 +184,7 @@ module.exports = exports = defineComponent( {
 				)
 			};
 
-			this.$emit( 'submit', extraData );
+			this.$emit( 'submit', extraData, this.handleSubmitSuccess );
 		},
 
 		getTimeZoneOffset( browserInfo ) {

@@ -54,7 +54,7 @@
 				v-if="showField( 'email' )"
 				:optional="!isFieldRequired( 'email' )"
 				:status="validation.status.email"
-				:messages="validation.messages.email"
+				:messages="isMailcheckWarning ? {} : validation.messages.email"
 			>
 				<cdx-text-input
 					id="email"
@@ -64,10 +64,18 @@
 					autocomplete="email"
 					data-autoscroll
 					:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
-					@blur="onFieldBlur( 'email' )"
+					@blur="onFieldBlur( 'email' );"
 					@input="validation.onInput( 'email' )"
 				>
 				</cdx-text-input>
+				<!-- The mailcheck suggestion links the corrected address, so it's shown as HTML.
+					Codex 1.14's cdx-field has no warning slot, so it goes in the help text instead.
+					Other email messages are plain text, which cdx-field shows itself. -->
+				<template v-if="isMailcheckWarning" #help-text>
+					<cdx-message type="warning" :inline="true">
+						<span @click="applyMailcheckCorrection" v-html="validation.messages.email.warning"></span>
+					</cdx-message>
+				</template>
 				<template #label>
 					{{ $i18n( 'donate_interface-donor-email' ).text() }}
 				</template>
@@ -241,9 +249,10 @@
 
 <script>
 const { defineComponent, reactive, watch } = require( 'vue' );
-const { CdxField, CdxTextInput } = require( '@wikimedia/codex' );
+const { CdxField, CdxMessage, CdxTextInput } = require( '@wikimedia/codex' );
 const { useFieldValidation } = require( '../composables/useFieldValidation.js' );
 const { donateParamMap } = require( '../api.js' );
+const { useMailCheck } = require( '../composables/useMailCheck.js' );
 
 const EMAIL_PATTERN = '^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$';
 
@@ -252,7 +261,8 @@ module.exports = exports = defineComponent( {
 
 	components: {
 		'cdx-text-input': CdxTextInput,
-		'cdx-field': CdxField
+		'cdx-field': CdxField,
+		'cdx-message': CdxMessage
 	},
 
 	inject: [ 'params' ],
@@ -290,19 +300,40 @@ module.exports = exports = defineComponent( {
 		}
 
 		const rules = Object.assign( {}, props.validationRules );
+		const { mailcheckSuggestion, suggestedEmail, runMailCheck, initialise: initialiseMailCheck } = useMailCheck();
 		if ( rules.email ) {
+			initialiseMailCheck();
 			rules.email = rules.email.concat( {
 				pattern: EMAIL_PATTERN,
 				message: mw.msg( 'donate_interface-error-msg-invalid-email' )
+			}, {
+				callback: runMailCheck,
+				message: mailcheckSuggestion,
+				warning: true
 			} );
 		}
 		const validation = useFieldValidation( rules, fields );
-		watch( validation.isValid, ( valid ) => ctx.emit( 'update:valid', valid ), { immediate: true } );
 
-		return { fields, validation };
+		watch( validation.isValid, ( valid ) => ctx.emit( 'update:valid', valid ), { immediate: true } );
+		return {
+			fields,
+			validation,
+			mailcheck: { message: mailcheckSuggestion, suggestedEmail }
+		};
 	},
 
 	computed: {
+		/**
+		 * Whether the email warning showing is the mailcheck suggestion. Required and
+		 * format errors are checked first, so a stale suggestion can't replace them.
+		 *
+		 * @return {boolean}
+		 */
+		isMailcheckWarning() {
+			return this.validation.status.email === 'warning' &&
+				Boolean( this.mailcheck.message.value ) &&
+				this.validation.messages.email.warning === this.mailcheck.message.value;
+		},
 		stateProvinceOptions() {
 			// [ { value: 'ON', label: 'Ontario' }, ... ] from Special:Donate, empty if none for the country
 			return this.params.DonationInterfaceStateProvinceOptions || [];
@@ -373,13 +404,14 @@ module.exports = exports = defineComponent( {
 			this.$emit( 'update:details', this.getValues() );
 		},
 		/**
-		 * Shows the errors for every field and focuses the first invalid one.
+		 * Shows the errors and warnings for every field and focuses the first invalid one.
 		 * Called by the parent form when the donor submits.
 		 *
-		 * @return {boolean} Whether all the fields are valid
+		 * @return {boolean} Whether all the fields are valid. Warnings don't count.
 		 */
 		validate() {
-			const invalidFields = this.validation.validateAll();
+			const invalidFields = this.validation.validateAll()
+				.filter( ( field ) => this.validation.status[ field ] !== 'warning' );
 			// Not stored in a variable: no-jquery/variable-pattern treats anything from $refs as jQuery
 			if ( invalidFields.length && this.$refs[ invalidFields[ 0 ] ] ) {
 				this.$refs[ invalidFields[ 0 ] ].focus();
@@ -391,6 +423,20 @@ module.exports = exports = defineComponent( {
 		 */
 		getValues() {
 			return Object.assign( {}, this.fields );
+		},
+		/**
+		 * Fills in the suggested address when the donor clicks it in the mailcheck message.
+		 *
+		 * @param {Event} event
+		 */
+		applyMailcheckCorrection( event ) {
+			if ( !event.target.closest( '.correction' ) ) {
+				return;
+			}
+			event.preventDefault();
+			this.fields.email = this.mailcheck.suggestedEmail.value;
+			this.validation.onInput( 'email' );
+			this.$emit( 'update:details', this.getValues() );
 		}
 	}
 } );

@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\FraudFilters\FraudService;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
@@ -38,12 +39,25 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		$transactionStatus = $createPaymentResult->getStatus();
 
 		$paymentResult = PaymentResult::newSuccess();
+		$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
+		$sentOutcome = false;
+
 		if ( !$createPaymentResult->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
 			$errorLogMessage .= $createPaymentResult->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $createPaymentResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
+			$outcome = FraudService::OUTCOME_AUTH_DECLINE;
+			// TODO: set 'suspected fraud' for selected braintree decline codes in SmashPig
+			if ( $createPaymentResult->isSuspectedFraud() ) {
+				$outcome |= FraudService::OUTCOME_PROCESSOR_FLAGGED_FRAUD;
+			}
+			// TODO: add error category and raw error text
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome, 'braintree'
+			);
+			$sentOutcome = true;
 		} else {
 			$donorDetails = $createPaymentResult->getDonorDetails();
 			// Pull in new data from result if available.
@@ -80,7 +94,14 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 					$paymentResult = PaymentResult::newFailure();
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, 'braintree'
+					);
 				} else {
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome, 'braintree'
+					);
+
 					$this->setCurrentTransaction( TransactionType::CAPTURE );
 					$capturePaymentParams = $this->buildRequestArray();
 					$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
@@ -94,6 +115,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 
 				break;
 			default:
+				if ( !$sentOutcome ) {
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome, 'braintree'
+					);
+				}
 				// Log and send the payments-init message, and clean out the session
 				$this->finalizeInternalStatus( $transactionStatus );
 		}
@@ -110,6 +136,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, FraudService::OUTCOME_BLOCKED_BY_FILTER );
 			return PaymentResult::newFailure( [ new PaymentError(
 				'internal-0000',
 				"Failed pre-process checks for payment.",

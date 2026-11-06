@@ -3,13 +3,14 @@
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
 use BraintreeAdapter;
+use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
 
 /**
  * The Braintree config for the ComboWiki frontend: a client token and the Braintree
  * scripts for the Braintree payment methods on ComboWiki.
  */
-class BraintreeClientConfig implements GatewayClientConfig {
+class BraintreeClientConfig extends GatewayClientConfig {
 
 	/**
 	 * Cached client token, so the gateway is called once even if the vars are built twice.
@@ -21,11 +22,18 @@ class BraintreeClientConfig implements GatewayClientConfig {
 	 * @param BraintreeAdapter $adapter
 	 * @param string[] $paymentMethods The payment methods on ComboWiki that Braintree handles,
 	 *  e.g. [ 'paypal', 'venmo' ]
+	 * @param Config $mwConfig
 	 */
 	public function __construct(
 		private readonly BraintreeAdapter $adapter,
-		private readonly array $paymentMethods
+		private readonly array $paymentMethods,
+		Config $mwConfig
 	) {
+		$this->config = $mwConfig;
+	}
+
+	protected function getConfigPrefix(): string {
+		return 'Braintree';
 	}
 
 	/** @inheritDoc */
@@ -69,14 +77,14 @@ class BraintreeClientConfig implements GatewayClientConfig {
 	 * @return string[]
 	 */
 	private function getScripts(): array {
-		$scripts = [ $this->adapter->getAccountConfig( 'clientScript' ) ];
+		$scripts = [ $this->getAccountConfig( 'clientScript' ) ];
 		if ( in_array( 'paypal', $this->paymentMethods, true ) ) {
-			$scripts[] = $this->adapter->getAccountConfig( 'paypalCheckoutV6Script' );
+			$scripts[] = $this->getAccountConfig( 'paypalCheckoutV6Script' );
 		}
 		if ( in_array( 'venmo', $this->paymentMethods, true ) ) {
-			$scripts[] = $this->adapter->getAccountConfig( 'venmoScript' );
+			$scripts[] = $this->getAccountConfig( 'venmoScript' );
 		}
-		$scripts[] = $this->adapter->getAccountConfig( 'deviceScript' );
+		$scripts[] = $this->getAccountConfig( 'deviceScript' );
 		return $scripts;
 	}
 }

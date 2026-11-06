@@ -3,23 +3,31 @@
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
 use AdyenCheckoutAdapter;
+use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
 
 /**
  * The Adyen Checkout config for the ComboWiki frontend, with the payment methods
  * Adyen offers for the donation.
  */
-class AdyenClientConfig implements GatewayClientConfig {
+class AdyenClientConfig extends GatewayClientConfig {
 
 	/**
 	 * @param AdyenCheckoutAdapter $adapter
 	 * @param array $routingParams The ComboWiki routing params, for the country, currency,
 	 *  amount and language of the payment methods lookup
+	 * @param Config $mwConfig
 	 */
 	public function __construct(
 		private readonly AdyenCheckoutAdapter $adapter,
-		private readonly array $routingParams
+		private readonly array $routingParams,
+		Config $mwConfig
 	) {
+		$this->config = $mwConfig;
+	}
+
+	protected function getConfigPrefix(): string {
+		return 'AdyenCheckout';
 	}
 
 	/**
@@ -58,7 +66,7 @@ class AdyenClientConfig implements GatewayClientConfig {
 	 * @return void
 	 */
 	public function addResources( OutputPage $out ): void {
-		$adyenCss = $this->adapter->getAccountConfig( 'Css' );
+		$adyenCss = $this->getAccountConfig( 'Css' );
 		$out->addLink( [
 			'rel' => 'stylesheet',
 			'href' => $adyenCss['src'],

@@ -84,6 +84,7 @@ const GooglePayComponent = require( './GooglePayComponent.vue' );
 const SEPAComponent = require( './SEPAComponent.vue' );
 const AdyenSEPA = require( './AdyenSEPA.vue' );
 const BraintreePayPal = require( './BraintreePayPal.vue' );
+const BraintreeVenmo = require( './BraintreeVenmo.vue' );
 const AdyenApplePayComponent = require( './AdyenApplePayComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
@@ -100,6 +101,7 @@ module.exports = exports = defineComponent( {
 		'ach-form': ACHComponent,
 		'adyen-card-form': AdyenCardForm,
 		'braintree-paypal-form': BraintreePayPal,
+		'braintree-venmo-form': BraintreeVenmo,
 		'sepa-form': SEPAComponent,
 		'adyen-sepa-form': AdyenSEPA,
 		'adyen-applepay-form': AdyenApplePayComponent
@@ -295,7 +297,7 @@ module.exports = exports = defineComponent( {
 				validationRules: getValidationRulesFor( 'card' )
 			},
 			adyen_card: {
-				label: mw.message( 'combowiki-method-adyen-card' ).text(),
+				label: mw.message( 'combowiki-method-card' ).text(),
 				component: 'adyen-card-form',
 				gateway: 'adyen',
 				error: onError,
@@ -324,6 +326,14 @@ module.exports = exports = defineComponent( {
 				error: onError,
 				formFields: getFormFieldsFor( 'venmo' ),
 				validationRules: getValidationRulesFor( 'venmo' )
+			},
+			braintree_venmo: {
+				label: mw.message( 'combowiki-method-venmo' ).text(),
+				component: 'braintree-venmo-form',
+				error: onError,
+				submit: submitDonation,
+				formFields: getFormFieldsFor( 'braintree_venmo' ),
+				validationRules: getValidationRulesFor( 'braintree_venmo' )
 			},
 			applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),

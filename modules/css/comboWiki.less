@@ -54,7 +54,7 @@
 }
 
 .combo-wiki__option--selected.cdx-button {
-	box-shadow: inset 0 0 0 2px @border-color-progressive;
+	border-radius: 2px;
 }
 
 // Payment methods with no form are submit buttons, inert until the donation is complete
@@ -98,11 +98,11 @@
 		max-width: 100%;
 	}
 
-	// Same as .combo-wiki__option--selected.cdx-button, drawn as an outline so it shows on top of
-	// the wallet SDK buttons too
+	// drawn as an outline so it shows on top of the wallet SDK buttons
 	> .combo-wiki__option--selected {
 		outline: 2px solid @border-color-progressive;
-		outline-offset: -2px;
+		margin-bottom: 0.5em;
+		border-radius: 2px;
 	}
 
 	.cdx-button {
