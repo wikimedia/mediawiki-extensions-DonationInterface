@@ -49,6 +49,19 @@ trait SmashPigEnvironmentTrait {
 	}
 
 	/**
+	 * @param string $provider
+	 * @return TestingProviderConfiguration
+	 */
+	protected function overrideSmashPigProviderConfiguration( string $provider ): TestingProviderConfiguration {
+		$providerConfig = TestingProviderConfiguration::createForProvider(
+			$provider,
+			$this->smashPigGlobalConfig
+		);
+		TestingContext::get()->overrideConfigurationForProvider( $providerConfig );
+		return $providerConfig;
+	}
+
+	/**
 	 * Clear everything out so as not to contaminate the next test run
 	 * @return void
 	 */
