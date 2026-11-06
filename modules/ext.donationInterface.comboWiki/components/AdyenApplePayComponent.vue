@@ -1,7 +1,8 @@
 <template>
-	<div
-		id="applepay-container"
-	>
+	<div class="payment-method-form">
+		<method-submit>
+			<div id="applepay-container"></div>
+		</method-submit>
 	</div>
 </template>
 
@@ -10,9 +11,13 @@
 
 const { defineComponent, onBeforeUnmount, onMounted, inject, toRaw, watch } = require( 'vue' );
 const { getAdyenCheckout, getAdyenApplePayConfiguration, handleAdyenError, amountInMinorUnits } = require( '../utils.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenApplePay',
+	components: {
+		'method-submit': MethodSubmit
+	},
 	inject: [ 'params' ],
 
 	props: {

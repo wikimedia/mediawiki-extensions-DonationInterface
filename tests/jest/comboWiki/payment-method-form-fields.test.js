@@ -51,7 +51,20 @@ async function mountForm( { paymentMethod = 'paypal', frequency = 'month', param
 }
 
 // cdx-field gives its input a generated id, so find it by placeholder (the i18n key here)
-const stateInput = ( wrapper ) => wrapper.find( 'input[placeholder^="donate_interface-donor-state_province"]' );
+/**
+ * Finds a donor details input by its visible label (the i18n key here), which
+ * cdx-field links to the input with for/id.
+ *
+ * @param {Object} wrapper
+ * @param {string} key Field key, e.g. first_name
+ * @return {Object} The input wrapper (exists() is false when there is none)
+ */
+function inputByLabel( wrapper, key ) {
+	const label = wrapper.findAll( 'label' )
+		.find( ( l ) => l.text().startsWith( `donate_interface-donor-${ key }` ) );
+	return label ? wrapper.find( `input[id="${ label.attributes( 'for' ) }"]` ) : wrapper.find( 'input#no-such-field' );
+}
+const stateInput = ( wrapper ) => inputByLabel( wrapper, 'state_province' );
 const button = ( wrapper, text ) => wrapper.findAll( 'button' ).find( ( b ) => b.text() === text );
 
 describe( 'ComboWiki details form for the selected payment method', () => {
@@ -69,8 +82,19 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 
 	it( 'labels the PayPal submit button so it is not mistaken for the PayPal option', async () => {
 		const wrapper = await mountForm();
-		expect( button( wrapper, 'combowiki-method-paypal' ).exists() ).toBe( true );
 		expect( button( wrapper, 'combowiki-donate-with-paypal' ).exists() ).toBe( true );
+		// The PayPal option is back once the donor goes back to the methods
+		await button( wrapper, 'combowiki-change-payment-method' ).trigger( 'click' );
+		expect( button( wrapper, 'combowiki-method-paypal' ).exists() ).toBe( true );
+	} );
+
+	it( 'puts the submit button below the bordered box, not inside it', async () => {
+		const wrapper = await mountForm();
+		const box = wrapper.find( '.combo-wiki__method-form' );
+		const slot = wrapper.find( '.combo-wiki__method-submit' );
+		expect( box.exists() ).toBe( true );
+		expect( box.text() ).not.toContain( 'combowiki-donate-with-paypal' );
+		expect( slot.text() ).toContain( 'combowiki-donate-with-paypal' );
 	} );
 
 	it( 'does not submit while a required field is empty, and shows its error', async () => {

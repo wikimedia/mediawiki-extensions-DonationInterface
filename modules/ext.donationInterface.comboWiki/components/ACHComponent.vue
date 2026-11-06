@@ -12,26 +12,30 @@
 			>
 		</p>
 
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			:disabled="isSubmitting"
-			@click="submit"
-		>
-			{{ signInBank }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				:disabled="isSubmitting"
+				@click="submit"
+			>
+				{{ signInBank }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'ACHComponent',
 
 	components: {
+		'method-submit': MethodSubmit,
 		CdxButton
 	},
 

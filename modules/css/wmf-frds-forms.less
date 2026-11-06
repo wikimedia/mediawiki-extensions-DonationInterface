@@ -1,0 +1,93 @@
+.fieldset {
+	display: flex;
+	flex-direction: column;
+	gap: @size-3;
+
+	// Rows of a form are 12px apart
+	&__fields {
+		display: flex;
+		flex-direction: column;
+		gap: @size-3;
+	}
+
+	// A field: label (and description), input, then help or error text, 4px apart
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: @size-1;
+
+		// The gap spaces the parts, so drop Codex's own space around them
+		> .cdx-label {
+			gap: @size-1;
+			padding-bottom: 0;
+		}
+
+		> .cdx-field__help-text,
+		> .cdx-field__validation-message {
+			margin-top: 0;
+		}
+
+		// Fields side by side; stacked on small screens as rows, 12px apart
+		&__columns {
+			display: flex;
+			flex-direction: column;
+			gap: @size-3 @size-2;
+		}
+
+		&__cc {
+			display: flex;
+			flex-direction: row;
+			gap: 0;
+
+			> * {
+				flex: 0 0 auto;
+				min-width: 0;
+			}
+
+			> :first-child {
+				flex: 1 1 0;
+				border-right: 0 !important;
+			}
+
+			> :nth-child( 2 ) {
+				flex-basis: 104px;
+				border-left: 0 !important;
+				border-right: 0 !important;
+			}
+
+			> :nth-child( 3 ) {
+				flex-basis: 80px;
+				border-left: 0 !important;
+			}
+		}
+
+		// Every input is 50px tall: text inputs, lookups (e.g. employer) and selects
+		.cdx-text-input__input,
+		select.cdx-select,
+		.cdx-select-vue__handle {
+			min-height: 50px !important;
+		}
+	}
+}
+
+@media only screen and ( min-width: 481px ) {
+	.fieldset {
+		.field {
+			&__columns {
+				flex-direction: row;
+				// Top aligned, so a field doesn't move down when the one next to it shows an error
+				align-items: flex-start;
+
+				> * {
+					flex: 1 1 0;
+					min-width: 0;
+				}
+
+				.cdx-text-input {
+					min-width: initial !important;
+					width: 100%;
+				}
+			}
+		}
+	}
+}

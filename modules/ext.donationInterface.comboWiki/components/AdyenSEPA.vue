@@ -11,14 +11,16 @@
 			{{ $i18n( 'donate_interface-sepa-mandate-yearly' ).text() }}
 		</p>
 
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			@click="submit"
-		>
-			{{ $i18n( 'donate_interface-submit-button' ).text() }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				@click="submit"
+			>
+				{{ $i18n( 'donate_interface-submit-button' ).text() }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -27,12 +29,14 @@
 const { defineComponent, toRaw } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const { getAdyenCheckout, handleAdyenError } = require( '../utils.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenSEPA',
 
 	components: {
-		CdxButton
+		CdxButton,
+		'method-submit': MethodSubmit
 	},
 
 	inject: [ 'params' ],

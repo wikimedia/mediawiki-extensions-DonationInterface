@@ -5,12 +5,14 @@
 		data-autoscroll
 	>
 		<!-- PayPal's own button, defined by the PayPal SDK that loadPayPalSDK() loads -->
-		<paypal-button
-			v-show="ready"
-			type="donate"
-			class="combo-wiki__button-submit paypal-button"
-			@click="startPayPal"
-		></paypal-button>
+		<method-submit>
+			<paypal-button
+				v-show="ready"
+				type="donate"
+				class="combo-wiki__button-submit paypal-button"
+				@click="startPayPal"
+			></paypal-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -19,6 +21,7 @@
 const { defineComponent, inject, onMounted, ref } = require( 'vue' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 const { useAppState } = require( '../composables/useAppState.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 // PayPal adds these to returnUrl when it sends the donor back from the redirect
 const PAYPAL_RETURN_PARAMS = [ 'token', 'ba_token' ];
@@ -54,6 +57,9 @@ function pageUrlWithout( names ) {
 
 module.exports = exports = defineComponent( {
 	name: 'BraintreePayPal',
+	components: {
+		'method-submit': MethodSubmit
+	},
 	compilerOptions: {
 		// paypal-button is a web component from the PayPal SDK, not a Vue component
 		isCustomElement: ( tag ) => tag === 'paypal-button'

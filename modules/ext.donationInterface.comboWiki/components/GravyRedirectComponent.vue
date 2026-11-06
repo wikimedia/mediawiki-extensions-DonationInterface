@@ -1,24 +1,28 @@
 <template>
-	<cdx-button
-		:action="donorDetails ? 'progressive' : 'default'"
-		:weight="donorDetails ? 'primary' : 'normal'"
-		:class="{ 'payment-method-form combo-wiki__button-submit': donorDetails }"
-		:data-autoscroll="donorDetails ? null : ''"
-		@click="submitDonation"
-	>
-		{{ buttonLabel }}
-	</cdx-button>
+	<method-submit>
+		<cdx-button
+			:action="donorDetails ? 'progressive' : 'default'"
+			:weight="donorDetails ? 'primary' : 'normal'"
+			:class="{ 'payment-method-form combo-wiki__button-submit': donorDetails }"
+			:data-autoscroll="donorDetails ? null : ''"
+			@click="submitDonation"
+		>
+			{{ buttonLabel }}
+		</cdx-button>
+	</method-submit>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const { useAppState } = require( '../composables/useAppState.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyRedirectComponent',
 
 	components: {
+		'method-submit': MethodSubmit,
 		'cdx-button': CdxButton
 	},
 

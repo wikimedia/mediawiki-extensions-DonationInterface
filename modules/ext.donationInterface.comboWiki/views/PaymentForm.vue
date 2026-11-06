@@ -31,31 +31,38 @@
 					@update:pay-fee="donation.payFee = $event"
 					@update:country="onCountryChange"
 				></amount-selector>
-				<!-- Email opt-in -->
-				<optin-fieldset
-					v-if="showField( 'opt_in' )"
-					v-model="donation.optIn"
-					:messages="messages.optIn"
-					:status="status.optIn"
-					@on-change="( val ) => onInput( 'optIn' )"
-				></optin-fieldset>
-				<!-- Employer -->
-				<employer-field
-					v-if="showField( 'employer' )"
-					v-model:employer="donation.employer"
-					v-model:employer-id="donation.employerId"
-					:is-required="isFieldRequired( 'employer' )"
-				></employer-field>
 
-				<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
-					sms-optin tag on forms without the smsOptin variant -->
-				<component
-					:is="variantComponents.smsOptin"
-					v-if="showSmsOptin && variantComponents.smsOptin"
-					v-model:phone="donation.phone"
-					v-model:sms-optin="donation.smsOptin"
-					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
-				></component>
+				<!-- Donor Info -->
+				<div class="fieldset">
+					<div class="fieldset__fields">
+						<!-- Email opt-in -->
+						<optin-fieldset
+							v-if="showField( 'opt_in' )"
+							v-model="donation.optIn"
+							:messages="messages.optIn"
+							:status="status.optIn"
+							@on-change="( val ) => onInput( 'optIn' )"
+						></optin-fieldset>
+
+						<!-- Employer -->
+						<employer-field
+							v-if="showField( 'employer' )"
+							v-model:employer="donation.employer"
+							v-model:employer-id="donation.employerId"
+							:is-required="isFieldRequired( 'employer' )"
+						></employer-field>
+
+						<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
+							sms-optin tag on forms without the smsOptin variant -->
+						<component
+							:is="variantComponents.smsOptin"
+							v-if="showSmsOptin && variantComponents.smsOptin"
+							v-model:phone="donation.phone"
+							v-model:sms-optin="donation.smsOptin"
+							:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
+						></component>
+					</div>
+				</div>
 
 				<!-- Hidden when returning to offer monthly convert: mounting the card form
 					would create a new checkout session for a donation that is already made -->

@@ -1,6 +1,6 @@
 <template>
 	<div class="combo-wiki__employer">
-		<cdx-field :optional="!isRequired">
+		<cdx-field class="field" :optional="!isRequired">
 			<cdx-lookup
 				id="combo-employer-name"
 				v-model:selected="selectedEmployerId"

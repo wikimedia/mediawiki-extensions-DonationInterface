@@ -1,5 +1,5 @@
 <template>
-	<div class="combo-wiki__card payment-method-form" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
+	<div class="combo-wiki__card payment-method-form fieldset" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
 		<div id="secure-fields-section">
 			<div>
 				<cdx-label class="secure-field-label">
@@ -32,14 +32,16 @@
 			{{ $i18n( 'donate_interface-error-msg-validation' ).text() }}
 		</cdx-message>
 
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			@click="submit"
-		>
-			{{ $i18n( 'donate_interface-submit-button' ).text() }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				@click="submit"
+			>
+				{{ $i18n( 'donate_interface-submit-button' ).text() }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -48,11 +50,13 @@
 const { defineComponent } = require( 'vue' );
 const { CdxButton, CdxLabel, CdxMessage } = require( '@wikimedia/codex' );
 const { loadScript } = require( '../utils.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyCardForm',
 
 	components: {
+		'method-submit': MethodSubmit,
 		'cdx-button': CdxButton,
 		'cdx-label': CdxLabel,
 		'cdx-message': CdxMessage

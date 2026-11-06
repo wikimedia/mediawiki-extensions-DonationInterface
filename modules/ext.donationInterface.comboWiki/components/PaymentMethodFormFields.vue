@@ -2,11 +2,18 @@
 	<!-- The donor details a payment method form asks for, as listed in its formFields.
 		Each payment method form adds its own submit button (and e.g. card number fields). -->
 	<div class="payment-method-form combo-wiki__donor-details">
-		<h2>{{ $i18n( 'combowiki-your-details-heading' ).text() }}</h2>
+		<div class="fieldset">
+			<div class="fieldset__label">
+				<p class="text text--base">
+					<strong>{{ $i18n( 'combowiki-your-details-heading' ).text() }}</strong>
+				</p>
+			</div>
+		</div>
 		<div class="combo-wiki__form-fields">
-			<div class="combo-wiki__card-fields-row">
+			<div class="field__columns">
 				<cdx-field
 					v-if="showField( 'first_name' )"
+					class="field"
 					:optional="!isFieldRequired( 'first_name' )"
 					:status="validation.status.first_name"
 					:messages="validation.messages.first_name"
@@ -29,6 +36,7 @@
 
 				<cdx-field
 					v-if="showField( 'last_name' )"
+					class="field"
 					:optional="!isFieldRequired( 'last_name' )"
 					:status="validation.status.last_name"
 					:messages="validation.messages.last_name"
@@ -52,6 +60,7 @@
 
 			<cdx-field
 				v-if="showField( 'email' )"
+				class="field"
 				:optional="!isFieldRequired( 'email' )"
 				:status="validation.status.email"
 				:messages="isMailcheckWarning ? {} : validation.messages.email"
@@ -81,9 +90,10 @@
 				</template>
 			</cdx-field>
 
-			<div class="combo-wiki__card-fields-row">
+			<div class="field__columns">
 				<cdx-field
 					v-if="showField( 'street_address' )"
+					class="field"
 					:optional="!isFieldRequired( 'street_address' )"
 					:status="validation.status.street_address"
 					:messages="validation.messages.street_address"
@@ -105,6 +115,7 @@
 				</cdx-field>
 				<cdx-field
 					v-if="showField( 'street_number' )"
+					class="field"
 					:optional="!isFieldRequired( 'street_number' )"
 					:status="validation.status.street_number"
 					:messages="validation.messages.street_number"
@@ -126,9 +137,10 @@
 			</div>
 
 			<!-- Keep these 3 fields in one single row, despite of the visibility -->
-			<div class="combo-wiki__card-fields-row">
+			<div class="field__columns">
 				<cdx-field
 					v-if="showField( 'city' )"
+					class="field"
 					:optional="!isFieldRequired( 'city' )"
 					:status="validation.status.city"
 					:messages="validation.messages.city"
@@ -151,6 +163,7 @@
 
 				<cdx-field
 					v-if="showField( 'state_province' )"
+					class="field"
 					:optional="!isFieldRequired( 'state_province' )"
 					:status="validation.status.state_province"
 					:messages="validation.messages.state_province"
@@ -202,6 +215,7 @@
 
 				<cdx-field
 					v-if="showField( 'postal_code' )"
+					class="field"
 					:optional="!isFieldRequired( 'postal_code' )"
 					:status="validation.status.postal_code"
 					:messages="validation.messages.postal_code"
@@ -225,6 +239,7 @@
 
 			<cdx-field
 				v-if="showField( 'fiscal_number' )"
+				class="field"
 				:optional="!isFieldRequired( 'fiscal_number' )"
 				:status="validation.status.fiscal_number"
 				:messages="validation.messages.fiscal_number"

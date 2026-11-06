@@ -10,26 +10,30 @@
 			{{ $i18n( 'donate_interface-sepa-mandate-yearly' ).text() }}
 		</p>
 
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			:disabled="isSubmitting"
-			@click="submit"
-		>
-			{{ donateBtn }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				:disabled="isSubmitting"
+				@click="submit"
+			>
+				{{ donateBtn }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'SEPAComponent',
 
 	components: {
+		'method-submit': MethodSubmit,
 		CdxButton
 	},
 
