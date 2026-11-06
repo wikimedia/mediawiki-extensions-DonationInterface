@@ -120,8 +120,6 @@ class DonateTest extends DonationInterfaceTestCase {
 	protected function setSmashPigAdyenProviderConfiguration(): void {
 		$this->providerConfigs['adyen'] = $this->overrideSmashPigProviderConfiguration( 'adyen' );
 		$this->adyenCardPaymentProvider = $this->createMock( AdyenCardPaymentProvider::class );
-		$paymentMethods = new PaymentMethodResponse();
-		$paymentMethods->setPaymentMethods( [ 'a' => 'b' ] );
 		$this->adyenCardPaymentProvider->method( 'getPaymentMethods' )
 			->willReturn( ( new PaymentMethodResponse() )->setPaymentMethods( [ 'a' => 'b' ] ) );
 		$this->providerConfigs['adyen']->overrideObjectInstance( 'payment-provider/cc', $this->adyenCardPaymentProvider );
