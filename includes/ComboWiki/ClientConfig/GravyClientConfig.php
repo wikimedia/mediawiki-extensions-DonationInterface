@@ -4,16 +4,28 @@ namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
 use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
+use Psr\Log\LoggerInterface;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
  * The Gravy config for the ComboWiki frontend, and a DNS prefetch for the Apple Pay script.
  */
 class GravyClientConfig extends GatewayClientConfig {
 
+	/**
+	 * Payment methods whose frontend form needs a checkout session before it can be set up
+	 */
+	private const CHECKOUT_SESSION_METHODS = [
+		'cc',
+	];
+
+	private ?string $sessionID = null;
+
 	public function __construct(
 		private readonly array $routingParams,
 		private readonly array $paymentMethods,
-		Config $mwConfig
+		Config $mwConfig,
+		private readonly LoggerInterface $logger
 	) {
 		$this->config = $mwConfig;
 	}
@@ -24,7 +36,7 @@ class GravyClientConfig extends GatewayClientConfig {
 
 	/** @inheritDoc */
 	public function getVars(): array {
-		return [
+		$params = [
 			'gravyConfiguration' => [
 				'gravyID' => $this->getAccountConfig( 'gravyID' ),
 				'locale' => $this->getLocale( $this->routingParams['language'], $this->routingParams['country'] ),
@@ -43,6 +55,16 @@ class GravyClientConfig extends GatewayClientConfig {
 				'appleScript' => $this->getAccountConfig( 'AppleScript' ),
 			]
 		];
+		if ( in_array(
+			( $this->routingParams['payment_method'] ?? null ), self::CHECKOUT_SESSION_METHODS, true
+		) ) {
+			$sessionID = $this->getSessionID();
+			if ( $sessionID ) {
+				// TODO: Store gravy-specific session ID under gravyConfiguration
+				$params['comboWiki']['gateway_session_id'] = $this->getSessionID();
+			}
+		}
+		return $params;
 	}
 
 	/** @inheritDoc */
@@ -62,5 +84,30 @@ class GravyClientConfig extends GatewayClientConfig {
 				] );
 			}
 		}
+	}
+
+	/**
+	 * @return string|null
+	 */
+	private function getSessionID(): ?string {
+		if ( !$this->sessionID ) {
+			$provider = PaymentProviderFactory::getDefaultProvider();
+			'@phan-var \SmashPig\PaymentProviders\Gravy\CardPaymentProvider $provider';
+			try {
+				$createPaymentSessionResponse = $provider->createPaymentSession();
+			} catch ( \Exception $e ) {
+				// Leave it to the form to create a session, rather than fail the page
+				$this->logger->error( 'Creating checkout session failed: ' . $e->getMessage() );
+				return null;
+			}
+			if ( !$createPaymentSessionResponse->isSuccessful() ) {
+				$this->logger->error(
+					'Creating checkout session failed. Raw response: ' . $createPaymentSessionResponse->getRawResponse()
+				);
+				return null;
+			}
+			$this->sessionID = $createPaymentSessionResponse->getPaymentSession();
+		}
+		return $this->sessionID;
 	}
 }
