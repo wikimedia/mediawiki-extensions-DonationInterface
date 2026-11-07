@@ -17,6 +17,7 @@
 <script>
 /* global braintree */
 const { defineComponent, inject, onMounted, ref } = require( 'vue' );
+const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 // PayPal adds these to returnUrl when it sends the donor back from the redirect
@@ -98,13 +99,31 @@ module.exports = exports = defineComponent( {
 		 */
 		function submitApproved( billingToken ) {
 			return paypalCheckout.tokenizePayment( { billingToken } ).then( ( payload ) => {
-				ctx.emit( 'submit', {
+				const sendData = {
 					payment_token: payload.nonce,
 					device_data: deviceData,
 					first_name: payload.details.firstName,
 					last_name: payload.details.lastName,
 					email: payload.details.email
-				} );
+				};
+
+				if ( !hasValidWalletName( sendData.first_name ) ||
+					!hasValidWalletName( sendData.last_name ) ||
+					!hasValidWalletEmail( sendData.email ) ) {
+					showWalletFallbackFields(
+						$( '#braintree-paypal' ),
+						sendData.email,
+						( firstName, lastName, email ) => {
+							sendData.first_name = firstName;
+							sendData.last_name = lastName;
+							sendData.email = email;
+							ctx.emit( 'submit', sendData );
+						}
+					);
+					return;
+				}
+
+				ctx.emit( 'submit', sendData );
 			} ).catch( emitError );
 		}
 
