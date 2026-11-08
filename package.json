@@ -32,7 +32,7 @@
 		"jest-when": "^3.2.1",
 		"jquery": "^3.7.1",
 		"stylelint-config-wikimedia": "0.19.3",
-		"vue": "3.5.13",
+		"vue": "3.5.45",
 		"vue-router": "4.5.1"
 	}
 }
