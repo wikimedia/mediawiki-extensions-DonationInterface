@@ -516,7 +516,11 @@ module.exports = exports = defineComponent( {
 				this.appState.setError( code.messages.join( ' ' ) );
 				return;
 			}
-			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+			let errorMessage = this.$i18n( 'combowiki-payment-failed' ).text();
+			if ( code && code.type && code.message ) {
+				errorMessage = code.type + ': ' + code.message;
+			}
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + errorMessage );
 			mw.log.error( 'di_donate_' + getGateway( this.donation.paymentMethod ) + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
