@@ -262,7 +262,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			$vars['comboWiki']['paymentMethods'], 'monthlyConvert', 'method'
 		);
 		$this->assertSame(
-			[ 'cc' => true, 'paypal' => true, 'venmo' => false ],
+			[ 'cc' => true, 'paypal' => false, 'venmo' => false ],
 			[
 				'cc' => $monthlyConvertForEachMethod['cc'],
 				'paypal' => $monthlyConvertForEachMethod['paypal'],
@@ -1489,14 +1489,14 @@ class DonateTest extends DonationInterfaceTestCase {
 	 */
 	public function testMonthlyConvertReturnUsesTheGatewayOfTheDonation(): void {
 		$donate = $this->executeMonthlyConvertReturn(
-			[ 'order_id' => '123.1', 'gateway' => 'braintree' ],
-			$this->getDonorBackup( [ 'gateway' => 'braintree', 'payment_method' => 'paypal' ] )
+			[ 'order_id' => '123.1', 'gateway' => 'adyen' ],
+			$this->getDonorBackup( [ 'gateway' => 'adyen', 'payment_method' => 'cc' ] )
 		);
 		$vars = [];
 		$donate->setClientVariables( $vars );
 
 		$this->assertSame( '', $donate->getOutput()->getRedirect() );
-		$this->assertSame( 'braintree', $vars['comboWiki']['gateway'] );
+		$this->assertSame( 'adyen', $vars['comboWiki']['gateway'] );
 		$this->assertArrayHasKey( 'wgDonationInterfaceMonthlyConvertAmounts', $vars );
 	}
 

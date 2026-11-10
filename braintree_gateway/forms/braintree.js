@@ -163,6 +163,7 @@
 	}
 
 	function setup() {
+		const isRecurring = !!$( '#recurring' ).val();
 		if ( payment_method === 'paypal' ) {
 			createBraintreeClient().then( ( braintreeClientInstance ) => {
 				getDeviceData( braintreeClientInstance );
@@ -171,54 +172,66 @@
 					client: braintreeClientInstance
 				} );
 			} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
-				vault: true
-			} ) ).then( ( paypalCheckoutInstance ) => paypal.Buttons( {
-				fundingSource: paypal.FUNDING.PAYPAL,
+				vault: isRecurring
+			} ) ).then( ( paypalCheckoutInstance ) => {
+				const args = {
+					fundingSource: paypal.FUNDING.PAYPAL,
+					onApprove: function ( data, actions ) {
+						return paypalCheckoutInstance.tokenizePayment( data ).then( ( payload ) => {
+							const sendData = {
+								payment_token: payload.nonce,
+								device_data: myDeviceData,
+								first_name: payload.details.firstName,
+								last_name: payload.details.lastName,
+								email: payload.details.email,
+								street_address: payload.details.shippingAddress
+							};
 
-				createBillingAgreement: function () {
-					return paypalCheckoutInstance.createPayment( {
-						flow: 'vault' // Required
-					} );
-				},
+							if ( !hasValidWalletName( sendData.first_name ) ||
+								!hasValidWalletName( sendData.last_name ) ||
+								!hasValidWalletEmail( sendData.email ) ) {
+								showWalletFallbackFields(
+									$( '#paypal-button' ),
+									sendData.email,
+									( firstName, lastName, email ) => {
+										sendData.first_name = firstName;
+										sendData.last_name = lastName;
+										sendData.email = email;
+										di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+									}
+								);
+							} else {
+								di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+							}
+						} );
+					},
 
-				onApprove: function ( data, actions ) {
-					return paypalCheckoutInstance.tokenizePayment( data ).then( ( payload ) => {
-						const sendData = {
-							payment_token: payload.nonce,
-							device_data: myDeviceData,
-							first_name: payload.details.firstName,
-							last_name: payload.details.lastName,
-							email: payload.details.email,
-							street_address: payload.details.shippingAddress
-						};
+					onCancel: function ( data ) {
+						showClientSideErrorMessage( 'PayPal payment canceled' + JSON.stringify( data, 0, 2 ) );
+					},
 
-						if ( !hasValidWalletName( sendData.first_name ) ||
-							!hasValidWalletName( sendData.last_name ) ||
-							!hasValidWalletEmail( sendData.email ) ) {
-							showWalletFallbackFields(
-								$( '#paypal-button' ),
-								sendData.email,
-								( firstName, lastName, email ) => {
-									sendData.first_name = firstName;
-									sendData.last_name = lastName;
-									sendData.email = email;
-									di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
-								}
-							);
-						} else {
-							di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
-						}
-					} );
-				},
-
-				onCancel: function ( data ) {
-					showClientSideErrorMessage( 'PayPal payment canceled' + JSON.stringify( data, 0, 2 ) );
-				},
-
-				onError: function ( err ) {
-					showClientSideErrorMessage( 'PayPal error' + err );
+					onError: function ( err ) {
+						showClientSideErrorMessage( 'PayPal error' + err );
+					}
+				};
+				if ( isRecurring ) {
+					args.createBillingAgreement = function () {
+						return paypalCheckoutInstance.createPayment( {
+							flow: 'vault' // Required
+						} );
+					};
+				} else {
+					args.createOrder = function () {
+						return paypalCheckoutInstance.createPayment( {
+							flow: 'checkout',
+							currency: $( '#currency' ).val(),
+							amount: $( '#amount' ).val(),
+							intent: 'authorize'
+						} );
+					};
 				}
-			} ).render( '#paypal-button' ) ).then( () => {
+				paypal.Buttons( args ).render( '#paypal-button' );
+			} ).then( () => {
 				// The PayPal button will be rendered in an html element with the ID
 				// `paypal-button`. This function will be called when the PayPal button
 				// is set up and ready to be used

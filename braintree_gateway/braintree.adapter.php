@@ -12,8 +12,7 @@ use SmashPig\PaymentProviders\Braintree\TransactionType;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 
-class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
-	use RecurringConversionTrait;
+class BraintreeAdapter extends GatewayAdapter {
 
 	const GATEWAY_NAME = 'Braintree';
 	const IDENTIFIER = 'braintree';
@@ -81,9 +80,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 				'recurring_payment_token' => $createPaymentResult->getRecurringPaymentToken(),
 				'processor_contact_id' => $createPaymentResult->getProcessorContactID(),
 			] );
-			if ( $this->showMonthlyConvert() ) {
-				$this->session_addDonorData();
-			}
 		}
 
 		switch ( $transactionStatus ) {
@@ -148,11 +144,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		);
 		'@phan-var PaymentProvider $provider';
 		$createPaymentParams = $this->buildRequestArray();
-		// If we are going to ask for a monthly donation after a one-time donation completes, set the
-		// recurring param to 1 to tokenize the payment.
-		if ( $this->showMonthlyConvert() ) {
-			$createPaymentParams['recurring'] = 1;
-		}
 		$this->logger->info( "Calling createPayment for Braintree payment with: " . json_encode( $createPaymentParams ) );
 		$createPaymentResult = $provider->createPayment( $createPaymentParams );
 		$validationErrors = $createPaymentResult->getValidationErrors();
@@ -270,10 +261,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			);
 		}
 		return PaymentResult::newFailure( $localizedErrors );
-	}
-
-	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'paypal' ];
 	}
 
 	/** @inheritDoc */
