@@ -77,7 +77,7 @@ module.exports = exports = defineComponent( {
 		};
 
 		function getPaymentMethodUsage() {
-			return props.donation.frequency === 'monthly' || props.donation.frequency === 'annual' ? 'multi_use' : 'single_use';
+			return props.donation.frequency === 'month' || props.donation.frequency === 'year' ? 'multi_use' : 'single_use';
 		}
 
 		function submitApproved( payload ) {

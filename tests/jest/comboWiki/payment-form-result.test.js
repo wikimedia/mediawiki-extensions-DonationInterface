@@ -64,7 +64,7 @@ describe( 'ComboWiki payment form after a successful donation', () => {
 
 	it( 'leaves the redirect to the payment method when the API sends form data to post', async () => {
 		// e.g. AdyenCardForm posting to the card issuer's 3D Secure page
-		await donationSucceeds( 'monthly', {
+		await donationSucceeds( 'month', {
 			redirect: 'https://bank.example/3ds',
 			formData: { PaReq: 'PAREQ', MD: 'MD', TermUrl: 'https://donate.example/return' }
 		} );
@@ -77,7 +77,7 @@ describe( 'ComboWiki payment form after a successful donation', () => {
 		[ 'empty form data', { formData: {} } ],
 		[ 'null form data', { formData: null } ]
 	] )( 'redirects the donor when the API sends %s', async ( label, response ) => {
-		await donationSucceeds( 'monthly', Object.assign( { redirect: 'https://thankyou.wiki' }, response ) );
+		await donationSucceeds( 'month', Object.assign( { redirect: 'https://thankyou.wiki' }, response ) );
 		expect( redirectTargetUrl ).toHaveBeenCalledWith( 'https://thankyou.wiki' );
 	} );
 

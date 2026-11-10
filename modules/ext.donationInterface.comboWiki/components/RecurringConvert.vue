@@ -266,7 +266,7 @@ module.exports = exports = defineComponent( {
 			if ( this.isPreModal ) {
 				const updatedDonation = Object.assign( {}, this.donation );
 				if ( !declineMonthlyConvert ) {
-					updatedDonation.frequency = 'monthly';
+					updatedDonation.frequency = 'month';
 					updatedDonation.amount = amount;
 				}
 

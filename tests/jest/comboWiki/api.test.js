@@ -35,7 +35,7 @@ describe( 'ComboWiki donate API params, from donateParamMap', () => {
 	it( 'sends a recurring ACH donation with an employer as before', () => {
 		expect( paramsFor( {
 			paymentMethod: 'ach',
-			frequency: 'monthly',
+			frequency: 'month',
 			amount: 10,
 			currency: 'USD',
 			country: 'US',
@@ -72,6 +72,12 @@ describe( 'ComboWiki donate API params, from donateParamMap', () => {
 			recurring: 1,
 			frequency_unit: 'month'
 		} );
+	} );
+
+	it( 'sends the frequency unit for an annual donation', () => {
+		const params = paramsFor( { paymentMethod: 'card', frequency: 'year' } );
+		expect( params.recurring ).toBe( 1 );
+		expect( params.frequency_unit ).toBe( 'year' );
 	} );
 
 	it( 'leaves out the params that don\'t apply to a one-time card donation', () => {
@@ -123,13 +129,18 @@ describe( 'ComboWiki gateway and token for each payment method', () => {
 	} );
 
 	it( 'creates a recurring checkout session on the gateway of the payment method', () => {
-		expect( postedParams( TOKENS, () => api.createCheckoutSession( { paymentMethod: 'card', frequency: 'monthly' } ) ) )
+		expect( postedParams( TOKENS, () => api.createCheckoutSession( { paymentMethod: 'card', frequency: 'month' } ) ) )
 			.toMatchObject( {
 				action: 'di_checkoutsession_gravy',
 				gateway: 'gravy',
 				wmf_token: 'gravy-token',
 				recurring: 1
 			} );
+	} );
+
+	it( 'creates a recurring checkout session for an annual donation', () => {
+		expect( postedParams( TOKENS, () => api.createCheckoutSession( { paymentMethod: 'card', frequency: 'year' } ) ).recurring )
+			.toBe( 1 );
 	} );
 
 	it( 'creates a one-time checkout session for a one-time donation', () => {

@@ -64,19 +64,6 @@ function getToken( gateway ) {
 	return ( apiConfig.wmf_tokens || {} )[ gateway ] || apiConfig.wmf_token;
 }
 
-const frequencyUnitMap = {
-	monthly: 'month',
-	annual: 'year'
-};
-
-/**
- * @param {string} frequency ComboWiki frequency, e.g. monthly
- * @return {string|undefined} The server frequency unit, only for a recurring frequency
- */
-function getFrequencyUnit( frequency ) {
-	return frequencyUnitMap[ frequency ];
-}
-
 /**
  * @return {string} The utm_key from the URL if it exists, otherwise calculate
  */
@@ -90,11 +77,11 @@ function getUtmKey() {
 }
 
 /**
- * @param {string} frequency ComboWiki frequency, e.g. monthly
+ * @param {string} frequency ComboWiki frequency, e.g. month
  * @return {number|undefined} 1 for a recurring frequency
  */
 function getRecurring( frequency ) {
-	return getFrequencyUnit( frequency ) ? 1 : undefined;
+	return ( frequency && frequency !== 'once' ) ? 1 : undefined;
 }
 
 /**
@@ -165,9 +152,11 @@ function getBaseDonateParams( donation ) {
 		employer: getEmployer( donation.employer ),
 		employer_id: getEmployerId( donation.employerId ),
 		utm_key: getUtmKey(),
-		recurring: getRecurring( donation.frequency ),
-		frequency_unit: getFrequencyUnit( donation.frequency )
+		recurring: getRecurring( donation.frequency )
 	};
+	if ( donation.frequency && donation.frequency !== 'once' ) {
+		params.frequency_unit = donation.frequency;
+	}
 	for ( const [ apiName, propertyName ] of Object.entries( donateParamMap ) ) {
 		if ( donation[ propertyName ] ) {
 			params[ apiName ] = donation[ propertyName ];
@@ -190,7 +179,7 @@ function submitDonation( donation, paymentMethodData ) {
 
 function createCheckoutSession( donation ) {
 	const gateway = getGateway( donation.paymentMethod );
-	const recurring = [ 'monthly', 'annual' ].includes( donation.frequency ) ? 1 : 0;
+	const recurring = [ 'month', 'year' ].includes( donation.frequency ) ? 1 : 0;
 	return apiPost( {
 		action: 'di_checkoutsession_' + gateway,
 		gateway: gateway,
