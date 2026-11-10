@@ -11,7 +11,7 @@ module.exports = exports = defineComponent( {
 
 	data() {
 		return {
-			policyUrl: 'https://foundation.wikimedia.org/wiki/Privacy_policy'
+			policyUrl: 'https://foundation.wikimedia.org/wiki/Policy:Donor_privacy_policy'
 		};
 	},
 	computed: {
