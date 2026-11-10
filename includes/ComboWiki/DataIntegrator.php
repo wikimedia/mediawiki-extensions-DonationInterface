@@ -430,7 +430,8 @@ class DataIntegrator {
 		$overwrite = [ 'referrer', 'contribution_tracking_id' ];
 		// fields that should NOT be restored from session unless explicitly provided in current request
 		// 'country' should use geolocation (ip_country) as fallback when not explicitly provided
-		$doNotRestoreFromSession = [ 'country' ];
+		// same for payment_method and amount, should not persist if not explicitly provided
+		$doNotRestoreFromSession = [ 'country', 'payment_method', 'amount' ];
 
 		$query_values = $this->request->getQueryValues();
 		$post_values = json_decode( $this->request->getRawInput(), true ) ?: [];

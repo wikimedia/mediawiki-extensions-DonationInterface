@@ -163,7 +163,7 @@ class Donate extends UnlistedSpecialPage {
 			'currency' => $this->donationDetails->getValue( 'currency', 'USD' ),
 			'frequency_unit' => $this->donationDetails->getValue( 'frequency_unit', '' ),
 			'order_id' => $this->donationDetails->getValue( 'order_id' ),
-			'payment_method' => $this->donationDetails->getValue( 'payment_method', 'cc' ),
+			'payment_method' => $this->donationDetails->getValue( 'payment_method', '' ),
 			'payment_submethod' => $this->donationDetails->getValue( 'payment_submethod' ),
 			'recurring' => $this->donationDetails->getValue( 'recurring' ),
 			'variant' => $this->donationDetails->getValue( 'variant' ),

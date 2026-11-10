@@ -215,7 +215,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		$params = $vars['comboWiki'];
 		$this->assertEquals( 'US', $params['country'] );
 		$this->assertEquals( 'USD', $params['currency'] );
-		$this->assertEquals( 'cc', $params['payment_method'] );
+		$this->assertSame( '', $params['payment_method'] );
 	}
 
 	public function testGravyClientVariablesIncludeGravySessionData(): void {
