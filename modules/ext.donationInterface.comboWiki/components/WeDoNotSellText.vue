@@ -4,6 +4,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
+const { openLinksInNewTab } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'WeDoNotSellText',
@@ -15,7 +16,7 @@ module.exports = exports = defineComponent( {
 	},
 	computed: {
 		weDoNotSellShareInfo() {
-			return this.$i18n( 'donate_interface-informationsharing', this.policyUrl ).text();
+			return openLinksInNewTab( this.$i18n( 'donate_interface-informationsharing', this.policyUrl ).text() );
 		}
 	}
 } );
