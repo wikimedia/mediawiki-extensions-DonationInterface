@@ -739,7 +739,9 @@
 				"donate_interface-rtbt-issuer_id",
 				"donate_interface-bt-account_holder",
 				"donate_interface-ach-invalid-account-number-count",
-				"donate_interface-ach-invalid-routing-number-count"
+				"donate_interface-ach-invalid-routing-number-count",
+				"combowiki-error-select-amount",
+				"combowiki-error-select-email-option"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {

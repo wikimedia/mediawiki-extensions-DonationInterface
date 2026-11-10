@@ -17,7 +17,7 @@
 					v-if="!hasFormFields( method )"
 					id="ready-to-submit-methods"
 					:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
-					@click.capture="selectPaymentMethod( method )"
+					@click.capture="selectPaymentMethod( method, $event )"
 				>
 					<component
 						:is="paymentMethodConfig[method].component"
@@ -114,6 +114,10 @@ module.exports = exports = defineComponent( {
 		disabled: {
 			type: Boolean,
 			default: false
+		},
+		beforeSelect: {
+			type: Function,
+			default: null
 		}
 	},
 	emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange', 'onDonorDetailsChange' ],
@@ -168,6 +172,10 @@ module.exports = exports = defineComponent( {
 		 * @param {Function} [errorCallback] Called with the failure details on error.
 		 */
 		const submitDonation = ( paymentMethod, payload = {}, successCallback = null, errorCallback = null ) => {
+			if ( props.beforeSelect && !props.beforeSelect() ) {
+				// block the card payment
+				return;
+			}
 			if ( hasFormFields( paymentMethod ) ) {
 				const formEntries = donorDetails.getValues();
 				payload = overrideWithFormEntries( payload, formEntries );
@@ -468,8 +476,17 @@ module.exports = exports = defineComponent( {
 		 * Sets the active payment method and notifies the parent via onPaymentMethodChange.
 		 *
 		 * @param {string} method The selected payment method key.
+		 * @param {Event} [event] The native click event, used to halt propagation if blocked.
 		 */
-		const selectPaymentMethod = ( method ) => {
+		const selectPaymentMethod = ( method, event = null ) => {
+			if ( props.beforeSelect && !props.beforeSelect() ) {
+				if ( event ) {
+					event.stopPropagation();
+					event.stopImmediatePropagation();
+					event.preventDefault();
+				}
+				return;
+			}
 			selectedPaymentMethod.value = method;
 			ctx.emit( 'onPaymentMethodChange', method );
 			// Drop donation fields values if not needed in the newly selected method

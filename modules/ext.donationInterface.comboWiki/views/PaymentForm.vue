@@ -56,12 +56,18 @@
 						{{ $i18n( 'combowiki-cover-fees', formattedAmount( suggestedFee ) ).text() }}
 					</cdx-checkbox>
 				</div>
+				<p v-if="amountError" class="combo-wiki__error_message">
+					{{ amountError }}
+				</p>
 
 				<!-- Email opt-in -->
 				<optin-fieldset
 					v-if="showField( 'opt_in' )"
 					v-model="donation.optIn"
 				></optin-fieldset>
+				<p v-if="optInError" class="combo-wiki__error_message">
+					{{ optInError }}
+				</p>
 
 				<!-- Employer -->
 				<employer-field
@@ -86,7 +92,7 @@
 				<payment-method-form
 					v-if="!params.monthlyConvertReturn"
 					:donation="chargedDonation"
-					:disabled="!giftComplete"
+					:before-select="validateForPayment"
 					@donation-success="handleDonateResult"
 					@donation-error="handleDonateError"
 					@on-payment-method-change="( method ) => {
@@ -243,7 +249,9 @@ module.exports = exports = defineComponent( {
 			},
 			otherAmount: '',
 			thankYouUrl: null,
-			showDebug: false
+			showDebug: false,
+			amountError: '',
+			optInError: ''
 		};
 	},
 	computed: {
@@ -329,12 +337,16 @@ module.exports = exports = defineComponent( {
 			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
 			return Object.assign( {}, this.donation, { amount: total } );
 		},
-		giftComplete() {
-			// Payment method buttons that submit straight away rely on this being a complete donation
-			return this.donation.frequency !== null &&
-				Number( this.donation.amount ) > 0 &&
-				!!this.donation.country &&
-				!!this.donation.currency;
+		minAmount() {
+			const rules = this.params.wgDonationInterfaceAmountRules;
+			if ( !rules || !rules.min ) {
+				return this.presetAmounts[ 0 ];
+			}
+			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
+			if ( this.donation.currency === rules.currency || !rates[ this.donation.currency ] ) {
+				return rules.min;
+			}
+			return Math.ceil( ( rules.min / rates[ rules.currency ] ) * rates[ this.donation.currency ] );
 		},
 		formattedAmount() {
 			return ( amount ) => {
@@ -360,6 +372,30 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
+		validateForPayment() {
+			let valid = true;
+
+			if ( !( Number( this.donation.amount ) > 0 ) ) {
+				this.amountError = this.$i18n(
+					'combowiki-error-select-amount',
+					this.formattedAmount( this.minAmount )
+				).text();
+				valid = false;
+			} else {
+				this.amountError = '';
+			}
+
+			if ( this.showField( 'opt_in' ) &&
+				( this.donation.optIn === null || this.donation.optIn === undefined || this.donation.optIn === '' ) ) {
+				this.optInError = this.$i18n( 'combowiki-error-select-email-option' ).text();
+				valid = false;
+			} else {
+				this.optInError = '';
+			}
+
+			return valid;
+		},
+
 		/**
 		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
 		 * (card, adyen_card, ach, applepay, ...), but only when the server offers it on the
@@ -503,6 +539,19 @@ module.exports = exports = defineComponent( {
 				.catch( ( code, failure ) => {
 					this.handleDonateError( code, failure );
 				} );
+		}
+	},
+
+	watch: {
+		'donation.amount'() {
+			if ( Number( this.donation.amount ) > 0 ) {
+				this.amountError = '';
+			}
+		},
+		'donation.optIn'() {
+			if ( this.donation.optIn !== null && this.donation.optIn !== undefined && this.donation.optIn !== '' ) {
+				this.optInError = '';
+			}
 		}
 	},
 	created() {
