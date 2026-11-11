@@ -656,6 +656,7 @@
 				"donate_interface-donor-state_province-au",
 				"donate_interface-donor-state_province-ca",
 				"donate_interface-donor-postal_code",
+				"donate_interface-donor-postal_code-us",
 				"donate_interface-donor-fiscal_number",
 				"donate_interface-donor-fiscal_number-ar",
 				"donate_interface-donor-fiscal_number-bo",

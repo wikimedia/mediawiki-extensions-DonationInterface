@@ -212,13 +212,13 @@
 						v-model="fields.postal_code"
 						autocomplete="billing postal-code"
 						autocapitalize="characters"
-						:placeholder="$i18n( 'donate_interface-donor-postal_code' ).text()"
+						:placeholder="postalCodeLabel"
 						@blur="onFieldBlur( 'postal_code' )"
 						@input="validation.onInput( 'postal_code' )"
 					>
 					</cdx-text-input>
 					<template #label>
-						{{ $i18n( 'donate_interface-donor-postal_code' ).text() }}
+						{{ postalCodeLabel }}
 					</template>
 				</cdx-field>
 			</div>
@@ -373,6 +373,14 @@ module.exports = exports = defineComponent( {
 			// * donate_interface-donor-fiscal_number-uy
 			// * donate_interface-donor-fiscal_number-za
 			return this.$i18n( 'donate_interface-donor-fiscal_number' + suffix ).text();
+		},
+		postalCodeLabel() {
+			const country = ( this.donation.country || '' ).toLowerCase();
+			const suffix = [ 'us' ].includes( country ) ? '-' + country : '';
+			// Messages that can be used here:
+			// * donate_interface-donor-postal_code
+			// * donate_interface-donor-postal_code-us
+			return this.$i18n( 'donate_interface-donor-postal_code' + suffix ).text();
 		}
 	},
 
