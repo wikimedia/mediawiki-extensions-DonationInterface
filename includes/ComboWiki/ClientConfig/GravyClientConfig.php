@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
-use GravyAdapter;
 use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
 
@@ -12,7 +11,7 @@ use MediaWiki\Output\OutputPage;
 class GravyClientConfig extends GatewayClientConfig {
 
 	public function __construct(
-		private readonly GravyAdapter $adapter,
+		private readonly array $routingParams,
 		private readonly array $paymentMethods,
 		Config $mwConfig
 	) {
@@ -26,7 +25,23 @@ class GravyClientConfig extends GatewayClientConfig {
 	/** @inheritDoc */
 	public function getVars(): array {
 		return [
-			'gravyConfiguration' => $this->adapter->getGravyConfiguration(),
+			'gravyConfiguration' => [
+				'gravyID' => $this->getAccountConfig( 'gravyID' ),
+				'locale' => $this->getLocale( $this->routingParams['language'], $this->routingParams['country'] ),
+				'environment' => $this->getAccountConfig( 'environment' ),
+				'googleEnvironment' => $this->getAccountConfig( 'googleEnvironment' ),
+				'merchantAccountID' => $this->getAccountConfig( 'merchantAccountID' ),
+				'gravyGooglePayMerchantId' => $this->getAccountConfig( 'gravyGooglePayMerchantId' ),
+				'googleMerchantId' => $this->getAccountConfig( 'GoogleMerchantId' ),
+				'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(
+					$this->routingParams['country'],
+					$this->routingParams['currency'],
+				),
+				'secureFieldsJsScript' => $this->getAccountConfig( 'secureFieldsJS' ),
+				'secureFieldsCSS' => $this->getAccountConfig( 'secureFieldsCSS' ),
+				'googleScript' => $this->getAccountConfig( 'GoogleScript' ),
+				'appleScript' => $this->getAccountConfig( 'AppleScript' ),
+			]
 		];
 	}
 

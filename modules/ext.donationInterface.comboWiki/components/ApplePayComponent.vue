@@ -17,10 +17,11 @@
 </template>
 
 <script>
-/* global ApplePaySession ApplePayError */
+/* global ApplePaySession */
 
 const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
 const { isApplePayAvailable } = require( '../walletAvailability.js' );
+const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyApplePay',
@@ -183,42 +184,25 @@ module.exports = exports = defineComponent( {
 				extraData.payment_submethod = paymentSubmethod.toLowerCase();
 				extraData.payment_token = JSON.stringify( event.payment.token );
 
-				const applePayErrors = getApplePayErrors();
-				if ( applePayErrors.length === 0 ) {
-					ctx.emit( 'submit', extraData, handleSuccessfulSubmitPaymentResult, handleFailedPaymentResult );
-				} else {
-					// First and last name not configured in ApplePay sheet.
-					// Show errors in payment sheet
-					handleFailedPaymentResult( applePayErrors );
-					ctx.emit( 'error', applePayErrors );
+				if ( !hasValidWalletName( extraData.first_name ) ||
+					!hasValidWalletName( extraData.last_name ) ||
+					!hasValidWalletEmail( extraData.email ) ) {
+					handleSuccessfulSubmitPaymentResult();
+					showWalletFallbackFields(
+						$( '#applepay-container' ),
+						extraData.email,
+						( fallbackFirstName, fallbackLastName, fallbackEmail ) => {
+							extraData.first_name = fallbackFirstName;
+							extraData.last_name = fallbackLastName;
+							extraData.email = fallbackEmail;
+							ctx.emit( 'submit', extraData );
+						}
+					);
+					return;
 				}
-			};
-		}
 
-		function getApplePayErrors() {
-			const applePayErrors = [];
-			if ( !extraData.first_name || !extraData.first_name.trim() ) {
-				applePayErrors.push( new ApplePayError(
-					'billingContactInvalid',
-					'name',
-					mw.msg( 'donate_interface-error-msg-first_name' )
-				) );
-			}
-			if ( !extraData.last_name || !extraData.last_name.trim() ) {
-				applePayErrors.push( new ApplePayError(
-					'billingContactInvalid',
-					'name',
-					mw.msg( 'donate_interface-error-msg-last_name' )
-				) );
-			}
-			if ( !extraData.email || !extraData.email.trim() ) {
-				applePayErrors.push( new ApplePayError(
-					'shippingContactInvalid',
-					'email',
-					mw.msg( 'donate_interface-error-msg-email' )
-				) );
-			}
-			return applePayErrors;
+				ctx.emit( 'submit', extraData, handleSuccessfulSubmitPaymentResult, handleFailedPaymentResult );
+			};
 		}
 
 		return {
@@ -229,5 +213,4 @@ module.exports = exports = defineComponent( {
 		};
 	}
 } );
-
 </script>

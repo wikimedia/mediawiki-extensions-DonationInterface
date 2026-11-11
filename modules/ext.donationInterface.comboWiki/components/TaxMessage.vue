@@ -4,6 +4,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
+const { openLinksInNewTab } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'TaxMessage',
@@ -29,11 +30,11 @@ module.exports = exports = defineComponent( {
 			} else if ( countryCode === 'FR' ) {
 				const countryConfig = this.params.wgDonationInterfaceCountries[ this.countryCode ] || {};
 				const countryName = countryConfig.label || 'France';
-				return this.$i18n( 'donate_interface-taxded-msg-x', countryName, this.tax_url, this.problems_email ).text();
+				return openLinksInNewTab( this.$i18n( 'donate_interface-taxded-msg-x', countryName, this.tax_url, this.problems_email ).text() );
 			} else if ( countryCode === 'NL' ) {
-				return this.$i18n( 'donate_interface-taxded-msg-y', this.tax_url ).text();
+				return openLinksInNewTab( this.$i18n( 'donate_interface-taxded-msg-y', this.tax_url ).text() );
 			} else {
-				return this.$i18n( 'donate_interface-taxded-msg-z', this.tax_url ).text();
+				return openLinksInNewTab( this.$i18n( 'donate_interface-taxded-msg-z', this.tax_url ).text() );
 			}
 		}
 	}

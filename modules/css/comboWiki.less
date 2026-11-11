@@ -152,6 +152,9 @@
 	flex: 1 1 0;
 	min-width: 0;
 	max-width: 720px;
+	align-self: center;
+	box-sizing: border-box;
+	width: 100%;
 
 	& > *:not( :last-child ) {
 		padding-bottom: 24px;
@@ -182,9 +185,7 @@
 	}
 }
 
-.combo-wiki__appeal {
-	flex: 1 1 0;
-	min-width: 0;
+.combo-wiki__debug {
 	padding: @size-4 @size-8;
 }
 
@@ -543,6 +544,11 @@ select.cdx-select.combo-wiki__select {
 	margin: 0 0 16px;
 }
 
+.combo-wiki__error_message {
+	color: #d33;
+	margin: 0 !important;
+}
+
 // forbidden countries
 .wikimedia-landing-container {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
@@ -609,7 +615,6 @@ select.cdx-select.combo-wiki__select {
 @media screen and ( min-width: 875px ) {
 	.combo-wiki__container {
 		padding: @size-4;
-		flex-direction: row;
 	}
 
 	.combo-wiki__form {
@@ -636,7 +641,11 @@ select.cdx-select.combo-wiki__select {
 
 @media screen and ( min-width: 1120px ) {
 	.combo-wiki__container {
-		padding: @size-4;
+		flex-direction: row;
+	}
+
+	.combo-wiki__form {
+		align-self: auto;
 	}
 }
 

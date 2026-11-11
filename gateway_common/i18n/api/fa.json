@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Jeeputer",
+			"LProfo",
 			"Ladsgroup",
 			"Mjbmr",
 			"Reza1615"
@@ -26,7 +27,7 @@
 	"apihelp-donate-param-payment_method": "نوع پرداخت برای استفاده.",
 	"apihelp-donate-param-payment_submethod": "نوع پرداخت برای استفاده.",
 	"apihelp-donate-param-language": "کد زبان.",
-	"apihelp-donate-param-wmf_token": "بلیط ویرایش",
+	"apihelp-donate-param-wmf_token": "توکن ویرایش.",
 	"apihelp-donate-example-1": "اهدا کنید",
 	"apihelp-logPaymentsFormError-param-message": "پیام خطا"
 }

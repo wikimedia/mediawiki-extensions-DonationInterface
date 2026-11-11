@@ -259,8 +259,30 @@ function handleAdyenError( error, emitErrorCallback, otherWaysUrl ) {
 	} );
 }
 
+/**
+ * Makes the link in a message's HTML open in a new tab.
+ * The <a> tags come from the message itself, so the template can't set target on them.
+ * Other links, such as mailto:, are left alone.
+ *
+ * @param {string} html A message as returned by .text() or .parse()
+ * @return {string} The same HTML, each http(s) link with target="_blank" and rel="noopener noreferrer"
+ */
+function openLinksInNewTab( html ) {
+	const template = document.createElement( 'template' );
+	template.innerHTML = html;
+	Array.prototype.forEach.call(
+		template.content.querySelectorAll( 'a[href^="http"]' ),
+		( link ) => {
+			link.setAttribute( 'target', '_blank' );
+			link.setAttribute( 'rel', 'noopener noreferrer' );
+		}
+	);
+	return template.innerHTML;
+}
+
 module.exports = {
 	handleAdyenError,
+	openLinksInNewTab,
 	loadScript,
 	unloadScript,
 	overrideWithFormEntries,

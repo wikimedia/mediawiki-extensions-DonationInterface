@@ -87,7 +87,6 @@
 	"combowiki-monthly-convert-failed": "一次性捐赠已成功，但我们无法设置您的月度捐赠。参考：$1",
 	"combowiki-payment-method-heading": "使用您偏好的付款方式捐赠",
 	"combowiki-method-card": "信用卡",
-	"combowiki-method-adyen-card": "Adyen卡",
 	"combowiki-method-sepa": "SEPA直接借记",
 	"combowiki-your-details-heading": "您的详细信息",
 	"combowiki-donate-with-paypal": "通过PayPal捐赠",

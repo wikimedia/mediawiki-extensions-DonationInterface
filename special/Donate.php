@@ -163,10 +163,11 @@ class Donate extends UnlistedSpecialPage {
 			'currency' => $this->donationDetails->getValue( 'currency', 'USD' ),
 			'frequency_unit' => $this->donationDetails->getValue( 'frequency_unit', '' ),
 			'order_id' => $this->donationDetails->getValue( 'order_id' ),
-			'payment_method' => $this->donationDetails->getValue( 'payment_method', 'cc' ),
+			'payment_method' => $this->donationDetails->getValue( 'payment_method', '' ),
 			'payment_submethod' => $this->donationDetails->getValue( 'payment_submethod' ),
 			'recurring' => $this->donationDetails->getValue( 'recurring' ),
 			'variant' => $this->donationDetails->getValue( 'variant' ),
+			'appeal' => $request->getVal( 'appeal' ),
 			'language' => $this->donationDetails->getValue( 'language', $this->getLanguage()->getCode() ),
 			'gateway' => $this->donationDetails->getValue( 'gateway' ),
 			'opt_in' => $this->donationDetails->getValue( 'opt_in' ),
@@ -680,16 +681,16 @@ class Donate extends UnlistedSpecialPage {
 	private function getClientConfig( GatewayAdapter $adapter ): ?GatewayClientConfig {
 		return match ( true ) {
 			$adapter instanceof GravyAdapter => new GravyClientConfig(
-				$adapter,
+				$this->routingParams,
 				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ),
 				$this->getConfig()
 			),
 			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig(
-				$adapter, $this->routingParams,
-				$this->getConfig()
+				$this->routingParams,
+				$this->getConfig(),
+				$this->logger
 			),
 			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
-				$adapter,
 				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER ),
 				$this->getConfig()
 			),

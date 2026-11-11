@@ -132,3 +132,46 @@ describe( 'ComboWiki Adyen error handling', () => {
 		} );
 	} );
 } );
+
+describe( 'ComboWiki links in messages', () => {
+	const { openLinksInNewTab } = require( '../../../modules/ext.donationInterface.comboWiki/utils.js' );
+
+	// The English messages as TaxMessage.vue and OptIn.vue render them
+	const TAX_URL = 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/#tax-deductibility';
+	const TAXDED_MSG_X = 'Our <a href="' + TAX_URL + '">tax-exempt status</a> varies according to the laws of each country. ' +
+		'<b>Donations to the Wikimedia Foundation are not tax-deductible in France</b>. ' +
+		'If you have any questions about tax exemptions or deductions, we invite you to contact ' +
+		'<a href="mailto:donate@wikimedia.org">donate@wikimedia.org</a>.';
+	const OPTIN_DESCRIPTION = 'Your information is handled in accordance with our ' +
+		'<a href="https://foundation.wikimedia.org/wiki/Policy:Donor_privacy_policy">donor privacy policy</a>.';
+
+	function linksIn( html ) {
+		const container = document.createElement( 'div' );
+		container.innerHTML = html;
+		return container.querySelectorAll( 'a' );
+	}
+
+	it( 'opens web links in a new tab', () => {
+		const [ link ] = linksIn( openLinksInNewTab( OPTIN_DESCRIPTION ) );
+
+		expect( link.getAttribute( 'href' ) ).toBe( 'https://foundation.wikimedia.org/wiki/Policy:Donor_privacy_policy' );
+		expect( link.getAttribute( 'target' ) ).toBe( '_blank' );
+		expect( link.getAttribute( 'rel' ) ).toBe( 'noopener noreferrer' );
+		expect( link.textContent ).toBe( 'donor privacy policy' );
+	} );
+
+	it( 'leaves the mailto link and the rest of the message as they were', () => {
+		const html = openLinksInNewTab( TAXDED_MSG_X );
+		const [ taxLink, mailLink ] = linksIn( html );
+
+		expect( taxLink.getAttribute( 'target' ) ).toBe( '_blank' );
+		expect( mailLink.getAttribute( 'href' ) ).toBe( 'mailto:donate@wikimedia.org' );
+		expect( mailLink.hasAttribute( 'target' ) ).toBe( false );
+		expect( mailLink.hasAttribute( 'rel' ) ).toBe( false );
+		expect( html ).toContain( '<b>Donations to the Wikimedia Foundation are not tax-deductible in France</b>' );
+	} );
+
+	it( 'returns a message without links unchanged', () => {
+		expect( openLinksInNewTab( 'Donations are <b>not</b> tax-deductible.' ) ).toBe( 'Donations are <b>not</b> tax-deductible.' );
+	} );
+} );

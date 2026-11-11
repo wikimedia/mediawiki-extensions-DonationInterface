@@ -29,6 +29,8 @@
 	"combowiki-payment-failed": "Payment failed. Please try again",
 	"combowiki-payment-incomplete": "Payment could not be completed.",
 	"combowiki-monthly-convert-failed": "Your one-time donation was successful, but we could not set up your monthly donation. Reference: $1",
+	"combowiki-error-select-amount": "Please select an amount (min: $1)",
+	"combowiki-error-select-email-option": "Please select an email option",
 	"combowiki-payment-method-heading": "Donate with your preferred payment method",
 	"combowiki-method-card": "Card",
 	"combowiki-method-paypal": "PayPal",

@@ -2,60 +2,41 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
-use AdyenCheckoutAdapter;
 use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
+use Psr\Log\LoggerInterface;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
  * The Adyen Checkout config for the ComboWiki frontend, with the payment methods
  * Adyen offers for the donation.
  */
 class AdyenClientConfig extends GatewayClientConfig {
+	private LoggerInterface $logger;
 
 	/**
-	 * @param AdyenCheckoutAdapter $adapter
 	 * @param array $routingParams The ComboWiki routing params, for the country, currency,
 	 *  amount and language of the payment methods lookup
 	 * @param Config $mwConfig
+	 * @param LoggerInterface $logger
 	 */
 	public function __construct(
-		private readonly AdyenCheckoutAdapter $adapter,
 		private readonly array $routingParams,
-		Config $mwConfig
+		Config $mwConfig,
+		LoggerInterface $logger
 	) {
 		$this->config = $mwConfig;
+		$this->logger = $logger;
 	}
 
 	protected function getConfigPrefix(): string {
 		return 'AdyenCheckout';
 	}
 
-	/**
-	 * Google Pay requires the googleEnvironment to be set to either TEST or PRODUCTION.
-	 * Here we map the Adyen environment to the Google environment.
-	 * - If the Adyen environment is test, set the googleEnvironment to TEST.
-	 * - If the Adyen environment is live, set the googleEnvironment to PRODUCTION.
-	 *
-	 * @param array $adyenConfiguration The Adyen configuration object
-	 * @return array The Adyen configuration object with the googleEnvironment set
-	 */
-	private function addGoogleEnvironment( array $adyenConfiguration ): array {
-		$adyenEnvironment = $adyenConfiguration['environment'];
-		$adyenConfiguration['googleEnvironment'] = $adyenEnvironment === 'test' ? 'TEST' : 'PRODUCTION';
-		return $adyenConfiguration;
-	}
-
 	/** @inheritDoc */
 	public function getVars(): array {
-		$adyenConfiguration = $this->adapter->getCheckoutConfiguration( [
-			'country' => $this->routingParams['country'],
-			'currency' => $this->routingParams['currency'],
-			'amount' => $this->routingParams['amount'],
-			'language' => $this->routingParams['language'],
-		] );
-		$adyenConfiguration = $this->addGoogleEnvironment( $adyenConfiguration );
 		return [
-			'adyenConfiguration' => $adyenConfiguration,
+			'adyenConfiguration' => $this->getCheckoutConfiguration(),
 		];
 	}
 
@@ -73,5 +54,47 @@ class AdyenClientConfig extends GatewayClientConfig {
 			'integrity' => $adyenCss['integrity'],
 			'crossorigin' => 'anonymous'
 		] );
+	}
+
+	protected function getCheckoutConfiguration(): array {
+		$provider = PaymentProviderFactory::getDefaultProvider();
+		'@phan-var \SmashPig\PaymentProviders\Adyen\PaymentProvider $provider';
+
+		// This should have all the payment methods available
+		$paymentMethodResult = $provider->getPaymentMethods( [
+			'country' => $this->routingParams['country'],
+			'currency' => $this->routingParams['currency'],
+			'amount' => $this->routingParams['amount'],
+			'language' => $this->routingParams['language'],
+		] );
+		if ( $paymentMethodResult->hasErrors() ) {
+			foreach ( $paymentMethodResult->getErrors() as $error ) {
+				$this->logger->warning( "paymentMethod lookup error: {$error->getDebugMessage()}" );
+			}
+			foreach ( $paymentMethodResult->getValidationErrors() as $validationError ) {
+				$this->logger->warning( "paymentMethod lookup validation error with parameter: {$validationError->getField()}" );
+			}
+			throw new \RuntimeException( "Errors returned from getPaymentMethods" );
+		}
+		$paymentMethodString = $paymentMethodResult->getRawResponse();
+		$environment = $this->getAccountConfig( 'Environment' );
+
+		return [
+			'clientKey' => $this->getAccountConfig( 'ClientKey' ),
+			'locale' => $this->getLocale( $this->routingParams['language'], $this->routingParams['country'] ),
+			'paymentMethodsResponse' => $paymentMethodString,
+			'environment' => $environment,
+			'googleEnvironment' => $environment === 'test' ? 'TEST' : 'PRODUCTION',
+			'merchantAccountName' => $this->getAccountName(),
+			'googleMerchantId' => $this->getAccountConfig( 'GoogleMerchantId' ),
+			'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(
+				$this->routingParams['country'],
+				$this->routingParams['currency'],
+			),
+			'script' => $this->getAccountConfig( 'Script' ),
+			'googleScript' => $this->getAccountConfig( 'GoogleScript' ),
+			'appleRequiredBillingContactFields' => [ 'name', 'postalAddress' ],
+			'appleRequiredShippingContactFields' => [ 'name', 'email' ]
+		];
 	}
 }

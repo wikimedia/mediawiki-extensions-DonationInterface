@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig;
 
-use BraintreeAdapter;
 use MediaWiki\Config\Config;
 use MediaWiki\Output\OutputPage;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
  * The Braintree config for the ComboWiki frontend: a client token and the Braintree
@@ -19,13 +19,11 @@ class BraintreeClientConfig extends GatewayClientConfig {
 	private ?string $clientToken = null;
 
 	/**
-	 * @param BraintreeAdapter $adapter
 	 * @param string[] $paymentMethods The payment methods on ComboWiki that Braintree handles,
 	 *  e.g. [ 'paypal', 'venmo' ]
 	 * @param Config $mwConfig
 	 */
 	public function __construct(
-		private readonly BraintreeAdapter $adapter,
 		private readonly array $paymentMethods,
 		Config $mwConfig
 	) {
@@ -66,7 +64,12 @@ class BraintreeClientConfig extends GatewayClientConfig {
 	 * @return string
 	 */
 	private function getClientToken(): string {
-		$this->clientToken ??= $this->adapter->getClientToken();
+		if ( !$this->clientToken ) {
+			$provider = PaymentProviderFactory::getDefaultProvider();
+			'@phan-var \SmashPig\PaymentProviders\Braintree\PaymentProvider $provider';
+			$createPaymentSessionResponse = $provider->createPaymentSession();
+			$this->clientToken = $createPaymentSessionResponse->getPaymentSession();
+		}
 		return $this->clientToken;
 	}
 

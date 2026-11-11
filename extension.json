@@ -603,7 +603,11 @@
 				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue",
 				"modules/ext.donationInterface.comboWiki/components/AdyenApplePayComponent.vue",
-				"modules/ext.donationInterface.comboWiki/components/AdyenSEPA.vue"
+				"modules/ext.donationInterface.comboWiki/components/AdyenSEPA.vue",
+				"modules/ext.donationInterface.comboWiki/appeals.js",
+				"modules/ext.donationInterface.comboWiki/components/appeals/WydgAppeal.vue",
+				"modules/ext.donationInterface.comboWiki/components/appeals/MissionAppeal.vue",
+				"modules/ext.donationInterface.comboWiki/components/appeals/HeroAppeal.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -735,7 +739,9 @@
 				"donate_interface-rtbt-issuer_id",
 				"donate_interface-bt-account_holder",
 				"donate_interface-ach-invalid-account-number-count",
-				"donate_interface-ach-invalid-routing-number-count"
+				"donate_interface-ach-invalid-routing-number-count",
+				"combowiki-error-select-amount",
+				"combowiki-error-select-email-option"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {

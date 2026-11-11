@@ -24,6 +24,14 @@ const { CdxButton } = require( '@wikimedia/codex' );
 
 let scriptsLoaded = null;
 
+// Docs: https://github.com/braintree/braintree-web/blob/main/src/venmo/shared/errors.js
+// Customer canceled mid-process, e.g., clicking on 'x'
+const CANCEL_CODES = [
+	'VENMO_CUSTOMER_CANCELED',
+	'VENMO_DESKTOP_CANCELED',
+	'VENMO_MOBILE_POLLING_TOKENIZATION_CANCELED'
+];
+
 function loadScripts( scripts ) {
 	if ( !scriptsLoaded ) {
 		scriptsLoaded = scripts.reduce(
@@ -60,7 +68,13 @@ module.exports = exports = defineComponent( {
 		let deviceData = null;
 		const donorDetailsValid = () => !props.donorDetails || props.donorDetails.validate();
 
-		const emitError = ( error ) => ctx.emit( 'error', error );
+		const emitError = ( error ) => {
+			// The donor closed the Venmo pop-up or backed out in the app:
+			// leave them on the form to try again, like PayPal's onCancel
+			if ( !CANCEL_CODES.includes( error.code ) ) {
+				ctx.emit( 'error', error );
+			}
+		};
 
 		function getPaymentMethodUsage() {
 			return props.donation.frequency === 'monthly' || props.donation.frequency === 'annual' ? 'multi_use' : 'single_use';

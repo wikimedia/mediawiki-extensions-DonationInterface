@@ -147,6 +147,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// Get country code from request param, or, if it's not sent or is invalid, use
 		// geoip lookup
 		$country = $this->sanitizedValOrNull( 'country' );
+		$country = is_string( $country ) ? strtoupper( $country ) : $country;
 
 		if ( !CountryValidation::isValidIsoCode( $country ) ) {
 			$country = CountryValidation::lookUpCountry( $this->getRequest()->getIP() );
@@ -161,6 +162,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// Get currency from request param. Also check for a value from the currency_code
 		// param, and if there is one, warn so we can track and remove these
 		$currency = $this->sanitizedValOrNull( 'currency' );
+		$currency = is_string( $currency ) ? strtoupper( $currency ) : $currency;
 
 		$paymentMethod = $this->sanitizedValOrNull( 'payment_method' );
 		// No payment method will cause an error a little further down

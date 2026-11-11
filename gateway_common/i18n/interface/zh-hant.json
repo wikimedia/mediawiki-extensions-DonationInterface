@@ -125,7 +125,7 @@
 	"donate_interface-error-msg-invalid-device-data": "裝置資料發生錯誤。",
 	"donate_interface-error-msg-invalid-email": "請輸入有效的電子郵件地址，例 name@domain.com",
 	"donate_interface-error-msg-invalid-phone": "請輸入有效的電話號碼",
-	"donate_interface-error-msg-card-num": "請輸入其中一種可接受的信用卡類型的有效信用卡卡號。",
+	"donate_interface-error-msg-card-num": "請輸入有效的信用卡卡號。",
 	"donate_interface-error-msg-amex": "請輸入正確的美國運通 (American Express) 卡卡號。",
 	"donate_interface-error-msg-mc": "請輸入正確的萬事達卡(Mastercard)卡號。",
 	"donate_interface-error-msg-visa": "請輸入正確的Visa卡卡號。",

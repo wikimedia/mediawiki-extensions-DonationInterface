@@ -10,6 +10,7 @@
 const { defineComponent, toRaw, ref } = require( 'vue' );
 const { getGooglePaymentsClient, isGooglePayAvailable } = require( '../walletAvailability.js' );
 const { getGateway } = require( '../api.js' );
+const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 
 /**
  * For each gateway: its client config from Special:Donate, and how Google tokenizes the
@@ -22,7 +23,7 @@ const GATEWAYS = {
 			gateway: 'gr4vy',
 			gatewayMerchantId: config.gravyGooglePayMerchantId
 		} ),
-		// Gravy's Google Pay API requires the card's last digits and networ
+		// Gravy's Google Pay API requires the card's last digits and network
 		getExtraData: ( paymentMethodInfo ) => ( {
 			card_suffix: paymentMethodInfo.cardDetails,
 			card_scheme: paymentMethodInfo.cardNetwork
@@ -182,10 +183,17 @@ module.exports = exports = defineComponent( {
 					const paymentMethodData = paymentData.paymentMethodData;
 					const paymentMethodInfo = paymentMethodData.info;
 					const paymentToken = paymentMethodData.tokenizationData.token;
-					const donorInfo = paymentMethodInfo.billingAddress;
+					const donorInfo = paymentMethodInfo.billingAddress || {};
+
+					// Extract name parts from billing address name string
+					const nameParts = ( donorInfo.name || '' ).trim().split( /\s+/ );
+					const firstName = nameParts[ 0 ] || '';
+					const lastName = nameParts.slice( 1 ).join( ' ' ) || '';
 
 					const donationParameters = Object.assign( {}, {
 						full_name: donorInfo.name,
+						first_name: firstName,
+						last_name: lastName,
 						email: paymentData.email,
 						postal_code: donorInfo.postalCode,
 						state_province: donorInfo.administrativeArea,
@@ -194,9 +202,26 @@ module.exports = exports = defineComponent( {
 						payment_token: paymentToken
 					}, this.gateway.getExtraData( paymentMethodInfo ), paymentData );
 
+					if ( !hasValidWalletName( donationParameters.first_name ) ||
+						!hasValidWalletName( donationParameters.last_name ) ||
+						!hasValidWalletEmail( donationParameters.email ) ) {
+						showWalletFallbackFields(
+							$( '#googlepay-container' ),
+							donationParameters.email,
+							( fallbackFirstName, fallbackLastName, fallbackEmail ) => {
+								donationParameters.first_name = fallbackFirstName;
+								donationParameters.last_name = fallbackLastName;
+								donationParameters.email = fallbackEmail;
+								donationParameters.full_name = `${ fallbackFirstName } ${ fallbackLastName }`.trim();
+								this.$emit( 'submit', donationParameters, null, this.handleFailedPaymentResult );
+							}
+						);
+						return;
+					}
+
 					this.$emit( 'submit', donationParameters, null, this.handleFailedPaymentResult );
 				} )
-				.catch( ( error )  => {
+				.catch( ( error ) => {
 					// would be google errors here
 					console.log( error );
 				} );

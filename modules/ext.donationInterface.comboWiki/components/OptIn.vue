@@ -41,6 +41,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxRadio } = require( '@wikimedia/codex' );
+const { openLinksInNewTab } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'OptinFieldset',
@@ -72,11 +73,11 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( 'combowiki-optin-no-to-yes-text' ).text();
 		},
 		optInDescription() {
-			return this.$i18n(
+			return openLinksInNewTab( this.$i18n(
 				'combowiki-optin-description',
 				this.policyUrl,
 				this.$i18n( 'combowiki-donor-privacy-policy' ).text()
-			).parse();
+			).parse() );
 		}
 	},
 
