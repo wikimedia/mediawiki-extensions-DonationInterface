@@ -47,7 +47,9 @@ const donationSucceeds = async ( frequency, response ) => {
 			stubs: { 'sms-optin': true }
 		}
 	} );
-	await wrapper.setData( { donation: { frequency } } );
+	// donation comes from setup(), which setData doesn't reach
+	Object.assign( wrapper.vm.donation, { frequency } );
+	await wrapper.vm.$nextTick();
 	wrapper.findComponent( PaymentMethodForm ).vm.$emit( 'donationSuccess', {
 		result: Object.assign( { isFailed: false, thankYouPage: THANK_YOU_URL }, response )
 	} );

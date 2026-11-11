@@ -18,57 +18,27 @@
 				</div>
 
 				<!-- Amount Selector -->
-				<div class="fieldset">
-					<!-- Label -->
-					<div class="fieldset__label">
-						<p class="text text--base">
-							<strong>{{ amountHeading }}</strong>
-						</p>
-						<!-- Country Component -->
-						<country-selector
-							v-model="donation.country"
-							:countries="countries"
-							@country-change="onCountryChange"
-						></country-selector>
-					</div>
-					<!-- Button Stack -->
-					<div class="fiedlset__button-grid">
-						<!-- Fixed Amounts -->
-						<cdx-toggle-button
-							v-for="amount in presetAmounts"
-							:key="amount"
-							:model-value="!otherAmount && Number( donation.amount ) === amount"
-							@update:model-value="selectAmount( amount )"
-						>
-							{{ formattedAmount( amount ) }}
-						</cdx-toggle-button>
-						<!-- Custom Amount -->
-						<cdx-text-input
-							:model-value="otherAmount"
-							input-type="number"
-							:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
-							@update:model-value="setOtherAmount"
-						>
-						</cdx-text-input>
-					</div>
-					<!-- Pay the fee, shown once there is an amount to base the fee on -->
-					<cdx-checkbox v-if="canCoverFee" v-model="donation.payFee">
-						{{ $i18n( 'combowiki-cover-fees', formattedAmount( suggestedFee ) ).text() }}
-					</cdx-checkbox>
-				</div>
-				<p v-if="amountError" class="combo-wiki__error_message">
-					{{ amountError }}
-				</p>
-
+				<amount-selector
+					v-model="donation.amount"
+					:country="donation.country"
+					:pay-fee="donation.payFee"
+					:frequency="donation.frequency"
+					:currency="donation.currency"
+					:countries="countries"
+					:messages="messages.amount"
+					:status="status.amount"
+					@on-change="( val ) => onInput( 'amount' )"
+					@update:pay-fee="donation.payFee = $event"
+					@update:country="onCountryChange"
+				></amount-selector>
 				<!-- Email opt-in -->
 				<optin-fieldset
 					v-if="showField( 'opt_in' )"
 					v-model="donation.optIn"
+					:messages="messages.optIn"
+					:status="status.optIn"
+					@on-change="( val ) => onInput( 'optIn' )"
 				></optin-fieldset>
-				<p v-if="optInError" class="combo-wiki__error_message">
-					{{ optInError }}
-				</p>
-
 				<!-- Employer -->
 				<employer-field
 					v-if="showField( 'employer' )"
@@ -92,7 +62,7 @@
 				<payment-method-form
 					v-if="!params.monthlyConvertReturn"
 					:donation="chargedDonation"
-					:before-select="validateForPayment"
+					:before-select="() => ( validateAll() ).length === 0"
 					@donation-success="handleDonateResult"
 					@donation-error="handleDonateError"
 					@on-payment-method-change="( method ) => {
@@ -137,14 +107,9 @@ Employer: {{ donation.employer }}</pre>
 </template>
 
 <script>
-const { defineComponent } = require( 'vue' );
-const {
-	CdxTextInput,
-	CdxToggleButton,
-	CdxCheckbox
-} = require( '@wikimedia/codex' );
+const { defineComponent, computed, toRaw, inject, reactive } = require( 'vue' );
+const { useFieldValidation } = require( '../composables/useFieldValidation.js' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
-const CountrySelector = require( '../components/CountrySelectorInline.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
@@ -154,50 +119,19 @@ const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
+const AmountSelector = require( '../components/AmountSelector.vue' );
 const { getAppeal } = require( '../appeals.js' );
+const { getFeeAmount, minAmountFunction, getFormattedAmount, getPresetAmounts } = require( '../amountHelper.js' );
 const { useAppState } = require( '../composables/useAppState.js' );
-const { getAmountHeading } = require( '../frequencyOptions.js' );
 const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
-
-const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
-
-// Fee calculation ported from calculateFee() in the donate wiki's MediaWiki:DonationForm.js,
-// so both forms suggest the same amount. Minimums are about 0.35 USD in each currency.
-const FEE_MULTIPLIER = 0.04;
-const DEFAULT_FEE_MINIMUM = 0.35;
-const FEE_MINIMUMS = {
-	DKK: 2,
-	HUF: 100,
-	ILS: 1.2,
-	INR: 4,
-	JPY: 35,
-	KHR: 1000,
-	MYR: 1,
-	NOK: 3,
-	PLN: 1.35,
-	CZK: 7.5,
-	RON: 1.5,
-	SEK: 3,
-	UAH: 10,
-	ZAR: 5,
-	BRL: 2,
-	ARS: 415,
-	CLP: 325,
-	COP: 1450,
-	MXN: 6.75,
-	PEN: 1.28,
-	UYU: 14.5
-};
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
 
 	components: {
-		'cdx-toggle-button': CdxToggleButton,
-		'cdx-text-input': CdxTextInput,
-		'cdx-checkbox': CdxCheckbox,
 		'error-display': ErrorDisplay,
 		'frequency-selector': FrequencySelector,
+		'amount-selector': AmountSelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
 		'tax-message': TaxMessage,
@@ -205,197 +139,27 @@ module.exports = exports = defineComponent( {
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
-		'recurring-convert': RecurringConvert,
-		'country-selector': CountrySelector
+		'recurring-convert': RecurringConvert
 	},
 	inject: {
 		params: { from: 'params' },
 		variantComponents: { from: 'variantComponents', default: () => ( {} ) }
 	},
 	setup() {
-		const appState = useAppState();
-		return { appState };
-	},
-	data() {
-		const initialCurrency = this.params.currency || 'USD';
-		const countries = this.params.wgDonationInterfaceCountries || {};
-		const defaultCountry = this.params.country || 'US';
-
-		return {
-			countries,
-			donation: {
-				firstName: null,
-				lastName: null,
-				email: null,
-				frequency: this.getFrequencyUnit(),
-				amount: this.params.amount || null,
-				currency: initialCurrency,
-				payFee: this.params.pay_the_fee === '1' || false,
-				phone: null,
-				country: defaultCountry,
-				paymentMethod: this.toFormPaymentMethod( this.params.payment_method ),
-				optIn: this.params.opt_in,
-				employer: null,
-				streetAddress: null,
-				streetNumber: null,
-				stateProvince: null,
-				city: null,
-				postalCode: null,
-				fiscalNumber: null,
-				employerId: 0,
-				smsOptin: null,
-				variant: this.params.variant || null,
-				gateway_session_id: this.params.gateway_session_id || null
-			},
-			otherAmount: '',
-			thankYouUrl: null,
-			showDebug: false,
-			amountError: '',
-			optInError: ''
-		};
-	},
-	computed: {
-		appeal() {
-			return getAppeal( this.params.appeal );
-		},
-		amountHeading() {
-			return getAmountHeading( this.donation.frequency );
-		},
-		showSmsOptin() {
-			return this.showField( 'sms_opt_in' ) && this.showField( 'phone' );
-		},
-		presetAmounts() {
-			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
-			const currency = this.donation.currency;
-
-			if ( !currency || currency === 'USD' || !rates[ currency ] ) {
-				return BASE_USD_PRESETS;
-			}
-
-			const rate = rates[ currency ];
-
-			return BASE_USD_PRESETS.map( ( usdAmount ) => {
-				const converted = usdAmount * rate;
-				// Ensure the converted amount meets or exceeds 1 USD equivalent in value
-				const minAmount = rates[ currency ];
-
-				if ( converted < minAmount ) {
-					return Math.ceil( minAmount );
-				}
-
-				// Round clean values based on scale (e.g. round to nearest integer or 5)
-				if ( converted > 100 ) {
-					return Math.ceil( converted / 5 ) * 5;
-				}
-				return Math.ceil( converted );
-			} );
-		},
-		suggestedFee() {
-			const amount = Number( this.donation.amount );
-			if ( !( amount > 0 ) ) {
-				return null;
-			}
-
-			const minimum = FEE_MINIMUMS[ this.donation.currency ] || DEFAULT_FEE_MINIMUM;
-			const fee = Math.max( amount * FEE_MULTIPLIER, minimum );
-			// Currencies with no minor unit, from SmashPig's CurrencyRoundingHelper.
-			const noDecimalCurrencies = this.params.DonationInterfaceNoDecimalCurrencies || [];
-			if ( noDecimalCurrencies.includes( this.donation.currency ) ) {
-				return Math.round( fee );
-			}
-			return Math.round( fee * 100 ) / 100;
-		},
-		maxLocal() {
-			const rules = this.params.wgDonationInterfaceAmountRules;
-			if ( !rules || !rules.max ) {
-				return Infinity;
-			}
-			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
-			if ( this.donation.currency === rules.currency || !rates[ this.donation.currency ] ) {
-				return rules.max;
-			}
-			return ( rules.max / rates[ rules.currency ] ) * rates[ this.donation.currency ];
-		},
-		canCoverFee() {
-			// Like the donate wiki, don't offer the fee when it would push the donation over the maximum
-			return !!this.suggestedFee &&
-				Number( this.donation.amount ) + this.suggestedFee <= this.maxLocal;
-		},
-		feeAmount() {
-			if ( !this.donation.payFee || !this.canCoverFee ) {
-				return 0;
-			}
-
-			return this.suggestedFee;
-		},
-		chargedDonation() {
-			// What the payment methods charge, which includes the fee when the donor opts in
-			// Don't recompute if fee already computed from source (e.g banner)
-			if ( !this.feeAmount || this.params.pay_the_fee ) {
-				return this.donation;
-			}
-			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
-			return Object.assign( {}, this.donation, { amount: total } );
-		},
-		minAmount() {
-			const rules = this.params.wgDonationInterfaceAmountRules;
-			if ( !rules || !rules.min ) {
-				return this.presetAmounts[ 0 ];
-			}
-			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
-			if ( this.donation.currency === rules.currency || !rates[ this.donation.currency ] ) {
-				return rules.min;
-			}
-			return Math.ceil( ( rules.min / rates[ rules.currency ] ) * rates[ this.donation.currency ] );
-		},
-		formattedAmount() {
-			return ( amount ) => {
-				if ( !amount ) {
-					return '';
-				}
-
-				const lang = ( this.params.language || 'en' ).split( '-' )[ 0 ];
-				const country = this.donation.country || 'US';
-				const locale = `${ lang }_${ country }`;
-
-				try {
-					return new Intl.NumberFormat( locale.replace( '_', '-' ), {
-						style: 'currency',
-						currency: this.donation.currency
-					} ).format( amount );
-				} catch ( e ) {
-
-					return `${ this.donation.currency }${ amount }`;
-				}
-			};
+		const params = inject( 'params' );
+		const initialCurrency = params.currency || 'USD';
+		const countries = params.wgDonationInterfaceCountries || {};
+		const defaultCountry = params.country || 'US';
+		function showField( name ) {
+			return [ true, 'optional' ].includes( ( ( params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] );
 		}
-	},
 
-	methods: {
-		validateForPayment() {
-			let valid = true;
-
-			if ( !( Number( this.donation.amount ) > 0 ) ) {
-				this.amountError = this.$i18n(
-					'combowiki-error-select-amount',
-					this.formattedAmount( this.minAmount )
-				).text();
-				valid = false;
-			} else {
-				this.amountError = '';
+		function getFrequencyUnit() {
+			if ( !params.recurring ) {
+				return 'once';
 			}
-
-			if ( this.showField( 'opt_in' ) &&
-				( this.donation.optIn === null || this.donation.optIn === undefined || this.donation.optIn === '' ) ) {
-				this.optInError = this.$i18n( 'combowiki-error-select-email-option' ).text();
-				valid = false;
-			} else {
-				this.optInError = '';
-			}
-
-			return valid;
-		},
-
+			return params.frequency_unit;
+		}
 		/**
 		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
 		 * (card, adyen_card, ach, applepay, ...), but only when the server offers it on the
@@ -404,8 +168,8 @@ module.exports = exports = defineComponent( {
 		 * @param {string|null} wmfMethod WMF payment method code, e.g. from the payment_method param.
 		 * @return {string|null} The PaymentMethodForm key, or null if the method isn't active.
 		 */
-		toFormPaymentMethod( wmfMethod ) {
-			const offeredGateways = ( this.params.paymentMethods || [] )
+		function toFormPaymentMethod( wmfMethod ) {
+			const offeredGateways = ( params.paymentMethods || [] )
 				.filter( ( entry ) => entry.method === wmfMethod )
 				.map( ( entry ) => entry.gateway );
 			if ( !wmfMethod || offeredGateways.length === 0 ) {
@@ -415,39 +179,110 @@ module.exports = exports = defineComponent( {
 				const mapping = paymentMethodMap[ key ];
 				return mapping.method === wmfMethod && offeredGateways.includes( mapping.gateway );
 			} ) || null;
+		}
+
+		const donation = reactive( {
+			firstName: null,
+			lastName: null,
+			email: null,
+			frequency: getFrequencyUnit(),
+			amount: params.amount || null,
+			currency: initialCurrency,
+			payFee: params.pay_the_fee === '1' || false,
+			phone: null,
+			country: defaultCountry,
+			paymentMethod: toFormPaymentMethod( params.payment_method ),
+			optIn: params.opt_in,
+			employer: null,
+			streetAddress: null,
+			streetNumber: null,
+			stateProvince: null,
+			city: null,
+			postalCode: null,
+			fiscalNumber: null,
+			employerId: 0,
+			smsOptin: null,
+			variant: params.variant || null,
+			gateway_session_id: params.gateway_session_id || null
+		} );
+		const presetAmounts = computed( () => {
+			const rates = params.wgDonationInterfaceCurrencyRates || {};
+			const currency = donation.currency;
+			return getPresetAmounts( currency, rates );
+		} );
+		const minAmount = computed( () => {
+			const rules = params.wgDonationInterfaceAmountRules;
+			const rates = params.wgDonationInterfaceCurrencyRates || {};
+			return minAmountFunction( rules, rates, donation.currency, presetAmounts.value );
+		} );
+		const formattedAmount = computed( () => getFormattedAmount( minAmount.value, params.language, donation.currency, donation.country ) );
+
+		const appState = useAppState();
+		const validationRules = {
+			amount: [
+				{
+					required: true,
+					message: mw.msg( 'combowiki-error-select-amount', formattedAmount.value )
+				},
+				{
+					callback: () => !( Number( donation.amount ) > 0 ) || Number( donation.amount ) < Number( minAmount.value ),
+					message: mw.msg( 'combowiki-error-select-amount', formattedAmount.value )
+				}
+			]
+		};
+		if ( showField( 'opt_in' ) ) {
+			validationRules.optIn = [
+				{
+					required: true,
+					message: mw.message( 'combowiki-error-select-email-option' ).text()
+				}
+			];
+		}
+		const { validateAll, status, messages, onInput } = useFieldValidation( validationRules, donation );
+		return {
+			appState,
+			validateAll,
+			countries,
+			donation,
+			messages,
+			status,
+			onInput,
+			showField,
+			toFormPaymentMethod
+		};
+	},
+	data() {
+		return {
+			thankYouUrl: null,
+			showDebug: false
+		};
+	},
+	computed: {
+		appeal() {
+			return getAppeal( this.params.appeal );
 		},
-		getFrequencyUnit() {
-			if ( !this.params.recurring ) {
-				return 'once';
+		showSmsOptin() {
+			return this.showField( 'sms_opt_in' ) && this.showField( 'phone' );
+		},
+		feeAmount() {
+			return getFeeAmount( this.donation, this.params );
+		},
+		chargedDonation() {
+			// What the payment methods charge, which includes the fee when the donor opts in.
+			// Computed from the donation itself, so a change made just before submitting
+			// (e.g. the monthly convert modal) is charged as shown.
+			// Don't recompute if fee already computed from source (e.g banner)
+			if ( !this.feeAmount || this.params.pay_the_fee ) {
+				return this.donation;
 			}
-			return this.params.frequency_unit;
-		},
-		showField( name ) {
-			return [ true, 'optional' ].includes( ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] );
-		},
+			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
+			return Object.assign( {}, this.donation, { amount: total } );
+		}
+	},
+
+	methods: {
 		isFieldRequired( name ) {
 			return ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] === true;
-		},
-		selectAmount( value ) {
-			this.otherAmount = '';
-			this.donation.amount = value;
-		},
-		setAmount() {
-			const amount = Number( this.params.amount );
-			// Make sure it's actually a number
-			if ( !isFinite( amount ) || amount <= 0 ) {
-				return;
-			}
-			// Set the amounts
-			if ( this.presetAmounts.includes( amount ) ) {
-				this.selectAmount( amount );
-			} else {
-				this.setOtherAmount( String( amount ).trim() );
-			}
-		},
-		setOtherAmount( value ) {
-			this.otherAmount = value;
-			this.donation.amount = value;
 		},
 		/**
 		 * Copies what the donor typed in the details form into the donation.
@@ -525,7 +360,6 @@ module.exports = exports = defineComponent( {
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
-			const { toRaw } = require( 'vue' );
 
 			if ( updatedDonation ) {
 				if ( updatedDonation.frequency !== this.donation.frequency ) {
@@ -546,21 +380,6 @@ module.exports = exports = defineComponent( {
 		}
 	},
 
-	watch: {
-		'donation.amount'() {
-			if ( Number( this.donation.amount ) > 0 ) {
-				this.amountError = '';
-			}
-		},
-		'donation.optIn'() {
-			if ( this.donation.optIn !== null && this.donation.optIn !== undefined && this.donation.optIn !== '' ) {
-				this.optInError = '';
-			}
-		}
-	},
-	created() {
-		this.setAmount();
-	},
 	mounted() {
 		const urlParams = new URLSearchParams( window.location.search );
 		// ?debug=1 shows the donation and params dump below the form, for local testing
