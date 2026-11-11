@@ -4,7 +4,9 @@ class PayPalAmount extends Amount implements StagingHelper {
 
 	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		$stagedData[ 'amount' ] = static::round( $normalized[ 'amount' ], $normalized[ 'currency' ] );
+		if ( isset( $normalized['amount'] ) && isset( $normalized['currency'] ) ) {
+			$stagedData['amount'] = static::round( $normalized['amount'], $normalized['currency'] );
+		}
 	}
 
 	/** @inheritDoc */

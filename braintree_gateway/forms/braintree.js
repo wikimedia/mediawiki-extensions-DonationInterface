@@ -92,6 +92,10 @@
 		}
 	}
 
+	function handlePayPalError( err ) {
+		showClientSideErrorMessage( 'PayPal error: ' + ( err && err.message ? err.message : String( err ) ) );
+	}
+
 	function handleVenmoSuccess( payload ) {
 		const sendData = buildVenmoSendData( payload );
 		if ( !hasValidWalletName( sendData.first_name ) ||
@@ -168,77 +172,89 @@
 			createBraintreeClient().then( ( braintreeClientInstance ) => {
 				getDeviceData( braintreeClientInstance );
 				// Create a PayPal Checkout component.
-				return braintree.paypalCheckout.create( {
+				return braintree.paypalCheckoutV6.create( {
 					client: braintreeClientInstance
 				} );
 			} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
 				vault: isRecurring
 			} ) ).then( ( paypalCheckoutInstance ) => {
-				const args = {
-					fundingSource: paypal.FUNDING.PAYPAL,
-					onApprove: function ( data, actions ) {
-						return paypalCheckoutInstance.tokenizePayment( data ).then( ( payload ) => {
-							const sendData = {
-								payment_token: payload.nonce,
-								device_data: myDeviceData,
-								first_name: payload.details.firstName,
-								last_name: payload.details.lastName,
-								email: payload.details.email,
-								street_address: payload.details.shippingAddress
-							};
+				// Added to cancelUrl, so processDonorReturn() knows the donor cancelled at PayPal
+				const CANCEL_PARAM = 'paypalCancel';
+				const returnUrl = new URL( mw.config.get( 'DonationInterfaceReturnUrl' ) );
+				const cancelUrl = new URL( returnUrl );
+				cancelUrl.searchParams.set( CANCEL_PARAM, '1' );
+				const onApprove = function ( data ) {
+					return paypalCheckoutInstance.tokenizePayment( data ).then( ( payload ) => {
+						const sendData = {
+							payment_token: payload.nonce,
+							device_data: myDeviceData,
+							first_name: payload.details.firstName,
+							last_name: payload.details.lastName,
+							email: payload.details.email,
+							street_address: payload.details.shippingAddress
+						};
 
-							if ( !hasValidWalletName( sendData.first_name ) ||
-								!hasValidWalletName( sendData.last_name ) ||
-								!hasValidWalletEmail( sendData.email ) ) {
-								showWalletFallbackFields(
-									$( '#paypal-button' ),
-									sendData.email,
-									( firstName, lastName, email ) => {
-										sendData.first_name = firstName;
-										sendData.last_name = lastName;
-										sendData.email = email;
-										di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
-									}
-								);
-							} else {
-								di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
-							}
-						} );
-					},
-
-					onCancel: function ( data ) {
-						showClientSideErrorMessage( 'PayPal payment canceled' + JSON.stringify( data, 0, 2 ) );
-					},
-
-					onError: function ( err ) {
-						showClientSideErrorMessage( 'PayPal error' + err );
-					}
+						if ( !hasValidWalletName( sendData.first_name ) ||
+							!hasValidWalletName( sendData.last_name ) ||
+							!hasValidWalletEmail( sendData.email ) ) {
+							showWalletFallbackFields(
+								$( '#paypal-button' ),
+								sendData.email,
+								( firstName, lastName, email ) => {
+									sendData.first_name = firstName;
+									sendData.last_name = lastName;
+									sendData.email = email;
+									di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+								}
+							);
+						} else {
+							di.forms.callDonateApi( handleApiResult, sendData, 'di_donate_braintree' );
+						}
+					} );
 				};
+				let session;
 				if ( isRecurring ) {
-					args.createBillingAgreement = function () {
-						return paypalCheckoutInstance.createPayment( {
-							flow: 'vault' // Required
-						} );
-					};
+					session = paypalCheckoutInstance.createBillingAgreementSession( {
+						amount: getAmountValue(),
+						billingAgreementDescription: 'Wikimedia Foundation',
+						contactPreference: 'UPDATE_CONTACT_INFO',
+						currency: $( '#currency' ).val(),
+						planType: 'RECURRING',
+						returnUrl: returnUrl.toString(),
+						cancelUrl: cancelUrl.toString(),
+						onApprove: onApprove,
+						onError: handlePayPalError
+					} );
 				} else {
-					args.createOrder = function () {
-						return paypalCheckoutInstance.createPayment( {
-							flow: 'checkout',
-							currency: $( '#currency' ).val(),
-							amount: $( '#amount' ).val(),
-							intent: 'authorize'
-						} );
-					};
+					session = paypalCheckoutInstance.createOneTimePaymentSession( {
+						amount: getAmountValue(),
+						commit: true,
+						contactPreference: 'UPDATE_CONTACT_INFO',
+						currency: $( '#currency' ).val(),
+						intent: 'authorize',
+						offerCredit: false,
+						returnUrl: returnUrl.toString(),
+						cancelUrl: cancelUrl.toString(),
+						onApprove: onApprove,
+						onError: handlePayPalError
+					} );
 				}
-				paypal.Buttons( args ).render( '#paypal-button' );
-			} ).then( () => {
-				// The PayPal button will be rendered in an html element with the ID
-				// `paypal-button`. This function will be called when the PayPal button
-				// is set up and ready to be used
-			} ).catch( ( err ) => {
-				// Handle component creation error
-				showClientSideErrorMessage( 'component creation error: ' + err );
-			} );
+				const urlParams = ( new URL( location.href ) ).searchParams;
+				const paymentToken = urlParams.get( 'token' );
+				const billingToken = urlParams.get( 'ba_token' );
+				if ( billingToken ) {
+					// PayPal sends no PayerID back for a billing agreement. Only pass
+					// billingToken: with paymentId as well, tokenizePayment() treats it
+					// as checkout with vault, which needs a payerId.
+					return onApprove( { billingToken: billingToken } );
+				} else if ( paymentToken ) {
+					return onApprove( {
+						paymentId: paymentToken,
+						payerId: urlParams.get( 'PayerID' )
+					} );
+				}
+				return session.start( { presentationMode: 'redirect' } );
+			} ).catch( handlePayPalError );
 		} else if ( payment_method === 'venmo' ) {
 			createBraintreeClient().then( ( braintreeClientInstance ) => {
 				getDeviceData( braintreeClientInstance );

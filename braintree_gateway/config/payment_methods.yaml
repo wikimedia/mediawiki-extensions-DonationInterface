@@ -1,9 +1,12 @@
 venmo:
-  is_default: true
   recurring: true
   countries:
     - US
 paypal:
+  is_default: true
+  validation:
+    employer: false
+    opt_in: false
   recurring: true
   countries:
     - AD

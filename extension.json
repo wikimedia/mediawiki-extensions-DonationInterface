@@ -208,6 +208,7 @@
 		"BraintreeAdapter": "braintree_gateway/braintree.adapter.php",
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
+		"BraintreePageTrait": "braintree_gateway/BraintreePageTrait.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
 		"EncryptedCardParameters": "adyen_gateway/EncryptedCardParameters.php",
 		"PlaceholderFiscalNumber": "gateway_common/PlaceholderFiscalNumber.php",
