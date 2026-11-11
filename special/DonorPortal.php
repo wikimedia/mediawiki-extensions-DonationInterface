@@ -257,16 +257,18 @@ class DonorPortal extends UnlistedSpecialPage {
 				$key = 'recurringContributions';
 				$recurringContribution['is_processing'] ??= false;
 				if ( $recurringContribution['frequency_unit'] === 'month' ) {
-					// Consider it paused if the next charge date is more than 31 days in the future
+					// Consider it paused if the next charge date is more than 32 days in the future,
+					// as in CiviCRM's CalculatedData::PAUSED_DAYS
 					$recurringContribution['is_paused'] = (
 						new \DateTime( $recurringContribution['next_sched_contribution_date'] ) >
-						new \DateTime( '+31 days' )
+						new \DateTime( '+32 days' )
 					);
 				} elseif ( $recurringContribution['frequency_unit'] === 'year' ) {
-					// Consider it paused if the next charge date is more than 31 days in the future
+					// Consider it paused if the next charge date is more than 367 days in the future,
+					// as in CiviCRM's CalculatedData::PAUSED_DAYS
 					$recurringContribution['is_paused'] = (
 						new \DateTime( $recurringContribution['next_sched_contribution_date'] ) >
-						new \DateTime( '+366 days' )
+						new \DateTime( '+367 days' )
 					);
 				}
 			} elseif ( in_array(
