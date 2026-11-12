@@ -118,7 +118,7 @@ class ContributionTrackingHelper {
 				$value = $dataObject->getValue( $conversionParam );
 				if ( $value ) {
 					// At most one of these values should ever be populated
-					$trackingData['ad_param_id'] = $conversionParam;
+					$trackingData['ad_param'] = $conversionParam;
 					$trackingData['ad_click_identifier'] = $value;
 					break;
 				}

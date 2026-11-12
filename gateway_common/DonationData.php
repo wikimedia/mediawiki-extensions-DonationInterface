@@ -967,7 +967,7 @@ class DonationData implements LogPrefixProvider {
 			[ $value, $source ] = $this->sourceHarvest( $conversionParam );
 			if ( $value ) {
 				// At most one of these values should ever be populated
-				$tracking_data['ad_param_id'] = $conversionParam;
+				$tracking_data['ad_param'] = $conversionParam;
 				$tracking_data['ad_click_identifier'] = $value;
 				break;
 			}
