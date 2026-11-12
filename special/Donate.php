@@ -8,7 +8,6 @@ use DonationInterface;
 use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Config\Config;
-use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\AdyenClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\BraintreeClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GatewayClientConfig;
@@ -688,20 +687,15 @@ class Donate extends UnlistedSpecialPage {
 
 		$rawCountries = array_values( array_unique( $rawCountries ) );
 
-		$countryNames = CountryNames::getNames(
-			$this->routingParams['language']
-		);
-
 		foreach ( $rawCountries as $countryCode ) {
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
 
 			$countries[$countryCode] = [
 				'currency' => $currency,
-				'label' => $countryNames[$countryCode] ?? $countryCode,
 				'value' => $countryCode,
 			];
 		}
-
+		// Goal: only array of valid country codes ISO from countries.yaml
 		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 

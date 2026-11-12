@@ -40,8 +40,9 @@
 </template>
 
 <script>
-const { defineComponent, ref, computed, nextTick } = require( 'vue' );
+const { defineComponent, ref, computed, nextTick, inject } = require( 'vue' );
 const { CdxLookup } = require( '@wikimedia/codex' );
+const { getCountryName } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CountrySelectorInline',
@@ -71,16 +72,20 @@ module.exports = exports = defineComponent( {
 		const selection = ref( null );
 		const inputValue = ref( '' );
 
+		const params = inject( 'params', {} );
+		const locale = params.wgUserLanguage || 'en';
 		// Sort by country name using js Intl.Collator based on donor language
-		const collator = new Intl.Collator( mw.config.get( 'wgUserLanguage' ), { sensitivity: 'base' } );
+
+		const collator = new Intl.Collator( locale, { sensitivity: 'base' } );
 
 		// Format options list ({ value: 'US', label: 'United States (USD)' })
+		// Sorted by country label
 		const countryOptions = computed( () => Object.entries( props.countries )
-			.sort( ( [ , a ], [ , b ] ) => collator.compare( a.label, b.label ) )
 			.map( ( [ code, config ] ) => ( {
 				value: code,
-				label: `${ config.label } (${ config.currency })`
+				label: `${ getCountryName( locale, code ) } (${ config.currency })`
 			} ) )
+			.sort( ( a, b ) => collator.compare( a.label, b.label ) )
 		);
 
 		// Filter options based on type input

@@ -22,7 +22,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	wgForbiddenViewType: mw.config.get( 'wgForbiddenViewType' ),
 	wmf_token: mw.config.get( 'wmf_token' ),
 	wmf_tokens: mw.config.get( 'wmf_tokens' ),
-	wgUserLanguage: mw.config.get( 'wgUserLanguage' ),
+	wgUserLanguage: mw.config.get( 'wgUserLanguage' ) || 'en',
 	adyenConfiguration: mw.config.get( 'adyenConfiguration' ),
 	gravyConfiguration: mw.config.get( 'gravyConfiguration' ),
 	braintreeConfiguration: mw.config.get( 'braintreeConfiguration' ),
@@ -35,6 +35,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	DonateValidationRules: mw.config.get( 'DonateValidationRules' ) || { shared: {}, method: {} },
 	DonationInterfaceStateProvinceOptions: mw.config.get( 'DonationInterfaceStateProvinceOptions' ) || []
 }, comboWikiConfig );
+
 vueApp.provide( 'params', params );
 
 require( './api.js' ).init( params );

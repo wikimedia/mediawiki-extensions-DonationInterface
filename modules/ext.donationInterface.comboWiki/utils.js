@@ -1,6 +1,18 @@
 const scriptPromises = {};
 
 /**
+ * Store instance of Intl.DisplayNames for country names in the given language on page load,
+ * to be shared by every component that shows a country name.
+ *
+ * @type {Intl.DisplayNames|null|false}
+ *     - Intl.DisplayNames if used at least once and available
+ *     - null if not used at all
+ *     - false if not available in browser
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DisplayNames
+ */
+let IntlDisplayNames = null;
+
+/**
  * Removes a script added by loadScript so a later call injects it again.
  *
  * @param {string} src
@@ -280,6 +292,37 @@ function openLinksInNewTab( html ) {
 	return template.innerHTML;
 }
 
+/**
+ * Get the localized name of a country or default to its country code.
+ *
+ * @param {string} locale
+ * @param {string} countryCode ISO 3166-1 alpha-2 code, e.g. 'FR'
+ * @param {string} [fallback] returned when no name is available; defaults to countryCode
+ * @return {string}
+ */
+function getCountryName( locale, countryCode, fallback = countryCode ) {
+	if ( IntlDisplayNames === null ) {
+		// null means might be first attempt
+		try {
+			// Guarded: older Safari/iOS lack Intl.DisplayNames and throw a TypeError here
+			IntlDisplayNames = new Intl.DisplayNames( locale, { type: 'region', fallback: 'code' } );
+		} catch ( error ) {
+			IntlDisplayNames = false;
+		}
+	}
+	if ( IntlDisplayNames === false ) {
+		// We know it's not supported, just return the fallback value
+		return fallback;
+	}
+	// We should have IntDisplayNames now, so let's use it
+	try {
+		return IntlDisplayNames.of( countryCode ) || fallback;
+	} catch ( error ) {
+		// .of() throws a RangeError for an invalid country code
+		return fallback;
+	}
+}
+
 module.exports = {
 	handleAdyenError,
 	openLinksInNewTab,
@@ -288,5 +331,6 @@ module.exports = {
 	overrideWithFormEntries,
 	amountInMinorUnits,
 	getAdyenCheckout,
-	getAdyenApplePayConfiguration
+	getAdyenApplePayConfiguration,
+	getCountryName
 };
