@@ -61,6 +61,7 @@ class BraintreeAdapter extends GatewayAdapter {
 			$donorDetails = $createPaymentResult->getDonorDetails();
 			// Pull in new data from result if available.
 			$this->addResponseData( [
+				'auth_id' => $createPaymentResult->getAuthID(),
 				'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(), // this is always new
 				'first_name' => $donorDetails->getFirstName() ?? $this->dataObj->getVal( 'first_name' ),
 				'last_name' => $donorDetails->getLastName() ?? $this->dataObj->getVal( 'last_name' ),
@@ -101,11 +102,13 @@ class BraintreeAdapter extends GatewayAdapter {
 					$this->setCurrentTransaction( TransactionType::CAPTURE );
 					$capturePaymentParams = $this->buildRequestArray();
 					$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
+					$responseData = [
+						'capture_id' => $capturePaymentResponse->getCaptureID(),
+					];
 					if ( $capturePaymentResponse->getBackendProcessorTransactionId() ) {
-						$this->addResponseData( [
-							'backend_processor_txn_id' => $capturePaymentResponse->getBackendProcessorTransactionId()
-						] );
+						$responseData['backend_processor_txn_id'] = $capturePaymentResponse->getBackendProcessorTransactionId();
 					}
+					$this->addResponseData( $responseData );
 					$this->finalizeInternalStatus( $capturePaymentResponse->getStatus() );
 				}
 
