@@ -62,7 +62,6 @@ class DonationData implements LogPrefixProvider {
 		'bank_code',
 		'bank_name',
 		'bannerhistlog',
-		'billing_email',
 		'bin_hash',
 		'branch_code',
 		'card_num',
