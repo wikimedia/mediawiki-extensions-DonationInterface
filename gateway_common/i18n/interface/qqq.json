@@ -61,6 +61,8 @@
 	"combowiki-payment-failed": "Error message shown when the donation submission fails on the ComboWiki donation form.",
 	"combowiki-payment-incomplete": "Error message shown when the donation submission returns errors on the ComboWiki donation form.",
 	"combowiki-monthly-convert-failed": "Error message shown on the ComboWiki donation form when the donor's one-time donation succeeded but converting it to a monthly donation failed. Parameters:\n* $1 - the order ID of the completed one-time donation, for the donor to quote to donor services",
+	"combowiki-error-select-amount": "Error message shown when the user selects amount less than minimum amount $1.",
+	"combowiki-error-select-email-option": "Error message shown when the user selects an invalid email option.",
 	"combowiki-payment-method-heading": "Heading above the payment method selector on the ComboWiki donation form.",
 	"combowiki-method-card": "Label for the credit/debit card payment method option on the ComboWiki donation form.\n{{Identical|Card}}",
 	"combowiki-method-paypal": "Label for the PayPal payment method option on the ComboWiki donation form.\n{{Identical|PayPal}}",
@@ -346,7 +348,5 @@
 	"donate_interface-redirect-explanation": "Message explaining they will be redirected to a payment processor partner",
 	"donate_interface-amount-legend-variant-01A": "Alternate text for amount label- only needed in Japanese for a JP payments form test",
 	"donate_interface-cc-form-header-personal-variant-01A": "Alternate text for billing information header- only needed in Japanese for a JP payments form test",
-	"donate_interface-submit-button-variant-01A": "{{optional}}\nAlternate text for the submit button on the donation form - '''only needed in Japanese''' for a JP payments form test.\n\nNote that the Japanese is canonical here - if it is a poor fit for the English version, please correct the English not the Japanese.",
-	"combowiki-error-select-amount": "Error message shown when the user selects amount less than minimum amount $1.",
-	"combowiki-error-select-email-option": "Error message shown when the user selects an invalid email option."
+	"donate_interface-submit-button-variant-01A": "{{optional}}\nAlternate text for the submit button on the donation form - '''only needed in Japanese''' for a JP payments form test.\n\nNote that the Japanese is canonical here - if it is a poor fit for the English version, please correct the English not the Japanese."
 }

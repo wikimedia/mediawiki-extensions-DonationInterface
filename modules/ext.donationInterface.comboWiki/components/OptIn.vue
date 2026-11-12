@@ -1,61 +1,72 @@
 <template>
-	<div class="fieldset gap--3">
-		<div class="fieldset__label">
-			<p class="text text--base">
-				<strong>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</strong>
-			</p>
-		</div>
-		<div>
-			<cdx-radio
-				:model-value="modelValue"
-				input-value="1"
-				name="email-optin"
-				@update:model-value="handleSelection"
-			>
-				{{ $i18n( 'combowiki-optin-yes' ).text() }}
-			</cdx-radio>
-
-			<cdx-radio
-				:model-value="modelValue"
-				input-value="0"
-				name="email-optin"
-				@update:model-value="handleSelection"
-			>
-				{{ $i18n( 'combowiki-optin-no' ).text() }}
-			</cdx-radio>
-
-			<!-- Dynamic Feedback Box -->
-			<div
-				v-if="feedbackText"
-				class="optin-feedback-box"
-				:class="feedbackType"
-			>
-				{{ feedbackText }}
+	<cdx-field :status="status" :messages="messages">
+		<div class="fieldset gap--3">
+			<div class="fieldset__label">
+				<p class="text text--base">
+					<strong>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</strong>
+				</p>
 			</div>
-			<div v-html="optInDescription">
+			<div>
+				<cdx-radio
+					:model-value="modelValue"
+					input-value="1"
+					name="email-optin"
+					@update:model-value="handleSelection"
+				>
+					{{ $i18n( 'combowiki-optin-yes' ).text() }}
+				</cdx-radio>
+
+				<cdx-radio
+					:model-value="modelValue"
+					input-value="0"
+					name="email-optin"
+					@update:model-value="handleSelection"
+				>
+					{{ $i18n( 'combowiki-optin-no' ).text() }}
+				</cdx-radio>
+
+				<!-- Dynamic Feedback Box -->
+				<div
+					v-if="feedbackText"
+					class="optin-feedback-box"
+					:class="feedbackType"
+				>
+					{{ feedbackText }}
+				</div>
+				<div v-html="optInDescription">
+				</div>
 			</div>
 		</div>
-	</div>
+	</cdx-field>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxRadio } = require( '@wikimedia/codex' );
+const { CdxRadio, CdxField } = require( '@wikimedia/codex' );
 const { openLinksInNewTab } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'OptinFieldset',
 
 	components: {
-		'cdx-radio': CdxRadio
+		'cdx-radio': CdxRadio,
+		'cdx-field': CdxField
 	},
 	props: {
 		modelValue: {
 			type: String,
 			default: ''
+		},
+		status: {
+			type: String,
+			default: 'default'
+		},
+		messages: {
+			type: Object,
+			default: () => ( {} )
 		}
 	},
-	emits: [ 'update:modelValue' ],
+	emits: [ 'update:modelValue', 'onChange' ],
 	data() {
 		return {
 			hasSelectedNo: false,
@@ -84,6 +95,7 @@ module.exports = exports = defineComponent( {
 	methods: {
 		handleSelection( newValue ) {
 			// Emit update to parent component
+			this.$emit( 'onChange', newValue );
 			this.$emit( 'update:modelValue', newValue );
 
 			// Dynamic border state management

@@ -706,12 +706,16 @@ class Donate extends UnlistedSpecialPage {
 	private function addCountriesConfig( array &$vars ): void {
 		$countries = [];
 		$rawCountries = [];
+		$gatewaysOnPage = $this->getGatewaysOnPage();
 
 		$enabledConfigurations = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
 			$this->routingParams['variant'] ?? null
 		);
 
-		foreach ( $enabledConfigurations  as $gateway => $config ) {
+		// Ignore unsupported gateways' configurations like igenico/amazon/paypal_ec...
+		$enabledConfigurations = array_intersect_key( $enabledConfigurations, array_flip( $gatewaysOnPage ) );
+
+		foreach ( $enabledConfigurations as $gateway => $config ) {
 			$rawCountries[] = $config['countries'];
 		}
 

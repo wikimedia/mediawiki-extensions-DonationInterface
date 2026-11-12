@@ -51,6 +51,8 @@
 	"combowiki-payment-failed": "Zahlung fehlgeschlagen. Bitte erneut versuchen.",
 	"combowiki-payment-incomplete": "Die Zahlung konnte nicht abgeschlossen werden.",
 	"combowiki-monthly-convert-failed": "Ihre einmalige Spende war erfolgreich, aber wir konnten Ihre monatliche Spende nicht einrichten. Referenz: $1",
+	"combowiki-error-select-amount": "Bitte einen Betrag auswählen (mindestens: $1)",
+	"combowiki-error-select-email-option": "Bitte wählen Sie eine E-Mail-Option aus",
 	"combowiki-payment-method-heading": "Spenden Sie mit Ihrer bevorzugten Zahlungsmethode",
 	"combowiki-method-card": "Karte",
 	"combowiki-method-sepa": "SEPA-Lastschrift",

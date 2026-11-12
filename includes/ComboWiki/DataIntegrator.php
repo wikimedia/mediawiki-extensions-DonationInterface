@@ -158,6 +158,7 @@ class DataIntegrator {
 		'email',
 		'employer',
 		'employer_id',
+		'fbclid', // conversion parameter
 		'first_name',
 		'first_name_phonetic',
 		'fiscal_number',
@@ -165,6 +166,7 @@ class DataIntegrator {
 		'frequency_unit',
 		'full_name',
 		'gateway',
+		'gclid', // conversion parameter
 		'landing_page', // previously concatenated into utm_source
 		'last_name',
 		'last_name_phonetic',
@@ -175,6 +177,7 @@ class DataIntegrator {
 		'pay_the_fee',
 		'preSelect',
 		'phone',
+		'rdt_cid', // conversion parameter
 		'recurring',
 		'state_province',
 		'street_address',
