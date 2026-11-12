@@ -306,12 +306,47 @@ module.exports = exports = defineComponent( {
 			if ( !countryConfig ) {
 				return;
 			}
+
+			const previousCurrency = this.donation.currency;
 			this.donation.currency = countryConfig.currency || 'USD';
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', this.countries[ country ].value );
 			url.searchParams.set( 'currency', this.donation.currency );
-			window.location.assign( url.toString() );
+			this.keepFrequencyInUrl( url );
+			this.keepAmountInUrl( url, previousCurrency );
+			this.redirectTargetUrl( url.toString() );
+		},
+		/**
+		 * Puts the chosen frequency in the URL so the reloaded page selects it again.
+		 * A one time gift sets recurring=0 rather than removing it, because Special:Donate
+		 * fills a missing recurring from the session, e.g. from an earlier monthly banner.
+		 *
+		 * @param {URL} url
+		 */
+		keepFrequencyInUrl( url ) {
+			const frequency = this.donation.frequency;
+			if ( frequency === 'once' ) {
+				url.searchParams.set( 'recurring', '0' );
+				url.searchParams.delete( 'frequency_unit' );
+			} else if ( frequency ) {
+				url.searchParams.set( 'recurring', '1' );
+				url.searchParams.set( 'frequency_unit', frequency );
+			}
+		},
+		/**
+		 * Keeps the amount when the new country uses the same currency, e.g. Italy to Spain.
+		 * In a different currency the old number means a different gift, so the donor picks again.
+		 *
+		 * @param {URL} url
+		 * @param {string} previousCurrency
+		 */
+		keepAmountInUrl( url, previousCurrency ) {
+			if ( this.donation.currency === previousCurrency && Number( this.donation.amount ) > 0 ) {
+				url.searchParams.set( 'amount', this.donation.amount );
+			} else {
+				url.searchParams.delete( 'amount' );
+			}
 		},
 		handleDonateResult( result ) {
 			const response = result.result;
