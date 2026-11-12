@@ -401,6 +401,18 @@ class DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Check that billing_email is not read from the request
+	 */
+	public function testBillingEmailNotReadFromRequest() {
+		$data = $this->testData;
+		$data['billing_email'] = 'injected@example.com';
+		$this->setUpRequest( $data );
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) );
+		$this->assertArrayNotHasKey( 'billing_email', $ddObj->getData() );
+	}
+
+	/**
 	 * Check that utm_source from app donations is what we are expecting
 	 */
 	public function testSetUtmSourceFromAppWithBanner() {
