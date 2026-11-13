@@ -484,6 +484,9 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
+		// For the over-the-maximum amount message
+		$vars['wgDonationInterfaceMajorGiftsEmail'] = $this->getConfig()->get( 'DonationInterfaceMajorGiftsEmail' );
+
 		if ( $this->getConfig()->get( 'DonationInterfaceLogClientErrors' ) ) {
 			// Read by comboWiki errorLogger.js, which only installs when this is set
 			$vars['wgDonationInterfaceClientErrorLogIgnorePatterns'] = $this->getConfig()->get(
@@ -840,7 +843,7 @@ class Donate extends UnlistedSpecialPage {
 		] ) );
 	}
 
-	/*
+	/**
 	 * The subdivisions (states, provinces, territories) of the given country, for the state_province
 	 * dropdown, the same list the Mustache forms use (see Mustache::setStateOptions).
 	 *

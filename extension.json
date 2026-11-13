@@ -758,6 +758,7 @@
 				"donate_interface-ach-invalid-account-number-count",
 				"donate_interface-ach-invalid-routing-number-count",
 				"combowiki-error-select-amount",
+				"donate_interface-bigamount-error",
 				"combowiki-error-select-email-option"
 			]
 		},

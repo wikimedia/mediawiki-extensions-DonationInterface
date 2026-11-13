@@ -50,20 +50,69 @@ function getSuggestedFee( amount, currency, params ) {
 }
 
 /**
+ * Converts an amount from the rule's currency into the donation currency, unrounded,
+ * like Amount.php and the mustache forms' validate_input.js.
+ *
+ * @param {number} value An amount in the rule's currency
+ * @param {Object} rules The amount rules, with the currency of their min and max
+ * @param {string} currency The donation currency
+ * @param {Object} params The page params, for the currency rates
+ * @return {number}
+ */
+function convertRuleAmount( value, rules, currency, params ) {
+	const rates = params.wgDonationInterfaceCurrencyRates || {};
+	if ( currency === rules.currency || !rates[ currency ] ) {
+		return value;
+	}
+	return ( value / rates[ rules.currency ] ) * rates[ currency ];
+}
+
+/**
+ * The minimum the server accepts, unrounded, so 1 USD is 0.8677 EUR and 0.87 EUR passes.
+ *
  * @param {string} currency
  * @param {Object} params The page params, for the amount rules and currency rates
- * @return {number} The maximum donation in the currency
+ * @return {number} The minimum donation in the currency, or 0 when there is no rule
+ */
+function getMinAmount( currency, params ) {
+	const rules = params.wgDonationInterfaceAmountRules;
+	if ( !rules || !rules.min ) {
+		return 0;
+	}
+	return convertRuleAmount( rules.min, rules, currency, params );
+}
+
+/**
+ * @param {string} currency
+ * @param {Object} params The page params, for the amount rules and currency rates
+ * @return {number} The maximum donation in the currency, unrounded
  */
 function getMaxAmount( currency, params ) {
 	const rules = params.wgDonationInterfaceAmountRules;
 	if ( !rules || !rules.max ) {
 		return Infinity;
 	}
-	const rates = params.wgDonationInterfaceCurrencyRates || {};
-	if ( currency === rules.currency || !rates[ currency ] ) {
-		return rules.max;
+	return convertRuleAmount( rules.max, rules, currency, params );
+}
+
+/**
+ * Rounds a limit to an amount the donor can type in the currency: the minimum up and the
+ * maximum down, so the rounded limits pass the same checks as the unrounded ones.
+ *
+ * @param {number} amount
+ * @param {string} currency
+ * @param {Object} params The page params, for the currencies without cents
+ * @param {Function} roundingFunction Math.ceil for a minimum, Math.floor for a maximum
+ * @return {number|undefined} undefined for no limit, so the input gets no attribute
+ */
+function roundLimitToCurrency( amount, currency, params, roundingFunction ) {
+	if ( !isFinite( amount ) ) {
+		return undefined;
 	}
-	return ( rules.max / rates[ rules.currency ] ) * rates[ currency ];
+	const noDecimalCurrencies = params.DonationInterfaceNoDecimalCurrencies || [];
+	const factor = noDecimalCurrencies.includes( currency ) ? 1 : 100;
+	// toFixed first, so 0.29 * 100 = 28.999999999999996 isn't floored to 0.28
+	return roundingFunction( Number( ( amount * factor ).toFixed( 6 ) ) ) / factor;
 }
 
 /**
@@ -109,16 +158,6 @@ function getFormattedAmount( amount, language, currency, country = 'US' ) {
 	}
 }
 
-function minAmountFunction( rules, rates, currency, presetAmounts = [] ) {
-	if ( !rules || !rules.min ) {
-		return presetAmounts[ 0 ];
-	}
-	if ( currency === rules.currency || !rates[ currency ] ) {
-		return rules.min;
-	}
-	return Math.ceil( ( rules.min / rates[ rules.currency ] ) * rates[ currency ] );
-}
-
 function getPresetAmounts( currency, rates ) {
 	if ( !currency || currency === 'USD' || !rates[ currency ] ) {
 		return BASE_USD_PRESETS;
@@ -144,10 +183,11 @@ function getPresetAmounts( currency, rates ) {
 }
 module.exports = {
 	getSuggestedFee,
+	getMinAmount,
 	getMaxAmount,
+	roundLimitToCurrency,
 	canCoverFee,
 	getFeeAmount,
-	minAmountFunction,
 	getFormattedAmount,
 	getPresetAmounts
 };
