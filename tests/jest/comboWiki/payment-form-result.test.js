@@ -51,7 +51,7 @@ const donationSucceeds = async ( frequency, response ) => {
 	Object.assign( wrapper.vm.donation, { frequency } );
 	await wrapper.vm.$nextTick();
 	wrapper.findComponent( PaymentMethodForm ).vm.$emit( 'donationSuccess', {
-		result: Object.assign( { isFailed: false, thankYouPage: THANK_YOU_URL }, response )
+		result: Object.assign( { isFailed: false, canShowMonthlyConvert: true, thankYouPage: THANK_YOU_URL }, response )
 	} );
 	return wrapper;
 };
@@ -85,5 +85,13 @@ describe( 'ComboWiki payment form after a successful donation', () => {
 		await donationSucceeds( 'once', { formData: [] } );
 		expect( redirectTargetUrl ).not.toHaveBeenCalled();
 		expect( appState.showRecurringConvert.value ).toBe( true );
+	} );
+
+	it( 'does not offer monthly convert for failed payments', async () => {
+		// e.g. AdyenCardForm posting to the card issuer's 3D Secure page
+		await donationSucceeds( 'month', {
+			canShowMonthlyConvert: false
+		} );
+		expect( redirectTargetUrl ).toHaveBeenCalled();
 	} );
 } );

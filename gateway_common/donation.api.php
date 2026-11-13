@@ -27,9 +27,10 @@ class DonationApi extends DonationApiBase {
 			'thankYouPage' => $thankYouPageUrl,
 			'formData' => $paymentResult->getFormData(),
 			'isFailed' => $paymentResult->isFailed(),
+			'canShowMonthlyConvert' => !$paymentResult->isFailed() && ( $this->adapter->showMonthlyConvert() ),
 			// META_BC_BOOLS is a metadata key to tell ApiResult which keys
 			// should be preserved in the output even if their value is false
-			ApiResult::META_BC_BOOLS => [ 'isFailed' ]
+			ApiResult::META_BC_BOOLS => [ 'isFailed', 'canShowMonthlyConvert' ]
 		];
 
 		$errors = $paymentResult->getErrors();

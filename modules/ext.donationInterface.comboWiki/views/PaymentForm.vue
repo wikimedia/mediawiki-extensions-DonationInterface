@@ -363,7 +363,7 @@ module.exports = exports = defineComponent( {
 			// Store backend-generated Thank-You page URL for modal usage
 			this.thankYouUrl = response.thankYouPage || response.redirect;
 
-			if ( this.donation.frequency === 'once' && !response.redirect ) {
+			if ( this.donation.frequency === 'once' && !response.redirect && response.canShowMonthlyConvert ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
 				// Payment method components should handle responses with formData
