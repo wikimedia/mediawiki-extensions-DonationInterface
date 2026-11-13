@@ -91,7 +91,6 @@
 					:donation="donation"
 					:language="params.language || 'en'"
 					:order-id="params.order_id || ''"
-					:utm-token="params.utm_token || ''"
 					:charged-amount="Number( chargedDonation.amount ) || null"
 					:thank-you-url="thankYouUrl"
 					@close="redirectTargetUrl"

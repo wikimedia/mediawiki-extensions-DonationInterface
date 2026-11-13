@@ -400,8 +400,10 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['variant'] = 'monthlyConvert';
 		$donorTestData['recurring_payment_token'] = 'T1234-5432-9876';
 		$donorTestData['gateway_txn_id'] = 'TXN-999-1234';
+		$donorTestData['order_id'] = '1.1';
 		$session = [
-			'Donor' => $donorTestData,
+			GatewayAdapter::DONOR => $donorTestData,
+			GatewayAdapter::DONOR_BKUP => $donorTestData,
 			'ingenicoEditToken' => $this->clearToken,
 		];
 

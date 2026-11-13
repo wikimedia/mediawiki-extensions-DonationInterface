@@ -199,6 +199,17 @@ function createCheckoutSession( donation ) {
 	} );
 }
 
+/**
+ * @param {Object} parameters di_recurring_convert params, including the gateway
+ * @return {jQuery.Promise}
+ */
+function recurringConvert( parameters ) {
+	const params = Object.assign( {}, parameters, {
+		wmf_token: getToken( parameters.gateway )
+	} );
+	return apiPost( params );
+}
+
 function validateApplePayPaymentSession( payload ) {
 	const gateway = getGateway( payload.paymentMethod );
 	const params = {
@@ -234,13 +245,14 @@ function logClientError( details ) {
 }
 
 module.exports = {
+	paymentMethodMap,
+	donateParamMap,
 	init,
 	logClientError,
 	validateApplePayPaymentSession,
 	submitDonation,
-	paymentMethodMap,
-	donateParamMap,
 	createCheckoutSession,
 	apiPost,
-	getGateway
+	getGateway,
+	recurringConvert
 };
