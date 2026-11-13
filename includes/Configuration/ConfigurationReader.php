@@ -18,6 +18,30 @@ class ConfigurationReader {
 	protected $configDirectories = [];
 
 	/**
+	 * Creates a reader for the configuration shared by all gateways
+	 *
+	 * @param string $extensionBaseDir
+	 * @param string|null $localConfigDir
+	 * @return ConfigurationReader
+	 */
+	public static function createForSharedConfiguration(
+		string $extensionBaseDir,
+		?string $localConfigDir
+	) {
+		$configurationReader = new ConfigurationReader();
+
+		// Register general config dir (shipped defaults)
+		$configurationReader->registerConfigDirectory( self::getGeneralBaseConfigDir( $extensionBaseDir ) );
+
+		// Register local config dir if set, but not its gateway-specific subdirectories
+		if ( $localConfigDir ) {
+			$configurationReader->registerConfigDirectory( $localConfigDir );
+		}
+
+		return $configurationReader;
+	}
+
+	/**
 	 * Creates a reader for a specific gateway and variant
 	 *
 	 * @param string $extensionBaseDir
@@ -37,8 +61,7 @@ class ConfigurationReader {
 		$configurationReader = new ConfigurationReader();
 
 		// Register general config dir (shipped defaults)
-		$generalBaseConfigDir = $extensionBaseDir . DIRECTORY_SEPARATOR . 'config';
-		$configurationReader->registerConfigDirectory( $generalBaseConfigDir );
+		$configurationReader->registerConfigDirectory( self::getGeneralBaseConfigDir( $extensionBaseDir ) );
 
 		// Register gateway base config dir (gateway-specific shipped defaults)
 		$gatewayBaseConfigDir = $extensionBaseDir . DIRECTORY_SEPARATOR . $gateway . '_gateway'
@@ -64,6 +87,14 @@ class ConfigurationReader {
 		}
 
 		return $configurationReader;
+	}
+
+	/**
+	 * @param string $extensionBaseDir
+	 * @return string The dir of the shipped defaults shared by all gateways
+	 */
+	protected static function getGeneralBaseConfigDir( string $extensionBaseDir ): string {
+		return $extensionBaseDir . DIRECTORY_SEPARATOR . 'config';
 	}
 
 	/**

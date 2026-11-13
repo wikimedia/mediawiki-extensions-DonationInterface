@@ -34,7 +34,7 @@ class GatewayConfigurationFactory {
 		$key = self::makeKey( $gateway, $variant );
 		if ( !isset( $this->configurations[ $key ] ) ) {
 			$reader = ConfigurationReader::createForGatewayAndVariant(
-				$this->options->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface',
+				$this->getExtensionBaseDir(),
 				$this->options->get( 'DonationInterfaceLocalConfigurationDirectory' ),
 				$this->options->get( 'DonationInterfaceVariantConfigurationDirectory' ),
 				$gateway,
@@ -74,20 +74,24 @@ class GatewayConfigurationFactory {
 		return $variant ? $gateway . '.' . $variant : $gateway;
 	}
 
+	/**
+	 * The configuration shared by all gateways, e.g. donation_rules.yaml
+	 *
+	 * @return array
+	 */
 	public function getSharedConfiguration(): array {
 		$key = '_shared';
-		if ( !isset( $this->configurations[$key] ) ) {
-			$reader = new ConfigurationReader();
-			$reader->registerConfigDirectory(
-				$this->options->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface'
-				. DIRECTORY_SEPARATOR . 'config'
+		if ( !isset( $this->configurations[ $key ] ) ) {
+			$reader = ConfigurationReader::createForSharedConfiguration(
+				$this->getExtensionBaseDir(),
+				$this->options->get( 'DonationInterfaceLocalConfigurationDirectory' )
 			);
-			$localConfigDir = $this->options->get( 'DonationInterfaceLocalConfigurationDirectory' );
-			if ( $localConfigDir ) {
-				$reader->registerConfigDirectory( $localConfigDir );
-			}
-			$this->configurations[$key] = $reader->readConfiguration();
+			$this->configurations[ $key ] = $reader->readConfiguration();
 		}
-		return $this->configurations[$key];
+		return $this->configurations[ $key ];
+	}
+
+	private function getExtensionBaseDir(): string {
+		return $this->options->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface';
 	}
 }
