@@ -25,6 +25,7 @@ use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Extension\DonationInterface\PageTraits\SeedFromSessionTrait;
 use MediaWiki\Extension\DonationInterface\ReturnProcessing\ResultPages;
+use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MessageUtils;
@@ -493,8 +494,7 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
-		$selectedAdapter = $this->getSelectedAdapter();
-		if ( !$selectedAdapter ) {
+		if ( !$this->getSelectedAdapter() ) {
 			return;
 		}
 
@@ -503,7 +503,7 @@ class Donate extends UnlistedSpecialPage {
 			$this->donationDetails->getData(),
 		);
 
-		$this->addAmountRules( $vars, $selectedAdapter );
+		$this->addAmountRules( $vars );
 
 		$formFields = $this->getFormFieldsWithOverrides(
 			$this->routingParams['country'],
@@ -531,15 +531,17 @@ class Donate extends UnlistedSpecialPage {
 	 * donation_rules.yaml in the local config.
 	 *
 	 * @param array &$vars Client variables to expose
-	 * @param GatewayAdapter $selectedAdapter The adapter for the default payment method's gateway
 	 * @return void
 	 */
-	private function addAmountRules( array &$vars, GatewayAdapter $selectedAdapter ): void {
+	private function addAmountRules( array &$vars ): void {
 		foreach ( $this->adapters as $gateway => $adapter ) {
 			$vars['wgDonationInterfaceAmountRulesByGateway'][$gateway] = $adapter->getDonationRules();
 		}
 		// The frontend reads one set of rules for now, so send the rules of the default method's gateway
-		$vars['wgDonationInterfaceAmountRules'] = $selectedAdapter->getDonationRules();
+		$vars['wgDonationInterfaceAmountRules'] = DonationAmountRules::lookupMatchingDonationRules(
+			$this->gatewayConfigurationFactory->getSharedConfiguration()['donation_rules'] ?? [],
+			[ 'currency' => $this->routingParams['currency'] ]
+		);
 	}
 
 	/**
