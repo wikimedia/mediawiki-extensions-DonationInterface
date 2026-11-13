@@ -21,7 +21,7 @@
 <script>
 /* global ApplePaySession */
 
-const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
+const { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
 const { isApplePayAvailable } = require( '../walletAvailability.js' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 const MethodSubmit = require( './MethodSubmit.vue' );
@@ -48,7 +48,7 @@ module.exports = exports = defineComponent( {
 			default: null
 		}
 	},
-	emits: [ 'presubmit', 'submit', 'error' ],
+	emits: [ 'presubmit', 'submit', 'error', 'ready' ],
 	setup( props, ctx ) {
 		const params = inject( 'params' );
 		let appleSession = null;
@@ -64,6 +64,8 @@ module.exports = exports = defineComponent( {
 			isApplePayAvailable( params.gravyConfiguration ).then( ( available ) => {
 				if ( available ) {
 					showApplePayButtonFlag.value = true;
+					// Once the v-if has put the button in the DOM
+					nextTick( () => ctx.emit( 'ready' ) );
 				} else {
 					emitUnavailable();
 				}

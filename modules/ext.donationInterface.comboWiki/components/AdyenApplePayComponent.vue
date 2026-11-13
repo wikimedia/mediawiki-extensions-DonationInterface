@@ -26,7 +26,7 @@ module.exports = exports = defineComponent( {
 			required: true
 		}
 	},
-	emits: [ 'presubmit', 'submit', 'error' ],
+	emits: [ 'presubmit', 'submit', 'error', 'ready' ],
 	setup( props, ctx ) {
 		const params = inject( 'params' );
 		let applePayComponent;
@@ -171,6 +171,7 @@ module.exports = exports = defineComponent( {
 				await applePayComponent.isAvailable();
 
 				applePayComponent.mount( '#applepay-container' );
+				ctx.emit( 'ready' );
 
 			} catch ( error ) {
 				mw.log.error( 'combowiki applepay unload failed', error );

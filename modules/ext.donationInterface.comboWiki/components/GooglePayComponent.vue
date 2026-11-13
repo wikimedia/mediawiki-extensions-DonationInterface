@@ -66,7 +66,7 @@ module.exports = exports = defineComponent( {
 			required: true
 		}
 	},
-	emits: [ 'submit', 'error' ],
+	emits: [ 'submit', 'error', 'ready' ],
 	setup( props ) {
 		// The gateway in paymentMethodMap, which the donate API posts to (see api.js).
 		const gateway = GATEWAYS[ getGateway( props.paymentMethod ) ];
@@ -114,6 +114,7 @@ module.exports = exports = defineComponent( {
 					buttonRadius: 2
 				} );
 				container.appendChild( button );
+				this.$emit( 'ready' );
 			} catch ( err ) {
 				mw.log.error( 'combowiki googlepay button failed', err );
 				this.emitUnavailable();

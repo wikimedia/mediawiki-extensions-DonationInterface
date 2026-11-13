@@ -29,13 +29,18 @@
 							<strong>{{ methodGroupLabels[group] }}</strong>
 						</p>
 					</div>
-					<!-- No form fields to fill in: show the method's own button so one click submits -->
+					<!-- No form fields to fill in: show the method's own button so one click submits.
+						Hidden, but laid out so the SDKs can draw into it, until every button is ready. -->
 					<div
 						v-if="group === 'instant'"
 						id="ready-to-submit-methods"
 						class="payment-form__method-buttons combo-wiki__payment-method-buttons"
-						:class="{ 'combo-wiki__direct-methods--disabled': disabled }"
-						:inert="disabled"
+						:class="{
+							'combo-wiki__direct-methods--disabled': disabled,
+							'combo-wiki__payment-method-buttons--loading': !buttonsShown
+						}"
+						:inert="disabled || !buttonsShown"
+						:aria-busy="!buttonsShown"
 					>
 						<!-- The click is captured to select the method before the button submits -->
 						<div
@@ -49,8 +54,9 @@
 								:donation="donation"
 								:payment-method="method"
 								@submit="( ...args ) => submitDonation( method, ...args )"
-								@error="paymentMethodConfig[method].error"
+								@error="( ...args ) => onButtonError( method, ...args )"
 								@presubmit="paymentMethodConfig[method].presubmit"
+								@ready="markButtonReady( method )"
 							>
 							</component>
 						</div>
@@ -127,7 +133,7 @@
 </template>
 
 <script>
-const { defineComponent, toRaw, computed, inject, onMounted, reactive, ref, provide } = require( 'vue' );
+const { defineComponent, toRaw, computed, inject, onBeforeUnmount, onMounted, reactive, ref, provide, watch } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const { overrideWithFormEntries } = require( '../utils.js' );
@@ -145,6 +151,9 @@ const BraintreePayPal = require( './BraintreePayPal.vue' );
 const BraintreeVenmo = require( './BraintreeVenmo.vue' );
 const AdyenApplePayComponent = require( './AdyenApplePayComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
+
+// How long the one-click buttons wait for the slowest wallet before showing anyway
+const BUTTONS_SHOWN_TIMEOUT_MS = 3000;
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentMethodSelector',
@@ -351,6 +360,8 @@ module.exports = exports = defineComponent( {
 		 * @property {Function} [presubmit] Called before submit to prepare the payment method (e.g. create a session or validate).
 		 * @property {Function} [isAvailable] Resolves to whether the donor's browser can use the method
 		 *  (e.g. a wallet); the method is only shown once it resolves to true. Without it, always available.
+		 * @property {boolean} [waitForReady] The component draws its button once an SDK has loaded,
+		 *  and emits ready (or error) when it's done. The one-click buttons stay hidden until then.
 		 * @property {Object} [formFields] Extra form fields to include in the payment method form, already filtered by country.
 		 * @property {string} [heading] Heading shown once the method is selected.
 		 *  Without it, "Donate with <label>".
@@ -389,6 +400,7 @@ module.exports = exports = defineComponent( {
 			braintree_paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'braintree-paypal-form',
+				waitForReady: true,
 				error: onError,
 				submit: submitDonation,
 				formFields: getFormFieldsFor( 'braintree_paypal' ),
@@ -406,6 +418,7 @@ module.exports = exports = defineComponent( {
 			braintree_venmo: {
 				label: mw.message( 'combowiki-method-venmo' ).text(),
 				component: 'braintree-venmo-form',
+				waitForReady: true,
 				error: onError,
 				submit: submitDonation,
 				formFields: getFormFieldsFor( 'braintree_venmo' ),
@@ -415,6 +428,7 @@ module.exports = exports = defineComponent( {
 			applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
 				component: 'applepay-form',
+				waitForReady: true,
 				error: onError,
 				presubmit: validateApplePay,
 				isAvailable: () => isApplePayAvailable( params.gravyConfiguration ),
@@ -434,6 +448,7 @@ module.exports = exports = defineComponent( {
 			googlepay: {
 				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
+				waitForReady: true,
 				error: onError,
 				isAvailable: () => isGooglePayAvailable( params.gravyConfiguration ),
 				formFields: getFormFieldsFor( 'googlepay' ),
@@ -443,6 +458,7 @@ module.exports = exports = defineComponent( {
 			adyen_googlepay: {
 				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
+				waitForReady: true,
 				submit: submitDonation,
 				error: onError,
 				gateway: 'adyen',
@@ -469,6 +485,7 @@ module.exports = exports = defineComponent( {
 			adyen_applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
 				component: 'adyen-applepay-form',
+				waitForReady: true,
 				gateway: 'adyen',
 				submit: submitDonation,
 				error: onError,
@@ -677,7 +694,66 @@ module.exports = exports = defineComponent( {
 			}
 		};
 
+		// One-click methods with waitForReady whose component said its button is drawn, or
+		// that it failed (an error means there is nothing more to wait for)
+		const readyButtons = reactive( {} );
+
+		/**
+		 * @param {string} method Payment method key
+		 */
+		const markButtonReady = ( method ) => {
+			readyButtons[ method ] = true;
+		};
+
+		/**
+		 * @param {string} method Payment method key
+		 * @param {...*} args What the component emitted with the error
+		 */
+		const onButtonError = ( method, ...args ) => {
+			markButtonReady( method );
+			paymentMethodConfig[ method ].error( ...args );
+		};
+
+		/**
+		 * Whether every button in the instant row is ready to show: no availability check is
+		 * still running, and every wallet in the row has drawn its button (or failed to).
+		 * The other row's buttons are plain buttons, so they never wait.
+		 */
+		const allButtonsReady = computed( () => {
+			const checking = Object.keys( paymentMethodConfig ).some( ( method ) => paymentMethodConfig[ method ].isAvailable &&
+				isOfferedByServer( method ) &&
+				!( method in availability )
+			);
+			// Only buttons drawn in the instant row; a boxed method's button is in its own view
+			const drawing = availablePaymentMethods.value.some( ( method ) => paymentMethodConfig[ method ].waitForReady &&
+				!isBoxed( method ) &&
+				!readyButtons[ method ]
+			);
+			return !checking && !drawing;
+		} );
+
+		// Shows the one-click buttons together, so they don't appear one by one and push
+		// each other around as each SDK loads. Once shown they stay shown, e.g. when a
+		// wallet turns up after the timeout below.
+		const buttonsShown = ref( false );
+		let showButtonsTimer = null;
+		const showButtons = () => {
+			buttonsShown.value = true;
+			clearTimeout( showButtonsTimer );
+		};
+		watch( allButtonsReady, ( ready ) => {
+			if ( ready ) {
+				showButtons();
+			}
+		}, { immediate: true } );
+
 		onMounted( () => {
+			// A slow or stuck SDK must not keep the donor from the other methods: show what's
+			// there, and let the rest appear as they load, as they did before.
+			if ( !buttonsShown.value ) {
+				showButtonsTimer = setTimeout( showButtons, BUTTONS_SHOWN_TIMEOUT_MS );
+			}
+
 			// Ask about every offered method with a check, whatever the frequency, so a
 			// wallet is ready to show (or stays hidden) when the donor changes it
 			for ( const [ method, config ] of Object.entries( paymentMethodConfig ) ) {
@@ -692,6 +768,7 @@ module.exports = exports = defineComponent( {
 				}
 			}
 		} );
+		onBeforeUnmount( () => clearTimeout( showButtonsTimer ) );
 
 		return {
 			selectPaymentMethod,
@@ -710,6 +787,9 @@ module.exports = exports = defineComponent( {
 			// Not used in the template, but tests read it from wrapper.vm
 			// eslint-disable-next-line vue/no-unused-properties
 			availablePaymentMethods,
+			buttonsShown,
+			markButtonReady,
+			onButtonError,
 			hasFormFields,
 			paymentMethod: selectedPaymentMethod,
 			paymentMethodConfig

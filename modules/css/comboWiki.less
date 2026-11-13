@@ -84,6 +84,15 @@
 	flex-wrap: wrap; /* or balance  with > div max-width: 50%; */
 	margin-bottom: @space-between-payment-btn;
 
+	// Keep the row hidden until every wallet has drawn its button (see PaymentMethodForm).
+	&--loading {
+		// Rather than display: none, so the SDKs size their buttons from the real containers.
+		visibility: hidden;
+		// Apple's apple-pay-button sets visibility: visible on itself once its font has loaded,
+		// so we set opacity 0 here so the container stays hidden. (A child cant override a parent's opacity).
+		opacity: 0;
+	}
+
 	.payment-method-form,
 	.combo-wiki__button-submit {
 		margin-top: 0;
