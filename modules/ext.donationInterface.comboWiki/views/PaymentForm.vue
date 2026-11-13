@@ -71,9 +71,8 @@
 					@on-donor-details-change="updateDonorDetails"
 				></payment-method-form>
 
-				<tax-message :country-code="donation.country"></tax-message>
 				<we-do-not-sell-text></we-do-not-sell-text>
-				<more-info-links text-class="combo-wiki__link-container"></more-info-links>
+				<more-info-links text-class="combo-wiki__link-container" :country-code="donation.country"></more-info-links>
 				<loading-spinner></loading-spinner>
 				<error-display></error-display>
 
@@ -114,7 +113,6 @@ const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
-const TaxMessage = require( '../components/TaxMessage.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
@@ -134,7 +132,6 @@ module.exports = exports = defineComponent( {
 		'amount-selector': AmountSelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
-		'tax-message': TaxMessage,
 		'optin-fieldset': OptInFieldset,
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
