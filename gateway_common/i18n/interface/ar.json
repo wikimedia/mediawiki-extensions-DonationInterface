@@ -56,6 +56,8 @@
 	"combowiki-payment-failed": "فشلت عملية الدفع. يرجى المحاولة مرة أخرى.",
 	"combowiki-payment-incomplete": "لم يتم إتمام عملية الدفع.",
 	"combowiki-monthly-convert-failed": "تم التبرع بنجاح لمرة واحدة، ولكن لم نتمكن من إعداد تبرعك الشهري. المرجع: $1",
+	"combowiki-error-select-amount": "من فضلك اختر مبلغ (أقل من: $1)",
+	"combowiki-error-select-email-option": "من فضلك اختر خيار البريد الإلكتروني",
 	"combowiki-payment-method-heading": "تبرع باستخدام طريقة الدفع المفضلة لديك",
 	"combowiki-method-card": "بطاقة",
 	"combowiki-method-sepa": "الخصم المباشر SEPA",
