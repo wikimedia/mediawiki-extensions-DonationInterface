@@ -73,4 +73,21 @@ class GatewayConfigurationFactory {
 	protected static function makeKey( string $gateway, ?string $variant = null ): string {
 		return $variant ? $gateway . '.' . $variant : $gateway;
 	}
+
+	public function getSharedConfiguration(): array {
+		$key = '_shared';
+		if ( !isset( $this->configurations[$key] ) ) {
+			$reader = new ConfigurationReader();
+			$reader->registerConfigDirectory(
+				$this->options->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface'
+				. DIRECTORY_SEPARATOR . 'config'
+			);
+			$localConfigDir = $this->options->get( 'DonationInterfaceLocalConfigurationDirectory' );
+			if ( $localConfigDir ) {
+				$reader->registerConfigDirectory( $localConfigDir );
+			}
+			$this->configurations[$key] = $reader->readConfiguration();
+		}
+		return $this->configurations[$key];
+	}
 }

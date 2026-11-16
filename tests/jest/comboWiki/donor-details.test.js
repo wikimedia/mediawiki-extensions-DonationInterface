@@ -46,7 +46,7 @@ function mountCardAndSepa( donation, extraParams = {} ) {
 }
 
 const newDonation = () => reactive( {
-	frequency: 'monthly', amount: 10, currency: 'EUR', country: 'DE', paymentMethod: 'card'
+	frequency: 'month', amount: 10, currency: 'EUR', country: 'DE', paymentMethod: 'card'
 } );
 
 describe( 'ComboWiki donor details in the donation', () => {

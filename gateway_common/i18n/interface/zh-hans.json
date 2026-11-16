@@ -85,6 +85,8 @@
 	"combowiki-payment-failed": "付款失败。请重试",
 	"combowiki-payment-incomplete": "付款未能完成。",
 	"combowiki-monthly-convert-failed": "一次性捐赠已成功，但我们无法设置您的月度捐赠。参考：$1",
+	"combowiki-error-select-amount": "请选择金额（最少：$1）",
+	"combowiki-error-select-email-option": "请选择电子邮件选项",
 	"combowiki-payment-method-heading": "使用您偏好的付款方式捐赠",
 	"combowiki-method-card": "信用卡",
 	"combowiki-method-sepa": "SEPA直接借记",

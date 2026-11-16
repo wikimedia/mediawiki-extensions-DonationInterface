@@ -123,7 +123,7 @@ const AmountSelector = require( '../components/AmountSelector.vue' );
 const { getAppeal } = require( '../appeals.js' );
 const { getFeeAmount, minAmountFunction, getFormattedAmount, getPresetAmounts } = require( '../amountHelper.js' );
 const { useAppState } = require( '../composables/useAppState.js' );
-const { paymentMethodMap, donateParamMap, getGateway } = require( '../api.js' );
+const { paymentMethodMap, donateParamMap, getGateway, logClientError } = require( '../api.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
@@ -306,12 +306,47 @@ module.exports = exports = defineComponent( {
 			if ( !countryConfig ) {
 				return;
 			}
+
+			const previousCurrency = this.donation.currency;
 			this.donation.currency = countryConfig.currency || 'USD';
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', this.countries[ country ].value );
 			url.searchParams.set( 'currency', this.donation.currency );
-			window.location.assign( url.toString() );
+			this.keepFrequencyInUrl( url );
+			this.keepAmountInUrl( url, previousCurrency );
+			this.redirectTargetUrl( url.toString() );
+		},
+		/**
+		 * Puts the chosen frequency in the URL so the reloaded page selects it again.
+		 * A one time gift sets recurring=0 rather than removing it, because Special:Donate
+		 * fills a missing recurring from the session, e.g. from an earlier monthly banner.
+		 *
+		 * @param {URL} url
+		 */
+		keepFrequencyInUrl( url ) {
+			const frequency = this.donation.frequency;
+			if ( frequency === 'once' ) {
+				url.searchParams.set( 'recurring', '0' );
+				url.searchParams.delete( 'frequency_unit' );
+			} else if ( frequency ) {
+				url.searchParams.set( 'recurring', '1' );
+				url.searchParams.set( 'frequency_unit', frequency );
+			}
+		},
+		/**
+		 * Keeps the amount when the new country uses the same currency, e.g. Italy to Spain.
+		 * In a different currency the old number means a different gift, so the donor picks again.
+		 *
+		 * @param {URL} url
+		 * @param {string} previousCurrency
+		 */
+		keepAmountInUrl( url, previousCurrency ) {
+			if ( this.donation.currency === previousCurrency && Number( this.donation.amount ) > 0 ) {
+				url.searchParams.set( 'amount', this.donation.amount );
+			} else {
+				url.searchParams.delete( 'amount' );
+			}
 		},
 		handleDonateResult( result ) {
 			const response = result.result;
@@ -343,20 +378,26 @@ module.exports = exports = defineComponent( {
 
 			}
 		},
-		handleDonateError( code, failure ) {
+		handleDonateError( error, failure ) {
 			this.appState.setLoading( false );
 			// Override the default error message if the type of error is fixable by donors taking
 			// a specific action. These errors should be specific and leave zero ambiguity.
-			if ( code && code.type === 'validation' ) {
-				this.appState.setError( code.messages.join( ' ' ) );
+			if ( error && error.type === 'validation' ) {
+				this.appState.setError( error.messages.join( ' ' ) );
 				return;
 			}
 			let errorMessage = this.$i18n( 'combowiki-payment-failed' ).text();
-			if ( code && code.type && code.message ) {
-				errorMessage = code.type + ': ' + code.message;
+			if ( error && error.type && error.message ) {
+				errorMessage = error.type + ': ' + error.message;
 			}
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + errorMessage );
-			mw.log.error( 'di_donate_' + getGateway( this.donation.paymentMethod ) + ' failed', code, failure );
+			const action = 'di_donate_' + getGateway( this.donation.paymentMethod );
+			mw.log.error( action + ' failed', error, failure );
+			logClientError( {
+				message: action + ' failed for order_id ' + this.params.order_id + ': ' +
+					JSON.stringify( { error, failure } ),
+				file: 'PaymentForm.vue'
+			} );
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
@@ -374,8 +415,8 @@ module.exports = exports = defineComponent( {
 				.then( ( result ) => {
 					this.handleDonateResult( result );
 				} )
-				.catch( ( code, failure ) => {
-					this.handleDonateError( code, failure );
+				.catch( ( error, failure ) => {
+					this.handleDonateError( error, failure );
 				} );
 		}
 	},

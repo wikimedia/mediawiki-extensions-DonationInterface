@@ -68,6 +68,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			// another site. Short-circuit the finalization, just stash
 			// the gateway txn id and redirect them.
 			$this->addResponseData( [
+				'auth_id' => $createPaymentResponse->getAuthID(),
 				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 				'backend_processor' => 'adyen',
 				'backend_processor_txn_id' => $createPaymentResponse->getGatewayTxnId(),
@@ -98,6 +99,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	): PaymentResult {
 		$transactionStatus = $createPaymentResponse->getStatus();
 		$responseData = [
+			'auth_id' => $createPaymentResponse->getAuthID(),
 			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $createPaymentResponse->getGatewayTxnId(),
@@ -150,6 +152,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					] );
 					$transactionStatus = $approvePaymentResponse->getStatus();
 					if ( $approvePaymentResponse->isSuccessful() ) {
+						$this->addResponseData( [
+							'capture_id' => $approvePaymentResponse->getCaptureID()
+						] );
 						// Note: this transaction ID is different from the approvePaymentResponse's
 						// transaction ID. We log this, but leave the gateway_txn_id set to
 						// the ID from approvePaymentResponse as that is what we get in the IPN.

@@ -58,6 +58,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		// Add the dLocal-generated transaction ID to the DonationData object
 		// to be sent to the queues
 		$this->addResponseData( [
+			'auth_id' => $createPaymentResponse->getAuthID(),
 			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 		] );
 
@@ -252,6 +253,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				$approvePaymentResponse = $paymentProvider->approvePayment( $capturePaymentParams );
 				if ( $approvePaymentResponse->isSuccessful() ) {
 					$this->addResponseData( [
+						'capture_id' => $approvePaymentResponse->getCaptureId(),
 						'gateway_txn_id' => $approvePaymentResponse->getGatewayTxnId(),
 					] );
 					// recurring will return a token on the authorization call
@@ -424,6 +426,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 
 	protected function addCreatePaymentResponseData( PaymentProviderExtendedResponse $paymentDetailResponse ): void {
 		$data = [
+			'auth_id' => $paymentDetailResponse->getAuthId(),
 			'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId()
 		];
 		if ( $paymentDetailResponse->getPaymentSubmethod() ) {

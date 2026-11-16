@@ -40,6 +40,8 @@
 	"combowiki-payment-failed": "Fallou o pagamento. Inténtao de novo.",
 	"combowiki-payment-incomplete": "Non se puido completar o pagamento.",
 	"combowiki-monthly-convert-failed": "A túa doazón única realizouse correctamente, pero non puidemos configurar a túa doazón mensual. Referencia: $1",
+	"combowiki-error-select-amount": "Por favor, selecciona unha cantidade (o mínimo é de $1)",
+	"combowiki-error-select-email-option": "Escolle unha opción de correo electrónico",
 	"combowiki-payment-method-heading": "Doa co teu método de pago preferido",
 	"combowiki-method-card": "Tarxeta",
 	"combowiki-method-paypal": "PayPal",

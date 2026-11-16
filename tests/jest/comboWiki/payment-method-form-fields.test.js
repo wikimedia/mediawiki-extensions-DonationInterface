@@ -34,7 +34,7 @@ const AU_PARAMS = {
 	DonateValidationRules: { method: { paypal: STATE_RULES, google: STATE_RULES } }
 };
 
-async function mountForm( { paymentMethod = 'paypal', frequency = 'monthly', params = AU_PARAMS } = {} ) {
+async function mountForm( { paymentMethod = 'paypal', frequency = 'month', params = AU_PARAMS } = {} ) {
 	const wrapper = VueTestUtils.mount( PaymentMethodForm, {
 		props: {
 			donation: { frequency, amount: 10, currency: 'AUD', country: 'AU', paymentMethod }
@@ -160,7 +160,7 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 	it( 'keeps one-click buttons when the method has no fields', async () => {
 		const wrapper = await mountForm( {
 			paymentMethod: 'braintree_paypal',
-			frequency: 'yearly',
+			frequency: 'year',
 			params: Object.assign( {}, {
 				paymentMethods: [ { method: 'paypal', gateway: 'braintree' } ],
 				DonationInterfaceFormFields: { method: { paypal: {} } }
@@ -171,7 +171,7 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 } );
 
 describe( 'ComboWiki wallets below the details form', () => {
-	const donation = { frequency: 'monthly', amount: 10, currency: 'AUD', country: 'AU' };
+	const donation = { frequency: 'month', amount: 10, currency: 'AUD', country: 'AU' };
 	const donorDetails = ( valid ) => ( { valid, validate: jest.fn( () => valid ) } );
 	// Neither wallet's SDK loads in jsdom, so these call the click handlers directly
 	const mountWallet = ( component, details, paymentMethod ) => VueTestUtils.mount( component, {

@@ -249,10 +249,10 @@ describe( 'ComboWiki PayPal and Venmo submit after the monthly convert modal', (
 		const wrapper = await mountForm( { amount: 50, payFee: true, paymentMethod: 'paypal' } );
 		const submitted = submitFromModal(
 			wrapper,
-			Object.assign( {}, wrapper.vm.donation, { frequency: 'monthly', amount: 10 } )
+			Object.assign( {}, wrapper.vm.donation, { frequency: 'month', amount: 10 } )
 		);
 		expect( submitted.amount ).toBe( 10 );
-		expect( submitted.frequency ).toBe( 'monthly' );
+		expect( submitted.frequency ).toBe( 'month' );
 	} );
 } );
 

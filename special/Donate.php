@@ -24,12 +24,13 @@ use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFact
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Extension\DonationInterface\PageTraits\SeedFromSessionTrait;
+use MediaWiki\Extension\DonationInterface\ReturnProcessing\ResultPages;
+use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MessageUtils;
 use Psr\Log\LoggerInterface;
 use RecurringConversion;
-use ResultPages;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use Subdivisions;
@@ -119,7 +120,8 @@ class Donate extends UnlistedSpecialPage {
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
 		protected readonly GatewayRouter $gatewayRouter,
-		protected readonly LoggerFactory $loggerFactory
+		protected readonly LoggerFactory $loggerFactory,
+		protected readonly ResultPages $resultPages
 	) {
 		parent::__construct( 'Donate' );
 		$this->donationDetails = new DonationDetails();
@@ -492,15 +494,23 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
-		$selectedAdapter = $this->getSelectedAdapter();
-		if ( !$selectedAdapter ) {
+		if ( $this->getConfig()->get( 'DonationInterfaceLogClientErrors' ) ) {
+			// Read by comboWiki errorLogger.js, which only installs when this is set
+			$vars['wgDonationInterfaceClientErrorLogIgnorePatterns'] = $this->getConfig()->get(
+				'DonationInterfaceClientErrorLogIgnorePatterns'
+			);
+		}
+
+		if ( !$this->getSelectedAdapter() ) {
 			return;
 		}
 
-		// Generate the complete thank-you page URL using adapter state and request data
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $selectedAdapter );
+		// Generate the complete thank-you page URL using donation details
+		$vars['DonationInterfaceThankYouPage'] = $this->resultPages->getThankYouPageForParams(
+			$this->donationDetails->getData(),
+		);
 
-		$this->addAmountRules( $vars, $selectedAdapter );
+		$this->addAmountRules( $vars );
 
 		$formFields = $this->getFormFieldsWithOverrides(
 			$this->routingParams['country'],
@@ -528,15 +538,17 @@ class Donate extends UnlistedSpecialPage {
 	 * donation_rules.yaml in the local config.
 	 *
 	 * @param array &$vars Client variables to expose
-	 * @param GatewayAdapter $selectedAdapter The adapter for the default payment method's gateway
 	 * @return void
 	 */
-	private function addAmountRules( array &$vars, GatewayAdapter $selectedAdapter ): void {
+	private function addAmountRules( array &$vars ): void {
 		foreach ( $this->adapters as $gateway => $adapter ) {
 			$vars['wgDonationInterfaceAmountRulesByGateway'][$gateway] = $adapter->getDonationRules();
 		}
 		// The frontend reads one set of rules for now, so send the rules of the default method's gateway
-		$vars['wgDonationInterfaceAmountRules'] = $selectedAdapter->getDonationRules();
+		$vars['wgDonationInterfaceAmountRules'] = DonationAmountRules::lookupMatchingDonationRules(
+			$this->gatewayConfigurationFactory->getSharedConfiguration()['donation_rules'] ?? [],
+			[ 'currency' => $this->routingParams['currency'] ]
+		);
 	}
 
 	/**
@@ -828,17 +840,11 @@ class Donate extends UnlistedSpecialPage {
 			// Possibly a page reload, or a stale link. The donation
 			// has already gone through, so thank the donor rather than show an empty form.
 			$this->logger->info( "No donor backup for order $orderId, redirecting to the thank you page" );
-			$this->redirectToThankYouPage( $this->createAdapterForGateway(
-				$request->getVal( 'gateway', '' ),
-				[ 'external_data' => [
-					// Without a contribution_tracking_id, building the adapter takes a new ID
-					// and pushes a tracking message. The order ID starts with it.
-					'contribution_tracking_id' => strstr( $orderId ?? '', '.', true ) ?: null,
-					'order_id' => $orderId,
-					'language' => $this->getLanguage()->getCode(),
-					'country' => $request->getVal( 'country', '' ),
-				] ]
-			) );
+			$this->redirectToThankYouPage( [
+				'order_id' => $orderId,
+				'language' => $this->getLanguage()->getCode(),
+				'country' => $request->getVal( 'country', '' ),
+			] );
 			return;
 		}
 
@@ -849,8 +855,12 @@ class Donate extends UnlistedSpecialPage {
 			$this->selectedGateway,
 			[ 'external_data' => $backup, 'variant' => $backup['variant'] ?? '' ]
 		);
-		if ( !$adapter || !$adapter->showMonthlyConvert() ) {
-			$this->redirectToThankYouPage( $adapter );
+		if ( !$adapter ) {
+			$this->reloadPageWithMinimalParams();
+			return;
+		}
+		if ( !$adapter->showMonthlyConvert() ) {
+			$this->redirectToThankYouPage( $backup );
 			return;
 		}
 		$this->adapters[$this->selectedGateway] = $adapter;
@@ -873,16 +883,17 @@ class Donate extends UnlistedSpecialPage {
 		$this->renderPage();
 	}
 
-	private function redirectToThankYouPage( ?GatewayAdapter $adapter ): void {
-		if ( $adapter ) {
-			$url = ResultPages::getThankYouPage( $adapter );
-		} else {
-			$url = $this->getPageTitle()->getFullURL( [
-				'uselang' => $this->getLanguage()->getCode(),
-				'country' => $this->getRequest()->getVal( 'country', '' ),
-			] );
-		}
-		$this->getOutput()->redirect( $url );
+	private function redirectToThankYouPage( array $params ): void {
+		$this->getOutput()->redirect(
+			$this->resultPages->getThankYouPageForParams( $params )
+		);
+	}
+
+	private function reloadPageWithMinimalParams(): void {
+		$this->getOutput()->redirect( $this->getPageTitle()->getFullURL( [
+			'uselang' => $this->getLanguage()->getCode(),
+			'country' => $this->getRequest()->getVal( 'country', '' ),
+		] ) );
 	}
 
 	/*

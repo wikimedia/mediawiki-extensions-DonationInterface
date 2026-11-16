@@ -1,5 +1,5 @@
 /**
- * Contains all the variants of one time, monthly , and annual/yearly
+ * Contains all the variants of once, month, and year
  *
  * donate_interface-onetime-short: One-time
  * combowiki-frequency-once: Once
@@ -45,19 +45,9 @@ module.exports = {
 	},
 
 	/**
-	 * Returns the localized label for a frequency
-	 *
-	 * @param {string} frequency One of 'once', 'monthly' or 'annual'
-	 * @return {string} Empty string if the frequency is unknown
-	 */
-	getFrequencyLabel( frequency ) {
-		return getFrequencyMessage( frequency, 'label' );
-	},
-
-	/**
 	 * Returns the localized amount heading for a frequency
 	 *
-	 * @param {string} frequency One of 'once', 'monthly' or 'annual'
+	 * @param {string} frequency One of 'once', 'month' or 'year'
 	 * @return {string} Empty string if the frequency is unknown
 	 */
 	getAmountHeading( frequency ) {

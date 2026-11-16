@@ -70,7 +70,8 @@
 			"services": [
 				"DonationInterface.GatewayConfigurationFactory",
 				"DonationInterface.GatewayRouter",
-				"DonationInterface.LoggerFactory"
+				"DonationInterface.LoggerFactory",
+				"DonationInterface.ResultPages"
 			]
 		},
 		"DonateGatewayResult": "DonateGatewayResult"
@@ -566,6 +567,7 @@
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
+				"modules/ext.donationInterface.comboWiki/errorLogger.js",
 				"modules/ext.donationInterface.comboWiki/frequencyOptions.js",
 				"modules/ext.donationInterface.comboWiki/amountHelper.js",
 				"modules/ext.donationInterface.comboWiki/utils.js",

@@ -39,6 +39,12 @@ vueApp.provide( 'params', params );
 
 require( './api.js' ).init( params );
 
+// Only set when DonationInterfaceLogClientErrors is enabled
+const clientErrorIgnorePatterns = mw.config.get( 'wgDonationInterfaceClientErrorLogIgnorePatterns' );
+if ( clientErrorIgnorePatterns ) {
+	require( './errorLogger.js' ).install( clientErrorIgnorePatterns );
+}
+
 // Provide variant components, each one's module loads lazily on first render
 vueApp.provide( 'variantComponents', getVariantComponents( comboWikiConfig.variant ) );
 

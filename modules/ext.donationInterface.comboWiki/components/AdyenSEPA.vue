@@ -4,10 +4,10 @@
 		<p v-if="donation.frequency === 'once'">
 			{{ $i18n( 'donate_interface-sepa-mandate' ).text() }}
 		</p>
-		<p v-else-if="donation.frequency === 'monthly'">
+		<p v-else-if="donation.frequency === 'month'">
 			{{ $i18n( 'donate_interface-sepa-mandate-monthly' ).text() }}
 		</p>
-		<p v-else-if="donation.frequency === 'annual'">
+		<p v-else-if="donation.frequency === 'year'">
 			{{ $i18n( 'donate_interface-sepa-mandate-yearly' ).text() }}
 		</p>
 

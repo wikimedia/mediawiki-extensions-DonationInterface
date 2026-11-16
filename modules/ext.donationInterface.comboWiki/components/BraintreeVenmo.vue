@@ -19,7 +19,6 @@
 /* global braintree */
 const { defineComponent, inject, onMounted, ref } = require( 'vue' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
-const { useAppState } = require( '../composables/useAppState.js' );
 const { CdxButton } = require( '@wikimedia/codex' );
 
 let scriptsLoaded = null;
@@ -61,7 +60,6 @@ module.exports = exports = defineComponent( {
 
 	setup( props, ctx ) {
 		const params = inject( 'params' );
-		const appState = useAppState();
 		const config = params.braintreeConfiguration || {};
 		const ready = ref( false );
 		let venmoInstance = null;
@@ -77,7 +75,7 @@ module.exports = exports = defineComponent( {
 		};
 
 		function getPaymentMethodUsage() {
-			return props.donation.frequency === 'monthly' || props.donation.frequency === 'annual' ? 'multi_use' : 'single_use';
+			return props.donation.frequency === 'month' || props.donation.frequency === 'year' ? 'multi_use' : 'single_use';
 		}
 
 		function submitApproved( payload ) {
@@ -144,17 +142,13 @@ module.exports = exports = defineComponent( {
 				return;
 			}
 
-			appState.setLoading( true );
 			venmoInstance.tokenize()
 				.then( ( payload ) => {
 					if ( payload ) {
 						submitApproved( payload );
 					}
 				} )
-				.catch( emitError )
-				.then( () => {
-					appState.setLoading( false );
-				} );
+				.catch( emitError );
 		}
 
 		return {
