@@ -53,4 +53,16 @@ vueApp.provide( 'variantComponents', getVariantComponents( comboWikiConfig.varia
 // Use this to prevent vue 3 default space trim.
 vueApp.config.compilerOptions.whitespace = 'preserve';
 
+// When the browser restores this page from the back/forward cache (bfcache),
+// scripts don't re-execute, so the Vue app keeps whatever state it was in.
+// If this was a forbidden page, reload so the server can serve it correctly
+// rather than risking the payment form appearing on a country that's blocked.
+if ( params.wgForbiddenViewType ) {
+	window.addEventListener( 'pageshow', ( event ) => {
+		if ( event.persisted ) {
+			window.location.reload();
+		}
+	} );
+}
+
 vueApp.mount( $vue.get( 0 ) );

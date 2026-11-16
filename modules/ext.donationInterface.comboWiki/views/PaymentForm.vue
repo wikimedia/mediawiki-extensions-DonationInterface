@@ -347,13 +347,13 @@ module.exports = exports = defineComponent( {
 			}
 
 			const previousCurrency = this.donation.currency;
-			this.donation.currency = countryConfig.currency || 'USD';
+			const newCurrency = countryConfig.currency || 'USD';
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', this.countries[ country ].value );
-			url.searchParams.set( 'currency', this.donation.currency );
+			url.searchParams.set( 'currency', newCurrency );
 			this.keepFrequencyInUrl( url );
-			this.keepAmountInUrl( url, previousCurrency );
+			this.keepAmountInUrl( url, previousCurrency, newCurrency );
 			this.redirectTargetUrl( url.toString() );
 		},
 		/**
@@ -379,9 +379,10 @@ module.exports = exports = defineComponent( {
 		 *
 		 * @param {URL} url
 		 * @param {string} previousCurrency
+		 * @param {string} newCurrency
 		 */
-		keepAmountInUrl( url, previousCurrency ) {
-			if ( this.donation.currency === previousCurrency && Number( this.donation.amount ) > 0 ) {
+		keepAmountInUrl( url, previousCurrency, newCurrency ) {
+			if ( newCurrency === previousCurrency && Number( this.donation.amount ) > 0 ) {
 				url.searchParams.set( 'amount', this.donation.amount );
 			} else {
 				url.searchParams.delete( 'amount' );
