@@ -168,7 +168,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @inheritDoc
 	 * @throws ResponseProcessingException
 	 */
-	public function processDonorReturn( $requestValues ) {
+	public function processDonorReturn( array $requestValues ): PaymentResult {
 		if (
 			empty( $requestValues['token'] )
 		) {

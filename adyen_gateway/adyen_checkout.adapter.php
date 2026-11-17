@@ -461,7 +461,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	/** @inheritDoc */
-	public function processDonorReturn( $requestValues ) {
+	public function processDonorReturn( array $requestValues ): PaymentResult {
 		if (
 			isset( $requestValues['redirectResult'] )
 		) {

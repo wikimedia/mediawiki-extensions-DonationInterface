@@ -925,7 +925,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param array $requestValues all GET and POST values from the request
 	 * @return PaymentResult
 	 */
-	public function processDonorReturn( $requestValues ) {
+	public function processDonorReturn( array $requestValues ): PaymentResult {
 		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 		return PaymentResult::newSuccess();
 	}
