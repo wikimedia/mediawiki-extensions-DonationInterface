@@ -16,6 +16,7 @@
 				class="mc-close"
 				action="progressive"
 				aria-label="Close"
+				:disabled="isSubmitting"
 				@click="handleDonate( presetAmount, true )"
 			>
 				&times;
@@ -40,6 +41,7 @@
 						weight="primary"
 						action="progressive"
 						class="mc-yes-btn"
+						:disabled="isSubmitting"
 						@click="handleDonate( presetAmount )"
 					>
 						{{ acceptRecurringDonation }}
@@ -47,6 +49,7 @@
 					<cdx-button
 						action="progressive"
 						class="mc-no-btn"
+						:disabled="isSubmitting"
 						@click="handleDonate( presetAmount, true )"
 					>
 						{{ declineRecurringDonation }}
@@ -99,6 +102,7 @@
 						action="progressive"
 						weight="primary"
 						class="mc-btn mc-donate-monthly-button"
+						:disabled="isSubmitting"
 						@click="handleCustomDonate"
 					>
 						{{ $i18n( 'donate_interface-monthly-convert-action-button' ).text() }}
@@ -149,6 +153,7 @@ module.exports = exports = defineComponent( {
 		return {
 			isVisible: false,
 			isEditing: false,
+			isSubmitting: false,
 			otherAmount: null,
 			isSmallAmountError: false,
 			originalAmount: Number( this.donation.amount ) || 0,
@@ -262,6 +267,13 @@ module.exports = exports = defineComponent( {
 			}
 		},
 		async handleDonate( amount, declineMonthlyConvert = false ) {
+			// Only ever submit once. Every outcome either redirects or hands the
+			// donation off to the parent, so there is no need to reset this.
+			// The guard also covers the backdrop click, which has no button to disable.
+			if ( this.isSubmitting ) {
+				return;
+			}
+			this.isSubmitting = true;
 			const appState = useAppState();
 			if ( this.isPreModal ) {
 				const updatedDonation = Object.assign( {}, this.donation );

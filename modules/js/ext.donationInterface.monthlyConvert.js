@@ -104,6 +104,15 @@
 	};
 
 	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
+		// Only ever send one request. Every outcome below redirects to the
+		// thank you page, so the buttons never need to be re-enabled. This also
+		// stops 'Enter' from double-posting, since it fires both keypress and click.
+		if ( mc.isSubmitting ) {
+			return;
+		}
+		mc.isSubmitting = true;
+		$( '.mc-modal button' ).prop( 'disabled', true ).attr( 'aria-disabled', 'true' );
+
 		const sendData = mc.getSendData( amount );
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
