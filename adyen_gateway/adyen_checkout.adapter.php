@@ -55,6 +55,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		}
 		$this->logger->info( "Calling createPayment for {$createPaymentParams['email']}" );
 		$createPaymentResponse = $provider->createPayment( $createPaymentParams );
+
+		// We increment the sequence number here, so the next time doPayment is called
+		// in the same session we will get a new order ID in ensureUniqueOrderID.
+		$this->incrementSequenceNumber();
+
 		$this->logger->info( "Returned PSP Reference {$createPaymentResponse->getGatewayTxnId()}" );
 		$validationErrors = $createPaymentResponse->getValidationErrors();
 		// If there are validation errors, present them for correction with a

@@ -371,22 +371,24 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		];
 		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
 		$pspReferenceCapture = 'BLA' . mt_rand( 100000000, 1000000000 );
-		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
-		$expectedReturnUrl = Title::newFromText(
+		foreach ( [ 1, 2, 3 ] as $i ) {
+			$expectedMerchantRef[$i] = $init['contribution_tracking_id'] . '.' . $i;
+			$expectedReturnUrl[$i] = Title::newFromText(
 				'Special:AdyenCheckoutGatewayResult'
-		)->getFullURL( [
-				'order_id' => $expectedMerchantRef,
+			)->getFullURL( [
+				'order_id' => $expectedMerchantRef[$i],
 				'wmf_token' => $gateway->token_getSaltedSessionToken(),
 				'amount' => 1.55,
 				'currency' => 'USD',
 				'payment_method' => 'cc',
 				'payment_submethod' => 'visa',
 				'wmf_source' => '..cc',
-		] );
+			] );
+		}
 
 		$this->cardPaymentProvider->expects( $this->exactly( 2 ) )
 				->method( 'createPayment' )
-				->with( [
+				->withConsecutive( [ [
 						'amount' => '1.55',
 						'browser_info' => [
 							'language' => 'en-US',
@@ -399,13 +401,32 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 						'first_name' => 'Firstname',
 						'encrypted_payment_data' => $expectedEncryptedParams,
 						'last_name' => 'Surname',
-						'order_id' => $expectedMerchantRef,
+						'order_id' => $expectedMerchantRef[1],
 						'postal_code' => '94105',
-						'return_url' => $expectedReturnUrl,
+						'return_url' => $expectedReturnUrl[1],
 						'state_province' => 'NA',
 						'street_address' => '123 Fake Street',
 						'user_ip' => '127.0.0.1'
-				] )
+				] ], [ [
+					'amount' => '1.55',
+					'browser_info' => [
+						'language' => 'en-US',
+					],
+					'city' => 'NA',
+					'country' => 'US',
+					'currency' => 'USD',
+					'description' => 'Wikimedia Foundation',
+					'email' => 'nobody@wikimedia.org',
+					'first_name' => 'Firstname',
+					'encrypted_payment_data' => $expectedEncryptedParams,
+					'last_name' => 'Surname',
+					'order_id' => $expectedMerchantRef[2],
+					'postal_code' => '94105',
+					'return_url' => $expectedReturnUrl[2],
+					'state_province' => 'NA',
+					'street_address' => '123 Fake Street',
+					'user_ip' => '127.0.0.1'
+				] ] )
 				->willReturn(
 						( new CreatePaymentResponse() )
 								->setRawStatus( 'Authorized' )
@@ -444,11 +465,10 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'user_ip' => '127.0.0.1',
 				'gateway' => 'adyen',
 				'contribution_tracking_id' => $init['contribution_tracking_id'],
-				'order_id' => $expectedMerchantRef,
 				'payment_method' => 'cc',
 		];
 		$this->assertArrayContains(
-				$expectedAntifraudInitial,
+				$expectedAntifraudInitial + [ 'order_id' => $expectedMerchantRef[1] ],
 				$messages['payments-antifraud'][0]
 		);
 		$expectedAntiFraudProcess = [
@@ -458,18 +478,18 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 								'getCVVResult' => 2,
 								'initial' => 0
 						]
-				] + $expectedAntifraudInitial;
+				] + $expectedAntifraudInitial + [ 'order_id' => $expectedMerchantRef[1] ];
 		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][1]
 		);
-		$expectedAntiFraudProcess = [
+		$expectedAntiFraudReject = [
 						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 						'gateway_txn_id' => $pspReferenceAuth,
 						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
-				] + $expectedAntifraudInitial;
+				] + $expectedAntifraudInitial + [ 'order_id' => $expectedMerchantRef[3] ];
 		$this->assertArrayContains(
-				$expectedAntiFraudProcess,
+				$expectedAntiFraudReject,
 				$messages['payments-antifraud'][4]
 		);
 		$this->assertCount( 2, $messages['payments-init'] );
