@@ -152,7 +152,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/** @inheritDoc */
-	public function processDonorReturn( $requestValues ) {
+	public function processDonorReturn( array $requestValues ): PaymentResult {
 		// FIXME: make sure we're processing the order ID we expect!
 		/** @var HostedCheckoutProvider $provider */
 		$provider = $this->getPaymentProvider();

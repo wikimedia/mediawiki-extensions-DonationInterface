@@ -1,4 +1,4 @@
-/* global describe it expect jest beforeEach */
+/* global describe it expect jest beforeEach afterEach */
 const { when } = require( 'jest-when' );
 
 const ADYEN_CONFIGURATION = {
@@ -173,5 +173,38 @@ describe( 'ComboWiki links in messages', () => {
 
 	it( 'returns a message without links unchanged', () => {
 		expect( openLinksInNewTab( 'Donations are <b>not</b> tax-deductible.' ) ).toBe( 'Donations are <b>not</b> tax-deductible.' );
+	} );
+
+	describe( 'ComboWiki country names with Intl.DisplayNames', () => {
+		let getCountryName;
+
+		// utils.js keeps one Intl.DisplayNames for the page, made with the first locale
+		// it is asked for, so each case loads a fresh copy of the module
+		beforeEach( () => {
+			jest.resetModules();
+			( { getCountryName } = require( '../../../modules/ext.donationInterface.comboWiki/utils.js' ) );
+		} );
+
+		it( 'gives the country name in en language', () => {
+			expect( getCountryName( 'en', 'FR' ) ).toBe( 'France' );
+		} );
+
+		it( 'gives the country name in de language', () => {
+			expect( getCountryName( 'de', 'FR' ) ).toBe( 'Frankreich' );
+		} );
+
+		it( 'falls back to the code, or the given fallback, for an invalid country code', () => {
+			expect( getCountryName( 'en', 'not-a-code' ) ).toBe( 'not-a-code' );
+			expect( getCountryName( 'en', 'not-a-code', 'France' ) ).toBe( 'France' );
+		} );
+
+		it( 'returns fallback country code for a locale Intl rejects', () => {
+			expect( getCountryName( 'not a locale', 'US' ) ).toBe( 'US' );
+		} );
+       it( 'falls back to the code, or the given fallback, for a locale Intl rejects', () => {
+			// Not a well-formed language tag, so Intl.DisplayNames throws a RangeError
+			expect( getCountryName( 'not a locale', 'US' ) ).toBe( 'US' );
+			expect( getCountryName( 'not a locale', 'FR', 'France' ) ).toBe( 'France' );
+       } );
 	} );
 } );

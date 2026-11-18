@@ -8,7 +8,6 @@ use DonationInterface;
 use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Config\Config;
-use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\AdyenClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\BraintreeClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GatewayClientConfig;
@@ -67,14 +66,6 @@ class Donate extends UnlistedSpecialPage {
 	 * (one-time, monthly, annual) should be done on the frontend.
 	 */
 	private const ONLY_INCLUDE_RECURRING = false;
-
-	/**
-	 * Payment methods, keyed by gateway, whose frontend form needs a checkout
-	 * session before it can be set up (e.g. Gravy Secure Fields for card).
-	 */
-	private const CHECKOUT_SESSION_METHODS = [
-		'gravy' => [ 'cc' ],
-	];
 
 	/**
 	 * Fields that we don't want to be displayed in the payment method form (e.g. Card form fields).
@@ -241,7 +232,6 @@ class Donate extends UnlistedSpecialPage {
 			} else {
 				$this->logger->error( 'Failed to create adapter for gateway: ' . $gateway );
 			}
-			$this->addGatewaySessionId( $gateway, $adapter );
 		}
 	}
 
@@ -595,7 +585,7 @@ class Donate extends UnlistedSpecialPage {
 		foreach ( $this->clientConfigs as $gateway => $clientConfig ) {
 			// Some client config calls the gateway through SmashPig, which has one provider per request
 			DonationInterface::setSmashPigProvider( $gateway );
-			$vars = array_merge( $vars, $clientConfig->getVars() );
+			$vars = array_merge_recursive( $vars, $clientConfig->getVars() );
 		}
 	}
 
@@ -642,48 +632,6 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * For gateways and payment methods that need one, creates a checkout session and
-	 * shares its ID with the frontend as routingParams['gateway_session_id'].
-	 * Does the same as the di_checkoutsession_<gateway> API, using the gateway's adapter
-	 * in place of one built from the request params the form would send.
-	 *
-	 * @param string $gateway
-	 * @param GatewayAdapter|null $adapter The adapter for $gateway, if it could be created
-	 *
-	 * @return void
-	 */
-	private function addGatewaySessionId( string $gateway, ?GatewayAdapter $adapter ): void {
-		$paymentMethod = $this->routingParams['payment_method'];
-		if ( !in_array( $paymentMethod, self::CHECKOUT_SESSION_METHODS[$gateway] ?? [], true ) ) {
-			return;
-		}
-
-		// getCheckoutSession() is specific to GravyAdapter, not GatewayAdapter
-		if ( !$adapter instanceof GravyAdapter ) {
-			$this->logger->error( 'Expected a GravyAdapter to create a checkout session, got ' . get_debug_type( $adapter ) );
-			return;
-		}
-
-		// The session itself takes no donation details, the adapter only needs the
-		// payment method to pick the provider.
-		$adapter->addRequestData( [ 'payment_method' => $paymentMethod ] );
-
-		try {
-			$session = $adapter->getCheckoutSession();
-		} catch ( \Exception $e ) {
-			// Leave it to the form to create a session, rather than fail the page
-			$this->logger->error( 'Creating checkout session failed: ' . $e->getMessage() );
-			return;
-		}
-		if ( !$session->isSuccessful() ) {
-			// The adapter has already logged the raw response
-			return;
-		}
-
-		$this->routingParams['gateway_session_id'] = $session->getPaymentSession();
-	}
-
-	/**
 	 * The client config for an adapter, chosen by the adapter class so it always matches
 	 * the adapter.
 	 *
@@ -695,7 +643,8 @@ class Donate extends UnlistedSpecialPage {
 			$adapter instanceof GravyAdapter => new GravyClientConfig(
 				$this->routingParams,
 				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ),
-				$this->getConfig()
+				$this->getConfig(),
+				$this->logger
 			),
 			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig(
 				$this->routingParams,
@@ -738,20 +687,15 @@ class Donate extends UnlistedSpecialPage {
 
 		$rawCountries = array_values( array_unique( $rawCountries ) );
 
-		$countryNames = CountryNames::getNames(
-			$this->routingParams['language']
-		);
-
 		foreach ( $rawCountries as $countryCode ) {
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
 
 			$countries[$countryCode] = [
 				'currency' => $currency,
-				'label' => $countryNames[$countryCode] ?? $countryCode,
 				'value' => $countryCode,
 			];
 		}
-
+		// Goal: only array of valid country codes ISO from countries.yaml
 		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 

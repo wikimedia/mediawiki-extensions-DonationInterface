@@ -31,31 +31,38 @@
 					@update:pay-fee="donation.payFee = $event"
 					@update:country="onCountryChange"
 				></amount-selector>
-				<!-- Email opt-in -->
-				<optin-fieldset
-					v-if="showField( 'opt_in' )"
-					v-model="donation.optIn"
-					:messages="messages.optIn"
-					:status="status.optIn"
-					@on-change="( val ) => onInput( 'optIn' )"
-				></optin-fieldset>
-				<!-- Employer -->
-				<employer-field
-					v-if="showField( 'employer' )"
-					v-model:employer="donation.employer"
-					v-model:employer-id="donation.employerId"
-					:is-required="isFieldRequired( 'employer' )"
-				></employer-field>
 
-				<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
-					sms-optin tag on forms without the smsOptin variant -->
-				<component
-					:is="variantComponents.smsOptin"
-					v-if="showSmsOptin && variantComponents.smsOptin"
-					v-model:phone="donation.phone"
-					v-model:sms-optin="donation.smsOptin"
-					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
-				></component>
+				<!-- Donor Info -->
+				<div class="fieldset">
+					<div class="fieldset__fields">
+						<!-- Email opt-in -->
+						<optin-fieldset
+							v-if="showField( 'opt_in' )"
+							v-model="donation.optIn"
+							:messages="messages.optIn"
+							:status="status.optIn"
+							@on-change="( val ) => onInput( 'optIn' )"
+						></optin-fieldset>
+
+						<!-- Employer -->
+						<employer-field
+							v-if="showField( 'employer' )"
+							v-model:employer="donation.employer"
+							v-model:employer-id="donation.employerId"
+							:is-required="isFieldRequired( 'employer' )"
+						></employer-field>
+
+						<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
+							sms-optin tag on forms without the smsOptin variant -->
+						<component
+							:is="variantComponents.smsOptin"
+							v-if="showSmsOptin && variantComponents.smsOptin"
+							v-model:phone="donation.phone"
+							v-model:sms-optin="donation.smsOptin"
+							:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
+						></component>
+					</div>
+				</div>
 
 				<!-- Hidden when returning to offer monthly convert: mounting the card form
 					would create a new checkout session for a donation that is already made -->
@@ -71,9 +78,8 @@
 					@on-donor-details-change="updateDonorDetails"
 				></payment-method-form>
 
-				<tax-message :country-code="donation.country"></tax-message>
 				<we-do-not-sell-text></we-do-not-sell-text>
-				<more-info-links text-class="combo-wiki__link-container"></more-info-links>
+				<more-info-links text-class="combo-wiki__link-container" :country-code="donation.country"></more-info-links>
 				<loading-spinner></loading-spinner>
 				<error-display></error-display>
 
@@ -114,7 +120,6 @@ const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
-const TaxMessage = require( '../components/TaxMessage.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
@@ -134,7 +139,6 @@ module.exports = exports = defineComponent( {
 		'amount-selector': AmountSelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
-		'tax-message': TaxMessage,
 		'optin-fieldset': OptInFieldset,
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
@@ -366,7 +370,7 @@ module.exports = exports = defineComponent( {
 			// Store backend-generated Thank-You page URL for modal usage
 			this.thankYouUrl = response.thankYouPage || response.redirect;
 
-			if ( this.donation.frequency === 'once' && !response.redirect ) {
+			if ( this.donation.frequency === 'once' && !response.redirect && response.canShowMonthlyConvert ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
 				// Payment method components should handle responses with formData

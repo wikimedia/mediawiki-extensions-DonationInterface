@@ -169,6 +169,12 @@ body.rtl .mc-close {
 	box-shadow: none;
 }
 
+.mc-modal button:disabled,
+.mc-modal button:disabled:hover {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 .mc-link {
 	color: #36c;
 	font-weight: bold;

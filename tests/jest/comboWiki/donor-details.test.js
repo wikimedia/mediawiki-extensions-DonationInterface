@@ -7,8 +7,20 @@ const PaymentForm = require( '../../../modules/ext.donationInterface.comboWiki/v
 const PaymentMethodForm = require( '../../../modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue' );
 const { donateParamMap } = require( '../../../modules/ext.donationInterface.comboWiki/api.js' );
 
-// cdx-field gives its input a generated id, so find the inputs by placeholder (the i18n key here)
-const input = ( wrapper, key ) => wrapper.find( `input[placeholder^="donate_interface-donor-${ key }"]` );
+/**
+ * Finds a donor details input by its visible label (the i18n key here), which
+ * cdx-field links to the input with for/id.
+ *
+ * @param {Object} wrapper
+ * @param {string} key Field key, e.g. first_name
+ * @return {Object} The input wrapper (exists() is false when there is none)
+ */
+function inputByLabel( wrapper, key ) {
+	const label = wrapper.findAll( 'label' )
+		.find( ( l ) => l.text().startsWith( `donate_interface-donor-${ key }` ) );
+	return label ? wrapper.find( `input[id="${ label.attributes( 'for' ) }"]` ) : wrapper.find( 'input#no-such-field' );
+}
+const input = inputByLabel;
 const button = ( wrapper, text ) => wrapper.findAll( 'button' ).find( ( b ) => b.text() === text );
 
 /**
@@ -110,9 +122,11 @@ describe( 'ComboWiki donor details in the donation', () => {
 		await input( wrapper, 'email' ).setValue( 'jo@example.org' );
 		await input( wrapper, 'email' ).trigger( 'blur' );
 
+		await button( wrapper, 'combowiki-change-payment-method' ).trigger( 'click' );
 		await button( wrapper, 'combowiki-method-sepa' ).trigger( 'click' );
 		expect( input( wrapper, 'first_name' ).element.value ).toBe( 'Jo' );
 
+		await button( wrapper, 'combowiki-change-payment-method' ).trigger( 'click' );
 		await button( wrapper, 'combowiki-method-card' ).trigger( 'click' );
 		expect( input( wrapper, 'first_name' ).element.value ).toBe( 'Jo' );
 		expect( input( wrapper, 'email' ).element.value ).toBe( 'jo@example.org' );
@@ -128,6 +142,7 @@ describe( 'ComboWiki donor details in the donation', () => {
 		await input( wrapper, 'email' ).setValue( 'jo@example.org' );
 		await input( wrapper, 'email' ).trigger( 'blur' );
 
+		await button( wrapper, 'combowiki-change-payment-method' ).trigger( 'click' );
 		await button( wrapper, 'combowiki-method-sepa' ).trigger( 'click' );
 		expect( donation.firstName ).toBeUndefined();
 		expect( donation.email ).toBe( 'jo@example.org' );

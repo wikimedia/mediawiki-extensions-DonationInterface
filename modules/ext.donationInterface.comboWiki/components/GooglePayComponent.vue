@@ -1,9 +1,9 @@
 <template>
-	<div
-		id="googlepay-container"
-		class="payment-method-form"
-		data-autoscroll
-	></div>
+	<div class="payment-method-form">
+		<method-submit>
+			<div id="googlepay-container" data-autoscroll></div>
+		</method-submit>
+	</div>
 </template>
 
 <script>
@@ -11,6 +11,7 @@ const { defineComponent, toRaw, ref } = require( 'vue' );
 const { getGooglePaymentsClient, isGooglePayAvailable } = require( '../walletAvailability.js' );
 const { getGateway } = require( '../api.js' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 /**
  * For each gateway: its client config from Special:Donate, and how Google tokenizes the
@@ -46,7 +47,9 @@ const GATEWAYS = {
 
 module.exports = exports = defineComponent( {
 	name: 'GooglePayComponent',
-	components: {},
+	components: {
+		'method-submit': MethodSubmit
+	},
 	inject: [ 'params' ],
 	props: {
 		donation: {

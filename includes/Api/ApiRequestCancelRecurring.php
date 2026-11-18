@@ -68,8 +68,8 @@ class ApiRequestCancelRecurring extends ApiRecurringModifyBase {
 		switch ( $getVal ) {
 			case 'Financial Reasons':
 			case 'Frequency':
-			case 'Other Organizations':
-			case 'Unintended Recurring Donation':
+			case 'Update':
+			case 'Unintended recurring donation':
 				return $getVal;
 			case 'Cancel Support':
 				return 'Wikimedia Foundation related complaint';

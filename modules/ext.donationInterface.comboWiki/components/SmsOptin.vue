@@ -2,6 +2,7 @@
 	<div class="combo-wiki__sms_opt_in">
 		<cdx-field
 			id="phone-field"
+			class="field"
 			:optional="!isRequired"
 			data-autoscroll
 		>

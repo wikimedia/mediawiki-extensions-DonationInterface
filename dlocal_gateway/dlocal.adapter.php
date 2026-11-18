@@ -86,7 +86,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	 * @param array $requestValues
 	 * @return PaymentResult
 	 */
-	public function processDonorReturn( $requestValues ): PaymentResult {
+	public function processDonorReturn( array $requestValues ): PaymentResult {
 		// DLocal currently does not send us the correct return parameters
 		// on coming back from recurring UPI (at least in sandbox).
 		// In any case, we don't want to send a message to the donations

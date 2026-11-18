@@ -2,15 +2,16 @@
 	<div class="combo-wiki__card payment-method-form" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
 		<div id="combo-adyen-card"></div>
 		<div id="combo-adyen-card-action-container"></div>
-		<cdx-button
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			:disabled="!formValid"
-			@click="submit"
-		>
-			{{ $i18n( 'donate_interface-submit-button' ).text() }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				@click="submit"
+			>
+				{{ $i18n( 'donate_interface-submit-button' ).text() }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -18,11 +19,13 @@
 const { defineComponent, toRaw } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const { getAdyenCheckout, handleAdyenError } = require( '../utils.js' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenCardForm',
 
 	components: {
+		'method-submit': MethodSubmit,
 		'cdx-button': CdxButton
 	},
 
@@ -103,9 +106,6 @@ module.exports = exports = defineComponent( {
 		},
 
 		submit() {
-			if ( !this.card || !this.formValid ) {
-				return;
-			}
 			if ( this.donorDetails && !this.donorDetails.validate() ) {
 				return;
 			}

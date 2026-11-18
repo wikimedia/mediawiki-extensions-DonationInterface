@@ -54,7 +54,7 @@ interface GatewayType extends LogPrefixProvider {
 	 * @param array $requestValues all GET and POST values from the request
 	 * @return PaymentResult
 	 */
-	public function processDonorReturn( $requestValues );
+	public function processDonorReturn( array $requestValues ): PaymentResult;
 
 	/**
 	 * @param array $options If given, try to filter supported currencies by:

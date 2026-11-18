@@ -611,7 +611,8 @@
 				"modules/ext.donationInterface.comboWiki/appeals.js",
 				"modules/ext.donationInterface.comboWiki/components/appeals/WydgAppeal.vue",
 				"modules/ext.donationInterface.comboWiki/components/appeals/MissionAppeal.vue",
-				"modules/ext.donationInterface.comboWiki/components/appeals/HeroAppeal.vue"
+				"modules/ext.donationInterface.comboWiki/components/appeals/HeroAppeal.vue",
+				"modules/ext.donationInterface.comboWiki/components/MethodSubmit.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -644,7 +645,18 @@
 				"combowiki-method-ach",
 				"combowiki-method-googlepay",
 				"combowiki-method-sepa",
+				"combowiki-method-group-instant",
+				"combowiki-method-group-other",
+				"combowiki-selected-method-heading",
+				"combowiki-selected-method-heading-card",
+				"combowiki-change-payment-method",
 				"combowiki-your-details-heading",
+				"combowiki-donor-billing-heading",
+				"donate_interface-email-explain",
+				"donate_interface-donor-street_address",
+				"donate_interface-donor-postal_code-us",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-cvv",
 				"combowiki-donate-with-paypal",
 				"combowiki-donate-with-venmo",
 				"donate_interface-other-amount",

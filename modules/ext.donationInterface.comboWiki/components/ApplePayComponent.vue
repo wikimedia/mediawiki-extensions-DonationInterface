@@ -3,16 +3,18 @@
 		id="applepay-container"
 		class="payment-method-form"
 	>
-		<apple-pay-button
-			v-if="showApplePayButtonFlag"
-			id="applepay-btn"
-			ref="applePayButtonElementRef"
-			class="button combo-wiki__button-submit"
-			:buttonstyle="donorDetails ? 'black' : 'white-outline'"
-			:type="donorDetails ? 'donate' : 'plain'"
-			:locale="locale"
-			@click="handleApplePaySubmitClick"
-		></apple-pay-button>
+		<method-submit>
+			<apple-pay-button
+				v-if="showApplePayButtonFlag"
+				id="applepay-btn"
+				ref="applePayButtonElementRef"
+				class="button combo-wiki__button-submit"
+				:buttonstyle="donorDetails ? 'black' : 'white-outline'"
+				:type="donorDetails ? 'donate' : 'plain'"
+				:locale="locale"
+				@click="handleApplePaySubmitClick"
+			></apple-pay-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -22,9 +24,13 @@
 const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
 const { isApplePayAvailable } = require( '../walletAvailability.js' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyApplePay',
+	components: {
+		'method-submit': MethodSubmit
+	},
 	compilerOptions: {
 		// remove warning from the console due to non-vue apply pay button element
 		// https://vuejs.org/api/application.html#app-config-compileroptions

@@ -3,15 +3,17 @@
 		id="braintree-venmo"
 		class="payment-method-form"
 	>
-		<cdx-button
-			v-show="ready"
-			action="progressive"
-			weight="primary"
-			class="combo-wiki__button-submit"
-			@click="startVenmo"
-		>
-			{{ $i18n( 'combowiki-method-venmo' ).text() }}
-		</cdx-button>
+		<method-submit>
+			<cdx-button
+				v-show="ready"
+				action="progressive"
+				weight="primary"
+				class="combo-wiki__button-submit"
+				@click="startVenmo"
+			>
+				{{ $i18n( 'combowiki-method-venmo' ).text() }}
+			</cdx-button>
+		</method-submit>
 	</div>
 </template>
 
@@ -20,6 +22,7 @@
 const { defineComponent, inject, onMounted, ref } = require( 'vue' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const MethodSubmit = require( './MethodSubmit.vue' );
 
 let scriptsLoaded = null;
 
@@ -44,7 +47,8 @@ function loadScripts( scripts ) {
 module.exports = exports = defineComponent( {
 	name: 'BraintreeVenmo',
 	components: {
-		'cdx-button': CdxButton
+		'cdx-button': CdxButton,
+		'method-submit': MethodSubmit
 	},
 	props: {
 		donation: {

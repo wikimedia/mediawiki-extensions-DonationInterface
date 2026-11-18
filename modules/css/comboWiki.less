@@ -7,10 +7,12 @@
 @size-icon-x-large: 2.75rem;
 @size-icon-large: 2.25rem;
 @space-between-payment-btn: 0.5em;
+@combo-wiki-card-input-height: 50px;
 /* Imports */
 @import 'mediawiki.skin.variables.less';
 @import 'wmf-frds-tokens.less';
 @import 'wmf-frds-mediawiki-skin-override.less';
+@import 'wmf-frds-forms.less';
 @import 'wmf-frds-components-header.less';
 
 .gap {
@@ -115,7 +117,6 @@
 	.combo-wiki__button-submit.paypal-button {
 		height: @direct-method-button-height;
 		width: 100%;
-		min-width: 150px;
 	}
 
 	// Apple's SDK sizes the button from these custom properties, not from height/width
@@ -145,6 +146,9 @@
 }
 
 .combo-wiki__form {
+	display: flex;
+	flex-direction: column;
+	gap: @size-6;
 	border: 1px solid @color-gray-light;
 	border-radius: 4px;
 	background-color: @color-white;
@@ -155,10 +159,6 @@
 	align-self: center;
 	box-sizing: border-box;
 	width: 100%;
-
-	& > *:not( :last-child ) {
-		padding-bottom: 24px;
-	}
 
 	& .fieldset__label {
 		display: flex;
@@ -181,6 +181,7 @@
 		// Stretch the custom amount input to the full row height
 		& > .cdx-text-input .cdx-text-input__input {
 			height: 100%;
+			min-height: @combo-wiki-card-input-height;
 		}
 	}
 }
@@ -213,26 +214,50 @@
 		width: 100%;
 		border: 1px solid #a2a9b1;
 		border-radius: 0;
-		margin-top: 0.25em;
+		margin-top: @size-1;
 		box-sizing: border-box;
-		min-height: 32px;
-		height: 34px;
+		height: @combo-wiki-card-input-height;
 		font-family: inherit;
 		font-size: inherit;
 		line-height: 1.375;
 	}
+
+	div.adyen-checkout__input-wrapper > .adyen-checkout__input {
+		height: 100%;
+	}
 }
 
-// The details form PaymentMethodForm shows above the selected method's own part,
-// laid out like the card fields that follow it
-.combo-wiki__card,
-.combo-wiki__donor-details {
-	label,
-	.adyen-checkout__label {
-		display: block;
-		margin: 0.75em 0 0.25em;
+.combo-wiki__method-form {
+	border: 1px solid @color-gray-bright;
+	border-radius: 4px;
+	background-color: @color-white;
+	overflow: hidden;
+}
+
+.combo-wiki__method-form-body {
+	display: flex;
+	flex-direction: column;
+	gap: @size-3;
+	padding: @size-4;
+
+	.payment-method-form {
+		margin: 0;
 	}
 
+	.cdx-text-input__input {
+		padding-right: @size-4;
+		padding-left: @size-4;
+	}
+}
+
+.combo-wiki__donor-details,
+.combo-wiki__form-fields {
+	display: flex;
+	flex-direction: column;
+	gap: @size-3;
+}
+
+.combo-wiki__donor-details {
 	.cdx-field {
 		margin: 0;
 	}
@@ -307,8 +332,23 @@
 		display: block;
 	}
 
+	.cdx-select-vue__handle {
+		min-width: 0;
+		min-height: @combo-wiki-card-input-height;
+	}
+
 	.cdx-select {
 		width: 100%;
+	}
+}
+
+// iOS Safari zooms in on a field whose text is smaller than 16px when it gets focus.
+// The skin sets the page content to 14px and Codex's inputs inherit that, so give
+// the form's fields the base size. The lookups (country, employer) are text inputs too.
+.combo-wiki {
+	.cdx-text-input__input,
+	select.cdx-select {
+		font-size: @font-size-base;
 	}
 }
 
@@ -360,9 +400,24 @@ select.cdx-select.combo-wiki__select {
 	}
 }
 
-#secure-fields-section {
-	.secure-field-label {
-		font-weight: bold;
+.combo-wiki__card .field__cc > * {
+	box-sizing: border-box;
+	height: @combo-wiki-card-input-height;
+	margin: 0;
+	border: 1px solid @color-gray-bright;
+	border-radius: 0;
+
+	&:first-child {
+		border-radius: 2px 0 0 2px;
+	}
+
+	&:last-child {
+		border-radius: 0 2px 2px 0;
+	}
+
+	&:focus {
+		outline: 0;
+		box-shadow: inset 0 0 0 2px @color-blue-bright;
 	}
 }
 
@@ -766,6 +821,10 @@ span.adyen-checkout__label__text {
 	font-size: inherit;
 }
 
+span.adyen-checkout__input--error {
+	box-shadow: none !important;
+}
+
 /* By default Adyen changes the color of field labels when focused or invalid.
    Codex doesn't, so remove that behaviour from Adyen fields. */
 .adyen-checkout__label--focused span.adyen-checkout__label__text,
@@ -861,4 +920,156 @@ div.adyen-checkout__input-wrapper > input {
 
 .combo-wiki__amount-cover-fees {
 	margin-top: @spacing-50;
+}
+
+.payment-form__methods {
+	display: flex;
+	flex-direction: column;
+	gap: @size-75;
+}
+
+.payment-form__method-buttons {
+	gap: 8px;
+
+	.cdx-button {
+		width: 100%;
+		max-width: none;
+	}
+}
+
+.payment-form__method-group--instant .payment-form__method-buttons {
+	display: grid;
+	grid-template-columns: 1fr;
+}
+
+@media screen and ( min-width: @min-width-breakpoint-tablet ) {
+	.payment-form__method-group--instant .payment-form__method-buttons {
+		grid-template-columns: ~'repeat( auto-fit, minmax( max( 96px, calc( ( 100% - 4 * 8px ) / 5 ) ), 1fr ) )';
+	}
+
+	// The one-click wallets wrap instead of using equal columns: a wallet SDK button
+	// has its own minimum width (e.g. Google Pay's depends on the language), so a
+	// column narrower than that would let the button overflow the row
+	.payment-form__method-group--instant #ready-to-submit-methods {
+		display: flex;
+		flex-wrap: wrap;
+
+		> div {
+			flex: 1 1 96px;
+			min-width: min-content;
+		}
+	}
+}
+
+.payment-form__method-group--other .payment-form__method-buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+.combo-wiki__change-method {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: @color-progressive;
+	font: inherit;
+	cursor: pointer;
+	white-space: nowrap;
+
+	&:hover {
+		color: @color-progressive--hover;
+		text-decoration: underline;
+	}
+
+	&:disabled {
+		color: @color-disabled;
+		cursor: default;
+		text-decoration: none;
+	}
+}
+
+.payment-form__selected-heading:focus {
+	outline: 0;
+}
+
+@combo-wiki-submit-height: 64px;
+
+.combo-wiki__method-action,
+.combo-wiki__method-submit {
+	.payment-method-form,
+	.combo-wiki__button-submit,
+	#googlepay-container {
+		display: block;
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.combo-wiki__button-submit {
+		height: @combo-wiki-submit-height;
+	}
+
+	#googlepay-container {
+		height: @combo-wiki-submit-height;
+	}
+
+	.cdx-button.combo-wiki__button-submit,
+	.cdx-button:disabled.combo-wiki__button-submit {
+		min-height: @combo-wiki-submit-height;
+		margin: 0;
+	}
+
+	#applepay-btn {
+		--apple-pay-button-width: 100%;
+		--apple-pay-button-height: @combo-wiki-submit-height;
+	}
+}
+
+.combo-wiki-swap-enter-active,
+.combo-wiki-swap-leave-active {
+	transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.combo-wiki-swap-enter-from {
+	opacity: 0;
+	transform: translateY( 4px );
+}
+
+.combo-wiki-swap-leave-to {
+	opacity: 0;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.combo-wiki-swap-enter-active,
+	.combo-wiki-swap-leave-active {
+		transition: none;
+	}
+}
+
+.combo-wiki__method-submit:empty {
+	display: none;
+}
+
+.combo-wiki__frequency .cdx-toggle-button-group {
+	display: flex;
+	flex-wrap: nowrap;
+	max-width: 100%;
+
+	.cdx-toggle-button {
+		flex: 0 1 auto;
+		min-width: 0;
+		white-space: normal;
+		text-align: center;
+	}
+}
+
+@media screen and ( max-width: @max-width-breakpoint-mobile ) {
+	.combo-wiki__frequency .cdx-toggle-button-group {
+		width: 100%;
+	}
+
+	.combo-wiki__frequency .cdx-toggle-button-group .cdx-toggle-button {
+		flex-grow: 1;
+		padding-right: @spacing-35 !important;
+		padding-left: @spacing-35 !important;
+	}
 }

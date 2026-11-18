@@ -13,16 +13,25 @@
 				{{ part.text }}
 			</template>
 		</template>
+		<tax-message v-if="countryCode === 'US'" :country-code="countryCode"></tax-message>
 	</p>
+	<tax-message v-if="countryCode !== 'US'" :country-code="countryCode"></tax-message>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
+const TaxMessage = require( './TaxMessage.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'MoreInfoLinks',
-
+	components: {
+		'tax-message': TaxMessage
+	},
 	props: {
+		countryCode: {
+			type: String,
+			default: ''
+		},
 		textClass: {
 			type: String,
 			default: ''
