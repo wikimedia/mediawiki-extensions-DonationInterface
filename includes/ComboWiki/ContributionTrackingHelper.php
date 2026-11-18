@@ -111,6 +111,7 @@ class ContributionTrackingHelper {
 
 		$contributionTrackingDataUpdated = $this->trackingDataUpdated( $currentHash );
 
+		$fn = __FUNCTION__;
 		if ( $contributionTrackingDataUpdated ) {
 			// Add conversion params after hashing so we can just fire them off on the first
 			// pageload and not consider it an update when they are missing after any API post
@@ -123,9 +124,8 @@ class ContributionTrackingHelper {
 					break;
 				}
 			}
-			$fn = __FUNCTION__;
 			$logger = $this->logger;
-			$this->logger->info( __FUNCTION__ . ": Contribution tracking data has changed, sending to queue with DeferredUpdates" );
+			$this->logger->info( $fn . ": Contribution tracking data has changed, sending to queue with DeferredUpdates" );
 			DeferredUpdates::addCallableUpdate( function () use ( $trackingData, $id, $logger, $fn ) {
 				try {
 					$sentId = $this->sendToContributionTrackingQueue( $trackingData, $id );
@@ -137,12 +137,12 @@ class ContributionTrackingHelper {
 
 			try {
 				$this->request->setSessionData( $this->hashKey, $currentHash );
-				$this->logger->info( __FUNCTION__ . ": Tracking data hash updated in session with value '$currentHash'" );
+				$this->logger->info( $fn . ": Tracking data hash updated in session with value '$currentHash'" );
 			} catch ( \Exception $e ) {
-				$this->logger->error( __FUNCTION__ . ": Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
+				$this->logger->error( $fn . ": Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
 			}
 		}
-		$this->logger->debug( __FUNCTION__ . ": Contribution tracking data has not changed" );
+		$this->logger->debug( $fn . ": Contribution tracking data has not changed" );
 	}
 
 	/**
