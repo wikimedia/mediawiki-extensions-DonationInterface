@@ -96,6 +96,10 @@ module.exports = exports = defineComponent( {
 	},
 	computed: {
 		reasons() {
+			// This list should be a subset of the values in CiviCRM at
+			// ext/wmf-civicrm/Civi/WMFHelper/ContributionRecur.php,
+			// and values must match the values in
+			// includes/Api/ApiRequestCancelRecurring::mapReason
 			return [
 				{
 					id: 'financial-reason',
