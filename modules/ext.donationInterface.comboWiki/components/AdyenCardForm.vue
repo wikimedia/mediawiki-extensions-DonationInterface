@@ -7,7 +7,6 @@
 				action="progressive"
 				weight="primary"
 				class="combo-wiki__button-submit"
-				:disabled="!formValid"
 				@click="submit"
 			>
 				{{ $i18n( 'donate_interface-submit-button' ).text() }}
@@ -107,9 +106,6 @@ module.exports = exports = defineComponent( {
 		},
 
 		submit() {
-			if ( !this.card || !this.formValid ) {
-				return;
-			}
 			if ( this.donorDetails && !this.donorDetails.validate() ) {
 				return;
 			}
