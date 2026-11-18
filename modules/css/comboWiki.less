@@ -342,6 +342,16 @@
 	}
 }
 
+// iOS Safari zooms in on a field whose text is smaller than 16px when it gets focus.
+// The skin sets the page content to 14px and Codex's inputs inherit that, so give
+// the form's fields the base size. The lookups (country, employer) are text inputs too.
+.combo-wiki {
+	.cdx-text-input__input,
+	select.cdx-select {
+		font-size: @font-size-base;
+	}
+}
+
 // Codex's CSS-only select is coloured like a button and has no error state,
 // so give it the text inputs' colours in each state (disabled already matches).
 // These are the custom properties and fallbacks Codex's text input uses, rather than
