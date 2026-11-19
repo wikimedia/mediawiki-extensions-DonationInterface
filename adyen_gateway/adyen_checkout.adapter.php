@@ -331,21 +331,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		];
 	}
 
-	/** @inheritDoc */
-	public function getRequiredFields( $knownData = null ) {
-		$fields = parent::getRequiredFields( $knownData );
-		return array_diff( $fields, $this->getFieldsToRemove( $knownData ) );
-	}
-
-	/** @inheritDoc */
-	public function getFormFields( ?array $knownData = null ): array {
-		$fields = parent::getFormFields( $knownData );
-		return array_diff_key(
-			$fields,
-			array_fill_keys( $this->getFieldsToRemove( $knownData ), true )
-		);
-	}
-
 	public function getGoogleAllowedNetworks(): array {
 		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
 		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
@@ -357,43 +342,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			}
 		}
 		return $general;
-	}
-
-	protected function getFieldsToRemove( ?array $knownData = null ): array {
-		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
-		$submethod = $knownData['payment_submethod'] ?? $this->getData_Unstaged_Escaped( 'payment_submethod' );
-		if ( $method === PaymentMethod::PAYMENT_METHOD_APPLEPAY ) {
-			// For Apple Pay, do not require any of the following fields in forms,
-			// regardless of what may be specified in config/country_fields.yaml
-			// We can gather them instead from the Apple Pay UI.
-			return [
-				'first_name',
-				'last_name',
-				'email',
-				'street_address',
-				'postal_code',
-				'city',
-				'state_province'
-			];
-		} elseif ( $method === PaymentMethod::PAYMENT_METHOD_GOOGLEPAY ) {
-			return [
-				'street_address',
-				'postal_code',
-				'city'
-			];
-		} elseif (
-			$method === PaymentMethod::PAYMENT_METHOD_DIRECT_DEBIT ||
-			( $method === PaymentMethod::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER
-				&& $submethod === PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ) ) {
-			return [
-				'first_name',
-				'last_name',
-				'street_address',
-				'postal_code',
-				'city'
-			];
-		}
-		return [];
 	}
 
 	/** @inheritDoc */
