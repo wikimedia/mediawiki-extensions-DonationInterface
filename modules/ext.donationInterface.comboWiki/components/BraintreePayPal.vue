@@ -19,13 +19,15 @@
 
 <script>
 /* global braintree */
-const { defineComponent, inject, onMounted, ref } = require( 'vue' );
+const { defineComponent, inject, onMounted, ref, watch } = require( 'vue' );
 const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const MethodSubmit = require( './MethodSubmit.vue' );
 
-// PayPal adds these to returnUrl when it sends the donor back from the redirect
-const PAYPAL_RETURN_PARAMS = [ 'token', 'ba_token' ];
+// PayPal adds these to returnUrl when it sends the donor back from the redirect:
+// token and ba_token for a billing agreement which is then used for braintree vaulting
+// token (the order) and PayerID for one-time
+const PAYPAL_RETURN_PARAMS = [ 'token', 'ba_token', 'PayerID' ];
 // Added to cancelUrl, so the page knows not to send the donor to PayPal again
 const CANCEL_PARAM = 'paypalCancel';
 
@@ -124,26 +126,32 @@ module.exports = exports = defineComponent( {
 		const appState = useAppState();
 		const config = params.braintreeConfiguration || {};
 		const urlParams = new URLSearchParams( window.location.search );
-		// True once the billing agreement session exists, so start() can run straight
-		// away in the click. Safari blocks the popup if anything async runs first.
+		// True once the PayPal SDK has loaded and the session exists, so start() can run
+		// straight away in the click. Safari blocks the popup if anything async runs first.
 		const ready = ref( false );
 		const paypalButton = ref();
 		let paypalCheckout = null;
-		let session = null;
 		let deviceData = null;
+		// Made ahead of the click, and made again when the donation changes, see prepareSession()
+		let session = null;
+		// Why the session couldn't be made, reported when the donor clicks
+		let sessionError = null;
+		// Only used by the redirect: the page loads again with the donation in the URL
+		let returnUrl = null;
+		let cancelUrl = null;
 
 		const emitError = ( error ) => ctx.emit( 'error', error );
 		const donorDetailsValid = () => !props.donorDetails || props.donorDetails.validate();
 
 		/**
-		 * Turns the billing token from PayPal into a nonce and submits the donation with it.
-		 * Only the billing token: with an orderId as well, PayPal declines the payment.
+		 * Create the tokenized single use nonce that is used in both one-time
+		 * and recurring (vaulted) payments
 		 *
-		 * @param {string} billingToken
+		 * @param {Object} approved { billingToken } for recurring, { orderId, payerId } for one-time
 		 * @return {Promise}
 		 */
-		function submitApproved( billingToken ) {
-			return paypalCheckout.tokenizePayment( { billingToken } ).then( ( payload ) => {
+		function submitApproved( approved ) {
+			return paypalCheckout.tokenizePayment( approved ).then( ( payload ) => {
 				const sendData = {
 					payment_token: payload.nonce,
 					device_data: deviceData,
@@ -173,35 +181,117 @@ module.exports = exports = defineComponent( {
 		}
 
 		/**
+		 * Handle both one-time and recurring (vaulted)
+		 *
+		 * The recurring donation is vaulted and a billing agreement is created
+		 * A one-time donation is a plain PayPal checkout
+		 *
+		 * @return {Object} The PayPal session, made synchronously
+		 */
+		function createSession() {
+			const donation = props.donation;
+			const shared = {
+				returnUrl,
+				cancelUrl,
+				// The donor closed PayPal. They can click again or choose another method.
+				onCancel: () => {},
+				onError: emitError
+			};
+			if ( donation.frequency === 'once' ) {
+				return paypalCheckout.createOneTimePaymentSession( Object.assign( {
+					amount: String( donation.amount ),
+					currency: donation.currency,
+					// Authorize, then the server captures, as with the legacy form
+					intent: 'authorize',
+					onApprove: ( data ) => submitApproved( { orderId: data.orderId, payerId: data.payerId } )
+				}, shared ) );
+			}
+			return paypalCheckout.createBillingAgreementSession( Object.assign( {
+				billingAgreementDescription: 'Wikimedia Foundation',
+				onApprove: ( data ) => submitApproved( { billingToken: data.billingToken } )
+			}, shared ) );
+		}
+
+		/**
+		 * Makes the session for the donation on the form before the donor clicks, so the
+		 * click only has to call start(). Making it in the click is too slow for Safari,
+		 * which then blocks the popup.
+		 */
+		function prepareSession() {
+			try {
+				session = createSession();
+				sessionError = null;
+			} catch ( error ) {
+				// Creating the session throws on invalid options, e.g. no amount
+				session = null;
+				sessionError = error;
+			}
+		}
+
+		// Remakes the session when the donation changes. Made in setup() so Vue stops it
+		// when the component unmounts, e.g. when the donor changes the payment method;
+		// a watch made after an await isn't stopped.
+		// 'sync' so any changes made on the form are in the session.
+		watch(
+			() => [ props.donation.frequency, props.donation.amount, props.donation.currency ],
+			() => {
+				// Until setUpPayPal() has finished, which then makes the first session itself
+				if ( paypalCheckout ) {
+					prepareSession();
+				}
+			},
+			{ flush: 'sync' }
+		);
+
+		/**
+		 * Opens PayPal for the donation on the form. Must run synchronously in the
+		 * donor's click, unless redirecting.
+		 *
 		 * @param {string} presentationMode 'auto' for a popup, 'redirect' for a full page
 		 */
 		function startSession( presentationMode ) {
+			if ( !session ) {
+				emitError( sessionError );
+				return;
+			}
 			Promise.resolve( session.start( { presentationMode } ) ).catch( emitError );
 		}
 
 		/**
-		 * Loads the Braintree scripts and the PayPal SDK, and creates the billing agreement session.
+		 * Loads the Braintree scripts and the PayPal SDK, and makes the session.
 		 */
 		async function setUpPayPal() {
 			await loadScripts( config.scripts || [] );
 			const client = await braintree.client.create( { authorization: config.clientToken } );
 			deviceData = ( await braintree.dataCollector.create( { client } ) ).deviceData;
-			paypalCheckout = await braintree.paypalCheckoutV6.create( { client } );
-			await paypalCheckout.loadPayPalSDK();
+			const checkout = await braintree.paypalCheckoutV6.create( { client } );
+			await checkout.loadPayPalSDK();
 
-			// Only used by the redirect: the page loads again with the donation in the URL
-			const returnUrl = pageUrlWithout( [ ...PAYPAL_RETURN_PARAMS, CANCEL_PARAM ] );
-			const cancelUrl = new URL( returnUrl );
-			cancelUrl.searchParams.set( CANCEL_PARAM, '1' );
-			session = paypalCheckout.createBillingAgreementSession( {
-				billingAgreementDescription: 'Wikimedia Foundation',
-				returnUrl: returnUrl.toString(),
-				cancelUrl: cancelUrl.toString(),
-				onApprove: ( data ) => submitApproved( data.billingToken ),
-				// The donor closed PayPal. They can click again or choose another method.
-				onCancel: () => {},
-				onError: emitError
-			} );
+			const pageUrl = pageUrlWithout( [ ...PAYPAL_RETURN_PARAMS, CANCEL_PARAM ] );
+			returnUrl = pageUrl.toString();
+			pageUrl.searchParams.set( CANCEL_PARAM, '1' );
+			cancelUrl = pageUrl.toString();
+
+			// Set last so the watch only makes sessions once the SDK and URLs are ready
+			paypalCheckout = checkout;
+			prepareSession();
+		}
+
+		/**
+		 * @return {Object|null} What to tokenize when PayPal sent the donor back from the
+		 *  redirect: the billing token, or the order and payer for a one-time donation
+		 */
+		function getReturnedApproval() {
+			const billingToken = urlParams.get( 'ba_token' );
+			if ( billingToken ) {
+				return { billingToken };
+			}
+			const orderId = urlParams.get( 'token' );
+			const payerId = urlParams.get( 'PayerID' );
+			if ( orderId && payerId ) {
+				return { orderId, payerId };
+			}
+			return null;
 		}
 
 		/**
@@ -231,11 +321,11 @@ module.exports = exports = defineComponent( {
 				window.history.replaceState( null, '', pageUrlWithout( PAYPAL_RETURN_PARAMS ).toString() );
 			}
 
-			const billingToken = urlParams.get( 'ba_token' );
-			if ( billingToken ) {
+			const returnedApproval = getReturnedApproval();
+			if ( returnedApproval ) {
 				// Back from the redirect
 				appState.setLoading( true );
-				submitApproved( billingToken );
+				submitApproved( returnedApproval );
 			} else if ( isZeroClick() ) {
 				// The donor chose PayPal before arriving (banner or email), so go straight to PayPal
 				appState.setLoading( true );
