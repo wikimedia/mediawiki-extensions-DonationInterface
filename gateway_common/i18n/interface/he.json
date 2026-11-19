@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"A100Star",
 			"Amire80",
 			"Deror avi",
 			"Erelon",
@@ -18,7 +19,7 @@
 			"ערן"
 		]
 	},
-	"combowiki-cover-fees": "ברצוני להוסיף בנדיבות $1 לכיסוי עמלות ביצוע העסקה, כדי שתוכלו לשמור 100% מהתרומה שלי.",
+	"combowiki-cover-fees": "אני רוצה להוסיף $1 לכיסוי עמלות העסקה, כדי שתוכלו לקבל 100% מהתרומה שלי.",
 	"donate_interface": "תמיכה בוויקימדיה",
 	"donate_interface-desc": "דף נחיתה להתרמה עם שילוב של הרחבות שער",
 	"donate_interface-langonly-desc": "חשיפה של הודעות DonationInterface בלבד",
@@ -70,9 +71,9 @@
 	"donate_interface-donor-country": "ארץ/מחוז",
 	"donate_interface-donor-card": "כרטיס אשראי",
 	"donate_interface-donor-card-num": "מספר הכרטיס",
-	"donate_interface-donor-expiration": "תאריך התפוגה",
+	"donate_interface-donor-expiration": "חודש/שנה (MM/YY)",
 	"donate_interface-donor-expiry-date": "תאריך תפוגה",
-	"donate_interface-donor-security": "קוד האבטחה",
+	"donate_interface-donor-security": "קוד אבטחה (CVV)",
 	"donate_interface-donor-fiscal_number": "מספר פיסקלי",
 	"donate_interface-donor-fiscal_number-explain-in": "חברת התשלומים שלנו <b>מתבקשת</b> על־ידי בנק העתודות של של הודו (Reserve Bank of India) לאסוף את ה־PAN שלך, אבל אנחנו לא מאחסנים את המידע הזה. <b>נא לרשום את ה־PAN שלך כאן (לא חובה).</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "לא חובה.",
@@ -220,7 +221,7 @@
 	"donate_interface-taxded-msg-x": "קרן ויקימדיה היא מוסד בין־לאומי ללא כוונת רווח שתומך בעמותות מקומיות ועצמאיות מסביב לעולם. מצב <a href=\"$2\">הפטור ממס</a> שלנו משתנה בהתאם לחוקים של כל מדינה. <b>תרומות לקרן ויקימדיה אינן פטורות ממס ב$1</b>. אם יש לך שאלות על פטורים או ניכויים ממס, אנחנו מזמינים אותך לפנות ל־<a href=\"mailto:$3\">$3</a>",
 	"donate_interface-annual-amount": "גובה התרומה השנתית",
 	"donate_interface-monthlybox-amount": "סכום התרומה החודשי",
-	"donate_interface-monthly-cancel": "תורמים קבועים יחויבו מדי חודש על־ידי קרן ויקימדיה באותו יום בחודש שבו הועברה התרומה הראשונה, עד היום שבו תגיע ממך בקשה להפסיק את החיוב. \nתרומות שהועברו בימים 29, 30 או 31 בחודש יחויבו בחודשים קצרים יותר ביום האחרון של החודש, קרוב ככל האפשר למועד  המקורי. לשאלות נא לפנות לכתובת: $1",
+	"donate_interface-monthly-cancel": "תרומות חודשיות יחויבו באותו תאריך בכל חודש שבו בוצעה התרומה הראשונה, עד לביטולן. תרומות שבוצעו ב־29, ב־30 או ב־31 בחודש יחויבו ביום האחרון של חודשים קצרים יותר. תרומות שנתיות חוזרות יחויבו מדי שנה בתאריך שבו בוצעה התרומה הראשונה. לשאלות, ניתן לפנות ל־$1.",
 	"donate_interface-monthly-short": "מדי חודש",
 	"donate_interface-onetime-short": "חד־פעמי",
 	"donate_interface-error-http-403": "אין לך הרשאה לגשת לדף הזה.",
