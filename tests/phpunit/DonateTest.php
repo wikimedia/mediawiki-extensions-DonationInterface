@@ -1101,7 +1101,10 @@ class DonateTest extends DonationInterfaceTestCase {
 		// instead. DataIntegrator::setDataFromQueryParameters() is meant to map
 		// wmf_campaign/wmf_medium/wmf_source in the URL onto the utm_campaign/
 		// utm_medium/utm_source fields the rest of the codebase reads internally.
+		// The landing page part of utm_source is hardcoded to combowiki, and the
+		// payment method family part is always rebuilt from the payment method.
 		// @see includes/ComboWiki/DataIntegrator.php setDataFromQueryParameters()
+		// @see includes/ComboWiki/DataNormalizer.php normalizeUtmSource()
 		$context = RequestContext::getMain();
 		$request = new FauxRequest( [
 			'payment_method' => 'cc',
@@ -1110,7 +1113,8 @@ class DonateTest extends DonationInterfaceTestCase {
 			'recurring' => '0',
 			'wmf_campaign' => 'wmf_test_campaign',
 			'wmf_medium' => 'wmf_test_medium',
-			'wmf_source' => 'wmf_test_source',
+			'wmf_source' => 'B2526_test_banner.some_landing_page.paypal',
+			'landing_page' => 'some_landing_page',
 		], false );
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:Donate' ) );
@@ -1131,10 +1135,35 @@ class DonateTest extends DonationInterfaceTestCase {
 			'wmf_medium in the URL should be mapped onto utm_medium'
 		);
 		$this->assertSame(
-			'wmf_test_source..cc',
+			'B2526_test_banner.combowiki.cc',
 			$donationDetails->getValue( 'utm_source' ),
-			'wmf_source in the URL should be mapped onto utm_source'
+			'utm_source should keep the banner from wmf_source, hardcode combowiki as landing page and use the payment method'
 		);
+		$this->assertSame(
+			'combowiki',
+			$donationDetails->getValue( 'landing_page' ),
+			'landing_page should be hardcoded to combowiki, ignoring the URL'
+		);
+	}
+
+	public function testUtmSourceWithoutBanner(): void {
+		$context = RequestContext::getMain();
+		$request = new FauxRequest( [
+			'payment_method' => 'paypal',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '1',
+		], false );
+		$context->setRequest( $request );
+		$context->setTitle( Title::newFromText( 'Special:Donate' ) );
+
+		$comboWiki = $this->getDonateInstance();
+		$comboWiki->execute( null );
+
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
+
+		$this->assertSame( '.combowiki.rpaypal', $donationDetails->getValue( 'utm_source' ) );
+		$this->assertSame( 'combowiki', $donationDetails->getValue( 'landing_page' ) );
 	}
 
 	/**

@@ -279,46 +279,36 @@ class DataNormalizer {
 
 	/**
 	 * The utm_source is structured as: banner.landing_page.payment_method_family
+	 * - banner: kept from the incoming utm_source (wmf_source url param, or session), or blank
+	 * - landing_page: hardcoded to 'combowiki' for now, even if a banner sends another one
+	 * - payment_method_family: always the currently selected payment method ('r' prefix if recurring)
+	 *
+	 * This is not skipped for values restored from session: utm_source is built on page load
+	 * (usually before a payment method is selected) and must be rebuilt on submit
+	 * (Hooks::updateContributionTracking) to pick up the selected payment method.
+	 * Rebuilding gives the same result however many times it runs.
+	 *
+	 * TODO: We want to transition away from using this to each of the individual pieces
+	 * as they all have contribution tracking columns. This will require
+	 * coordination with analytics and banners T445469
 	 */
 	protected function normalizeUtmSource(): void {
-		if ( $this->skipNormalization( 'utm_source' ) ) {
-			return;
-		}
-		$utm_source = $this->dataObject->getValue( 'utm_source' );
+		// explode always returns at least one element
+		$banner = explode( '.', $this->dataObject->getValue( 'utm_source' ) )[0];
+		$landing_page = 'combowiki';
 
-		if ( $this->dataObject->getValue( 'payment_method' ) ) {
-			$utm_payment_method_family = $this->dataObject->getValue( 'payment_method' );
-			if ( $this->dataObject->getValue( 'recurring' ) ) {
-				$utm_payment_method_family = 'r' . $utm_payment_method_family;
-			}
-		} else {
-			$utm_payment_method_family = '';
+		$payment_method_family = $this->dataObject->getValue( 'payment_method' );
+		if ( $payment_method_family !== '' && $this->dataObject->getValue( 'recurring' ) ) {
+			$payment_method_family = 'r' . $payment_method_family;
 		}
 
-		$recurring_str = var_export( $this->dataObject->getValue( 'recurring' ), true );
-		$this->logger->debug( __FUNCTION__ . ": Payment method is {$this->dataObject->getValue( 'payment_method' )}, recurring = {$recurring_str}, utm_source = {$utm_payment_method_family}" );
+		$this->logger->debug( __FUNCTION__ . ": banner = $banner, payment_method_family = $payment_method_family" );
 
-		// split the utm_source into its parts for easier manipulation
-		$source_parts = explode( ".", $utm_source );
-
-		// If we don't have the banner or any utm_source, set it to the empty string.
-		if ( empty( $source_parts[0] ) ) {
-			$source_parts[0] = '';
-		}
-
-		if ( empty( $source_parts[1] ) ) {
-			$source_parts[1] = '';
-		}
-
-		$source_parts[2] = $utm_payment_method_family;
-		if ( empty( $source_parts[2] ) ) {
-			$source_parts[2] = '';
-		}
-
-		$this->dataObject->setValue( 'landing_page', $source_parts[1] );
-		// reconstruct and set the value.
-		$utm_source = implode( ".", $source_parts );
-		$this->dataObject->setValue( 'utm_source', $utm_source );
+		$this->dataObject->setValue( 'landing_page', $landing_page );
+		$this->dataObject->setValue(
+			'utm_source',
+			implode( '.', [ $banner, $landing_page, $payment_method_family ] )
+		);
 	}
 
 	/**

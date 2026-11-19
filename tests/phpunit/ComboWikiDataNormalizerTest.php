@@ -41,6 +41,64 @@ class ComboWikiDataNormalizerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
+	 * utm_source is banner.landing_page.payment_method_family. It must be rebuilt
+	 * every time, including when restored from session with no source (as in
+	 * Hooks::updateContributionTracking on submit), so the selected payment
+	 * method is filled in and the landing page is always 'combowiki'.
+	 *
+	 * @dataProvider provideUtmSourceCases
+	 */
+	public function testNormalizesUtmSource(
+		array $data,
+		array $sources,
+		string $expectedUtmSource
+	): void {
+		$details = new DonationDetails();
+		$details->setValue( 'user_ip', '127.0.0.1' );
+		$details->setValue( 'country', 'US' );
+		foreach ( $data as $key => $value ) {
+			$details->setValue( $key, $value );
+		}
+		foreach ( $sources as $key => $source ) {
+			$details->setSource( $key, $source );
+		}
+
+		$normalizer = $this->newNormalizer( 'US' );
+		$normalizer->normalize( $details );
+		$this->assertSame( $expectedUtmSource, $details->getValue( 'utm_source' ) );
+		$this->assertSame( 'combowiki', $details->getValue( 'landing_page' ) );
+
+		// Normalizing again (as happens on later requests) must not change the result
+		$normalizer->normalize( $details );
+		$this->assertSame( $expectedUtmSource, $details->getValue( 'utm_source' ) );
+	}
+
+	public static function provideUtmSourceCases(): array {
+		return [
+			// name => [ data, sources, expected utm_source ]
+			'nothing set on page load' => [ [], [], '.combowiki.' ],
+			'payment method from url, no utm_source' => [
+				[ 'payment_method' => 'cc' ], [ 'payment_method' => 'get' ], '.combowiki.cc'
+			],
+			'banner utm_source from url, landing page and payment method replaced' => [
+				[ 'utm_source' => 'B2526_banner.other_lp.paypal', 'payment_method' => 'cc' ],
+				[ 'utm_source' => 'get', 'payment_method' => 'get' ],
+				'B2526_banner.combowiki.cc'
+			],
+			'empty utm_source from session, payment method posted on submit' => [
+				[ 'utm_source' => '..', 'payment_method' => 'paypal' ],
+				[ 'payment_method' => 'post' ],
+				'.combowiki.paypal'
+			],
+			'banner utm_source from session, payment method changed on submit' => [
+				[ 'utm_source' => 'B2526_banner.combowiki.paypal', 'payment_method' => 'cc', 'recurring' => '1' ],
+				[ 'payment_method' => 'post', 'recurring' => 'post' ],
+				'B2526_banner.combowiki.rcc'
+			],
+		];
+	}
+
+	/**
 	 * The source is set so cases can model a country from the URL ('get') or
 	 * from an earlier page load ('session'). normalizeCountry() validates both.
 	 *
