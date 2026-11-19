@@ -125,7 +125,7 @@
 const { defineComponent } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 const { useAppState } = require( '../composables/useAppState.js' );
-const { getGateway } = require( '../api.js' );
+const { getGateway, recurringConvert } = require( '../api.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'RecurringConvert',
@@ -141,7 +141,6 @@ module.exports = exports = defineComponent( {
 		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
 		orderId: { type: String, default: '' },
-		utmToken: { type: String, default: '' },
 		// The one-time amount actually charged, which includes the fee when the donor covers it
 		chargedAmount: { type: Number, default: null },
 		thankYouUrl: { type: String, required: true }
@@ -285,11 +284,9 @@ module.exports = exports = defineComponent( {
 				appState.setShowRecurringConvert( false );
 				this.$emit( 'recurring-convert-submit', updatedDonation );
 			} else {
-				const mwApi = new mw.Api();
 				const payload = {
 					action: 'di_recurring_convert',
 					gateway: getGateway( this.donation.paymentMethod ),
-					utm_token: this.utmToken,
 					amount: amount
 				};
 
@@ -299,7 +296,7 @@ module.exports = exports = defineComponent( {
 				appState.setLoading( true );
 				appState.clearError();
 				try {
-					const response = await mwApi.post( payload );
+					const response = await recurringConvert( payload );
 					const url = new URL( this.thankYouUrl, window.location.href );
 
 					if ( response && !response.error && response.result && !response.result.errors ) {

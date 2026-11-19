@@ -16,6 +16,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	wmfParams: comboWikiConfig.wmfParams || {},
 	monthlyConvertReturn: comboWikiConfig.monthlyConvertReturn || false,
 	assets_path: mw.config.get( 'assets_path' ),
+	wgDonationInterfaceMajorGiftsEmail: mw.config.get( 'wgDonationInterfaceMajorGiftsEmail' ),
 	wgDonationInterfaceCountries: mw.config.get( 'wgDonationInterfaceCountries' ),
 	wgDonationInterfaceCurrencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 	DonationInterfaceThankYouPage: mw.config.get( 'DonationInterfaceThankYouPage' ),

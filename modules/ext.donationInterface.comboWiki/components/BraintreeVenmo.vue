@@ -60,7 +60,7 @@ module.exports = exports = defineComponent( {
 			default: null
 		}
 	},
-	emits: [ 'submit', 'error' ],
+	emits: [ 'submit', 'error', 'ready' ],
 
 	setup( props, ctx ) {
 		const params = inject( 'params' );
@@ -131,6 +131,7 @@ module.exports = exports = defineComponent( {
 				totalAmount: String( props.donation.amount || '' )
 			} );
 			ready.value = true;
+			ctx.emit( 'ready' );
 		}
 
 		onMounted( async () => {

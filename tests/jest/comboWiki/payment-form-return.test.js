@@ -68,7 +68,7 @@ describe( 'ComboWiki return after a donation that qualifies for monthly convert'
 	it( 'offers to convert the donation the donor just made', async () => {
 		const modal = ( await mountForm( MONTHLY_CONVERT_RETURN_PARAMS ) ).findComponent( RecurringConvert );
 		expect( modal.props( 'donation' ) ).toMatchObject( {
-			amount: '10.00',
+			amount: 10.00,
 			currency: 'USD',
 			country: 'US',
 			paymentMethod: 'card'

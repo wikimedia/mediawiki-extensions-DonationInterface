@@ -90,7 +90,7 @@ describe( 'ComboWiki amount', () => {
 	it( 'sets the donation amount to what the donor types in the other amount field', async () => {
 		const wrapper = await mountForm( { amount: null } );
 		await otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', '37.5' );
-		expect( wrapper.vm.donation.amount ).toBe( '37.5' );
+		expect( wrapper.vm.donation.amount ).toBe( 37.5 );
 	} );
 
 	it( 'shows no preset as selected while there is an other amount', async () => {
@@ -107,7 +107,7 @@ describe( 'ComboWiki amount', () => {
 
 	it( 'puts an amount from the URL that isn\'t a preset in the other amount field', async () => {
 		const wrapper = await mountForm( {}, { amount: '42' } );
-		expect( wrapper.vm.donation.amount ).toBe( '42' );
+		expect( wrapper.vm.donation.amount ).toBe( 42 );
 		expect( otherAmountInput( wrapper ).props( 'modelValue' ) ).toBe( '42' );
 	} );
 } );
@@ -261,6 +261,7 @@ describe( 'ComboWiki payment form validation before a payment method', () => {
 
 	// What PaymentMethodForm calls before it opens or submits a payment method
 	const canSelectPaymentMethod = ( wrapper ) => wrapper.findComponent( PaymentMethodForm ).props( 'beforeSelect' )();
+	const otherAmountAttributes = ( wrapper ) => otherAmountInput( wrapper ).attributes();
 	const optInFieldset = ( wrapper ) => wrapper.findComponent( { name: 'OptinFieldset' } );
 
 	it( 'blocks the payment method until the donor picks an amount', async () => {
@@ -275,8 +276,33 @@ describe( 'ComboWiki payment form validation before a payment method', () => {
 
 	it( 'names the minimum in the donation currency in the amount error', async () => {
 		await mountForm( {}, { currency: 'SEK' } );
-		// 1 USD is 9.49 SEK, rounded up
-		expect( mw.msg ).toHaveBeenCalledWith( 'combowiki-error-select-amount', expect.stringContaining( '10' ) );
+		// 1 USD is 9.49 SEK, not rounded up to a whole krona, like the mustache forms
+		expect( mw.msg ).toHaveBeenCalledWith( 'combowiki-error-select-amount', expect.stringContaining( '9.49' ) );
+	} );
+
+	it( 'accepts an amount over the converted minimum but under the next whole unit', async () => {
+		// 1 USD is 0.8677 EUR, which the mustache forms and the server accept 0.87 EUR for
+		const wrapper = await mountForm( { amount: '0.87', currency: 'EUR' } );
+		expect( canSelectPaymentMethod( wrapper ) ).toBe( true );
+		Object.assign( wrapper.vm.donation, { amount: '0.86' } );
+		expect( canSelectPaymentMethod( wrapper ) ).toBe( false );
+	} );
+
+	it( 'blocks the payment method for an amount over the maximum', async () => {
+		const wrapper = await mountForm( { amount: '12000.01' }, { wgDonationInterfaceMajorGiftsEmail: 'benefactors@example.org' } );
+		expect( canSelectPaymentMethod( wrapper ) ).toBe( false );
+		expect( wrapper.vm.status.amount ).toBe( 'error' );
+		expect( mw.msg ).toHaveBeenCalledWith(
+			'donate_interface-bigamount-error', 12000, 'USD', 'benefactors@example.org', 12000
+		);
+	} );
+
+	it( 'sets the limits on the other amount input, rounded to amounts the donor can type', async () => {
+		const wrapper = await mountForm( { amount: null, currency: 'EUR' } );
+		// 0.8677 EUR rounded up, 10412.46 EUR rounded down
+		expect( otherAmountAttributes( wrapper ) ).toEqual( expect.objectContaining( {
+			min: '0.87', max: '10412.46', step: 'any'
+		} ) );
 	} );
 
 	it( 'blocks the payment method for an amount under the minimum', async () => {
@@ -330,5 +356,37 @@ describe( 'ComboWiki payment form validation before a payment method', () => {
 	it( 'shows both errors when the amount and opt in are missing', async () => {
 		const wrapper = await mountForm( { optIn: undefined }, SHOWS_OPT_IN );
 		expect( wrapper.vm.validateAll() ).toEqual( [ 'amount', 'optIn' ] );
+	} );
+
+	it( 'shows the maximum error as soon as the other amount goes over it', async () => {
+		const wrapper = await mountForm( { amount: null } );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 12000.01 );
+		await wrapper.vm.$nextTick();
+		expect( wrapper.vm.status.amount ).toBe( 'error' );
+	} );
+
+	it( 'shows the minimum error as soon as the other amount goes under it', async () => {
+		const wrapper = await mountForm( { amount: null } );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 0.5 );
+		await wrapper.vm.$nextTick();
+		expect( wrapper.vm.status.amount ).toBe( 'error' );
+	} );
+
+	it( 'accepts the limits themselves without a message', async () => {
+		const wrapper = await mountForm( { amount: null } );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 12000 );
+		await wrapper.vm.$nextTick();
+		expect( wrapper.vm.status.amount ).toBe( 'default' );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 1 );
+		await wrapper.vm.$nextTick();
+		expect( wrapper.vm.status.amount ).toBe( 'default' );
+	} );
+
+	it( 'clears the error as soon as the amount is valid again', async () => {
+		const wrapper = await mountForm( { amount: null } );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 12001 );
+		otherAmountInput( wrapper ).vm.$emit( 'update:modelValue', 120 );
+		await wrapper.vm.$nextTick();
+		expect( wrapper.vm.status.amount ).toBe( 'default' );
 	} );
 } );

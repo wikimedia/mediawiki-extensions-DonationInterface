@@ -167,7 +167,6 @@ class DataIntegrator {
 		'full_name',
 		'gateway',
 		'gclid', // conversion parameter
-		'landing_page', // previously concatenated into utm_source
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -233,7 +232,6 @@ class DataIntegrator {
 		'initial_scheme_transaction_id',
 		'issuer_id',
 		'java_enabled', // device fingerprinting
-		'landing_page', // previously concatenated into utm_source
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',

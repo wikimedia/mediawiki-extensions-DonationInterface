@@ -25,9 +25,14 @@
 					{{ formattedAmount( amount ) }}
 				</cdx-toggle-button>
 				<!-- Custom Amount -->
+				<!-- min and max let the arrows stop at the limits. step any, so an amount
+					with cents isn't invalid for the default step of 1 -->
 				<cdx-text-input
 					:model-value="otherAmount"
 					input-type="number"
+					:min="minAmount"
+					:max="maxAmount"
+					step="any"
 					:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
 					@update:model-value="setOtherAmount"
 				>
@@ -98,6 +103,15 @@ module.exports = exports = defineComponent( {
 		messages: {
 			type: Object,
 			default: () => ( {} )
+		},
+		// The lowest and highest amounts the donor can type, undefined for no limit
+		minAmount: {
+			type: Number,
+			default: undefined
+		},
+		maxAmount: {
+			type: Number,
+			default: undefined
 		}
 	},
 	emits: [ 'update:modelValue', 'update:country', 'update:payFee', 'onChange' ],
@@ -146,8 +160,9 @@ module.exports = exports = defineComponent( {
 		},
 		setOtherAmount( value ) {
 			this.otherAmount = value;
-			this.$emit( 'update:modelValue', value );
-			this.$emit( 'onChange', value );
+			const amount = value === '' ? null : Number( value );
+			this.$emit( 'update:modelValue', amount );
+			this.$emit( 'onChange', amount );
 		}
 	},
 	created() {

@@ -443,7 +443,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		if ( count( $result->getErrors() ) ) {
+		if ( $result->getRefresh() || $result->getErrors() ) {
 			$this->displayForm();
 			return;
 		}

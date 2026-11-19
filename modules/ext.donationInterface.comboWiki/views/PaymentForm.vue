@@ -27,7 +27,9 @@
 					:countries="countries"
 					:messages="messages.amount"
 					:status="status.amount"
-					@on-change="( val ) => onInput( 'amount' )"
+					:min-amount="amountLimits.min"
+					:max-amount="amountLimits.max"
+					@on-change="onAmountChange"
 					@update:pay-fee="donation.payFee = $event"
 					@update:country="onCountryChange"
 				></amount-selector>
@@ -69,7 +71,7 @@
 				<payment-method-form
 					v-if="!params.monthlyConvertReturn"
 					:donation="chargedDonation"
-					:before-select="() => ( validateAll() ).length === 0"
+					:before-select="() => validateAll().every( ( name ) => status[ name ] !== 'error' )"
 					@donation-success="handleDonateResult"
 					@donation-error="handleDonateError"
 					@on-payment-method-change="( method ) => {
@@ -89,7 +91,6 @@
 					:donation="donation"
 					:language="params.language || 'en'"
 					:order-id="params.order_id || ''"
-					:utm-token="params.utm_token || ''"
 					:charged-amount="Number( chargedDonation.amount ) || null"
 					:thank-you-url="thankYouUrl"
 					@close="redirectTargetUrl"
@@ -126,7 +127,13 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const AmountSelector = require( '../components/AmountSelector.vue' );
 const { getAppeal } = require( '../appeals.js' );
-const { getFeeAmount, minAmountFunction, getFormattedAmount, getPresetAmounts } = require( '../amountHelper.js' );
+const {
+	getFeeAmount,
+	getMinAmount,
+	getMaxAmount,
+	roundLimitToCurrency,
+	getFormattedAmount
+} = require( '../amountHelper.js' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { paymentMethodMap, donateParamMap, getGateway, logClientError } = require( '../api.js' );
 
@@ -190,7 +197,7 @@ module.exports = exports = defineComponent( {
 			lastName: null,
 			email: null,
 			frequency: getFrequencyUnit(),
-			amount: params.amount || null,
+			amount: Number( params.amount ) > 0 ? Number( params.amount ) : null,
 			currency: initialCurrency,
 			payFee: params.pay_the_fee === '1' || false,
 			phone: null,
@@ -209,28 +216,44 @@ module.exports = exports = defineComponent( {
 			variant: params.variant || null,
 			gateway_session_id: params.gateway_session_id || null
 		} );
-		const presetAmounts = computed( () => {
-			const rates = params.wgDonationInterfaceCurrencyRates || {};
-			const currency = donation.currency;
-			return getPresetAmounts( currency, rates );
-		} );
-		const minAmount = computed( () => {
-			const rules = params.wgDonationInterfaceAmountRules;
-			const rates = params.wgDonationInterfaceCurrencyRates || {};
-			return minAmountFunction( rules, rates, donation.currency, presetAmounts.value );
-		} );
-		const formattedAmount = computed( () => getFormattedAmount( minAmount.value, params.language, donation.currency, donation.country ) );
+		// The limits the server's Amount validation checks, converted like the mustache forms
+		// do, without rounding: 1 USD is 0.8677 EUR, so 0.87 EUR passes and 0.86 EUR fails
+		const minAmount = computed( () => getMinAmount( donation.currency, params ) );
+		const maxAmount = computed( () => getMaxAmount( donation.currency, params ) );
+		// The same limits as amounts the donor can type, for the other amount input's
+		// min and max and the error messages: the minimum rounded up, the maximum down
+		const amountLimits = computed( () => ( {
+			min: roundLimitToCurrency( minAmount.value, donation.currency, params, Math.ceil ),
+			max: roundLimitToCurrency( maxAmount.value, donation.currency, params, Math.floor )
+		} ) );
+		const formatAmount = ( amount ) => getFormattedAmount( amount, params.language, donation.currency, donation.country );
+		// A change of currency reloads the page, so the messages can be built once
+		const minMessage = mw.msg( 'combowiki-error-select-amount', formatAmount( amountLimits.value.min ) );
+		const rules = params.wgDonationInterfaceAmountRules;
+		// Same message and parameters as the server's Amount validation
+		const maxMessage = rules && rules.max ? mw.msg(
+			'donate_interface-bigamount-error',
+			amountLimits.value.max,
+			donation.currency,
+			params.wgDonationInterfaceMajorGiftsEmail,
+			Math.floor( getMaxAmount( 'USD', params ) )
+		) : '';
 
 		const appState = useAppState();
+
 		const validationRules = {
 			amount: [
 				{
 					required: true,
-					message: mw.msg( 'combowiki-error-select-amount', formattedAmount.value )
+					message: minMessage
 				},
 				{
-					callback: () => !( Number( donation.amount ) > 0 ) || Number( donation.amount ) < Number( minAmount.value ),
-					message: mw.msg( 'combowiki-error-select-amount', formattedAmount.value )
+					callback: () => !( Number( donation.amount ) > 0 ) || Number( donation.amount ) < minAmount.value,
+					message: minMessage
+				},
+				{
+					callback: () => Number( donation.amount ) > maxAmount.value,
+					message: maxMessage
 				}
 			]
 		};
@@ -242,10 +265,22 @@ module.exports = exports = defineComponent( {
 				}
 			];
 		}
-		const { validateAll, status, messages, onInput } = useFieldValidation( validationRules, donation );
+		const { validateAll, status, messages, onInput, onBlur } = useFieldValidation( validationRules, donation );
+
+		/**
+		 * Checks the amount as soon as it changes, so the donor sees straight away when
+		 * it's under the minimum or over the maximum, and the error clears once it's valid.
+		 * An empty amount keeps its state until the donor submits.
+		 */
+		function onAmountChange() {
+			onInput( 'amount' );
+			onBlur( 'amount' );
+		}
 		return {
 			appState,
 			validateAll,
+			amountLimits,
+			onAmountChange,
 			countries,
 			donation,
 			messages,
@@ -390,11 +425,7 @@ module.exports = exports = defineComponent( {
 				this.appState.setError( error.messages.join( ' ' ) );
 				return;
 			}
-			let errorMessage = this.$i18n( 'combowiki-payment-failed' ).text();
-			if ( error && error.type && error.message ) {
-				errorMessage = error.type + ': ' + error.message;
-			}
-			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + errorMessage );
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			const action = 'di_donate_' + getGateway( this.donation.paymentMethod );
 			mw.log.error( action + ' failed', error, failure );
 			logClientError( {
@@ -436,7 +467,7 @@ module.exports = exports = defineComponent( {
 			// Back on Special:Donate after a one-time donation that went through a
 			// redirect such as 3DS. The donation is complete, so offer monthly convert.
 			Object.assign( this.donation, {
-				amount: this.params.amount,
+				amount: Number( this.params.amount ) > 0 ? Number( this.params.amount ) : null,
 				currency: this.params.currency,
 				country: this.params.country,
 				paymentMethod: this.toFormPaymentMethod( this.params.payment_method )

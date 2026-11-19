@@ -8,6 +8,7 @@
 		<method-submit>
 			<paypal-button
 				v-show="ready"
+				ref="paypalButton"
 				type="donate"
 				class="combo-wiki__button-submit paypal-button"
 				@click="startPayPal"
@@ -28,6 +29,9 @@ const PAYPAL_RETURN_PARAMS = [ 'token', 'ba_token' ];
 // Added to cancelUrl, so the page knows not to send the donor to PayPal again
 const CANCEL_PARAM = 'paypalCancel';
 
+// How long to wait for PayPal to add the Donate text to its button, see whenLabelDrawn().
+const LABEL_WAIT_MS = 1000;
+
 // Loaded once per page, in order: the PayPal and device data scripts need the client script
 let scriptsLoaded = null;
 
@@ -43,6 +47,40 @@ function loadScripts( scripts ) {
 		);
 	}
 	return scriptsLoaded;
+}
+
+/**
+ * PayPal draws its button first and adds the translated "Donate" text a moment later,
+ * once it has fetched the translation, and the button widens with it. Waits for the
+ * text, so PaymentMethodForm doesn't show the buttons just before PayPal's grows and
+ * pushes the others aside. Gives up after LABEL_WAIT_MS.
+ *
+ * @param {HTMLElement} button The paypal-button element
+ * @return {Promise} Resolves once the text is there, or after LABEL_WAIT_MS
+ */
+function whenLabelDrawn( button ) {
+	const hasLabel = () => {
+		const text = button.shadowRoot.querySelector( 'svg.label text' );
+		return !!text && text.textContent.trim() !== '';
+	};
+	if ( !button.shadowRoot || hasLabel() ) {
+		return Promise.resolve();
+	}
+	return new Promise( ( resolve ) => {
+		let timer = null;
+		const observer = new MutationObserver( () => {
+			if ( hasLabel() ) {
+				done();
+			}
+		} );
+		function done() {
+			observer.disconnect();
+			clearTimeout( timer );
+			resolve();
+		}
+		observer.observe( button.shadowRoot, { subtree: true, childList: true, characterData: true } );
+		timer = setTimeout( done, LABEL_WAIT_MS );
+	} );
 }
 
 /**
@@ -79,7 +117,7 @@ module.exports = exports = defineComponent( {
 			default: null
 		}
 	},
-	emits: [ 'submit', 'error' ],
+	emits: [ 'submit', 'error', 'ready' ],
 
 	setup( props, ctx ) {
 		const params = inject( 'params' );
@@ -89,6 +127,7 @@ module.exports = exports = defineComponent( {
 		// True once the billing agreement session exists, so start() can run straight
 		// away in the click. Safari blocks the popup if anything async runs first.
 		const ready = ref( false );
+		const paypalButton = ref();
 		let paypalCheckout = null;
 		let session = null;
 		let deviceData = null;
@@ -204,6 +243,8 @@ module.exports = exports = defineComponent( {
 				return;
 			}
 			ready.value = true;
+			await whenLabelDrawn( paypalButton.value );
+			ctx.emit( 'ready' );
 		} );
 
 		function startPayPal() {
@@ -215,6 +256,7 @@ module.exports = exports = defineComponent( {
 
 		return {
 			ready,
+			paypalButton,
 			startPayPal
 		};
 	}

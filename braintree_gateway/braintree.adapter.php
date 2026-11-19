@@ -162,6 +162,46 @@ class BraintreeAdapter extends GatewayAdapter {
 		return $this->handleCreatedPayment( $createPaymentResult, $provider );
 	}
 
+	/**
+	 * We tokenize the payment using client-side code, so just return a newRefresh
+	 * here to render the form again. The client-side code will call the API to
+	 * capture the payment then redirect to the result page.
+	 *
+	 * If the donor cancelled at PayPal, PayPal sends them to the cancelUrl, which
+	 * has paypalCancel=1. In that case mark the attempt as cancelled and show the
+	 * fail page, which has a 'cancelled' heading and a link to try again.
+	 *
+	 * @param array $requestValues
+	 * @return PaymentResult
+	 */
+	public function processDonorReturn( array $requestValues ): PaymentResult {
+		if ( !empty( $requestValues['paypalCancel'] ) ) {
+			$this->logger->info( 'Donor cancelled the payment at PayPal' );
+			$this->finalizeInternalStatus( FinalStatus::CANCELLED );
+			return PaymentResult::newFailure();
+		}
+		return PaymentResult::newRefresh();
+	}
+
+	/**
+	 * PayPal adds 'token' to the returnUrl. Using it here makes ResultSwitcher
+	 * mark the return as processed, so if the donor reloads the result page
+	 * they see the thank you page instead of the token being used again.
+	 *
+	 * PayPal also adds 'token' to the cancelUrl. We return null for a cancel,
+	 * so a reload of the cancel page shows the cancel page again and not the
+	 * thank you page.
+	 *
+	 * @param array $requestValues
+	 * @return string|null
+	 */
+	public function getRequestProcessId( $requestValues ) {
+		if ( !empty( $requestValues['paypalCancel'] ) ) {
+			return null;
+		}
+		return $requestValues['token'] ?? null;
+	}
+
 	protected function defineTransactions() {
 		$this->transactions = [
 			TransactionType::AUTHORIZE => [

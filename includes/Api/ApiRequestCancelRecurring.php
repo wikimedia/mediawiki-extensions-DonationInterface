@@ -60,7 +60,8 @@ class ApiRequestCancelRecurring extends ApiRecurringModifyBase {
 
 	/**
 	 * Ensure we only send one of the reasons from the drop-down list defined in Civi at
-	 * ext/wmf-civicrm/Civi/WMFHook/QuickForm.php
+	 * ext/wmf-civicrm/Civi/WMFHelper/ContributionRecur.php. Keep this in sync with values defined in
+	 * modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelConfirmation.vue
 	 * @param string|null $getVal
 	 * @return string
 	 */
