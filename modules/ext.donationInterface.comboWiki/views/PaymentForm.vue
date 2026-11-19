@@ -425,11 +425,7 @@ module.exports = exports = defineComponent( {
 				this.appState.setError( error.messages.join( ' ' ) );
 				return;
 			}
-			let errorMessage = this.$i18n( 'combowiki-payment-failed' ).text();
-			if ( error && error.type && error.message ) {
-				errorMessage = error.type + ': ' + error.message;
-			}
-			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + errorMessage );
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			const action = 'di_donate_' + getGateway( this.donation.paymentMethod );
 			mw.log.error( action + ' failed', error, failure );
 			logClientError( {
