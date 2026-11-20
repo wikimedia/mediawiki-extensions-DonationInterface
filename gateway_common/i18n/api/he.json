@@ -3,9 +3,11 @@
 		"authors": [
 			"Amire80",
 			"Guycn2",
-			"Neriah"
+			"Neriah",
+			"A100Star"
 		]
 	},
+	"apierror-donorportal-invalid-email": "כתובת דוא״ל לא תקינה",
 	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, ingenico וכו'.",
 	"apihelp-donate-param-amount": "הסכום שנתרם.",
