@@ -33,14 +33,11 @@
 		</cdx-message>
 
 		<method-submit>
-			<cdx-button
-				action="progressive"
-				weight="primary"
-				class="combo-wiki__button-submit"
+			<donate-button
+				:formatted-amount="formattedAmount"
+				:currency="donation.currency"
 				@click="submit"
-			>
-				{{ $i18n( 'donate_interface-submit-button' ).text() }}
-			</cdx-button>
+			></donate-button>
 		</method-submit>
 	</div>
 </template>
@@ -48,16 +45,18 @@
 <script>
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
-const { CdxButton, CdxLabel, CdxMessage } = require( '@wikimedia/codex' );
+const { CdxLabel, CdxMessage } = require( '@wikimedia/codex' );
 const { loadScript } = require( '../utils.js' );
 const MethodSubmit = require( './MethodSubmit.vue' );
+const DonateButton = require( './DonateButton.vue' );
+const { getFormattedAmount } = require( '../amountHelper.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyCardForm',
 
 	components: {
 		'method-submit': MethodSubmit,
-		'cdx-button': CdxButton,
+		'donate-button': DonateButton,
 		'cdx-label': CdxLabel,
 		'cdx-message': CdxMessage
 	},
@@ -91,6 +90,9 @@ module.exports = exports = defineComponent( {
 		showErrorSummary() {
 			const detailsValid = !this.donorDetails || this.donorDetails.valid;
 			return this.submitAttempted && !( detailsValid && this.formValid );
+		},
+		formattedAmount() {
+			return getFormattedAmount( this.donation.amount, this.params.language, this.donation.currency, this.donation.country );
 		}
 	},
 

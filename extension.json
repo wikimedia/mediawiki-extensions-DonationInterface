@@ -613,7 +613,8 @@
 				"modules/ext.donationInterface.comboWiki/components/appeals/WydgAppeal.vue",
 				"modules/ext.donationInterface.comboWiki/components/appeals/MissionAppeal.vue",
 				"modules/ext.donationInterface.comboWiki/components/appeals/HeroAppeal.vue",
-				"modules/ext.donationInterface.comboWiki/components/MethodSubmit.vue"
+				"modules/ext.donationInterface.comboWiki/components/MethodSubmit.vue",
+				"modules/ext.donationInterface.comboWiki/components/DonateButton.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -660,6 +661,7 @@
 				"donate_interface-cvv",
 				"combowiki-donate-with-paypal",
 				"combowiki-donate-with-venmo",
+				"combowiki-donate-amount",
 				"donate_interface-other-amount",
 				"donate_interface-monthly-short",
 				"donate_interface-onetime-short",

@@ -3,30 +3,28 @@
 		<div id="combo-adyen-card"></div>
 		<div id="combo-adyen-card-action-container"></div>
 		<method-submit>
-			<cdx-button
-				action="progressive"
-				weight="primary"
-				class="combo-wiki__button-submit"
+			<donate-button
+				:formatted-amount="formattedAmount"
+				:currency="donation.currency"
 				@click="submit"
-			>
-				{{ $i18n( 'donate_interface-submit-button' ).text() }}
-			</cdx-button>
+			></donate-button>
 		</method-submit>
 	</div>
 </template>
 
 <script>
 const { defineComponent, toRaw } = require( 'vue' );
-const { CdxButton } = require( '@wikimedia/codex' );
 const { getAdyenCheckout, handleAdyenError } = require( '../utils.js' );
 const MethodSubmit = require( './MethodSubmit.vue' );
+const DonateButton = require( './DonateButton.vue' );
+const { getFormattedAmount } = require( '../amountHelper.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenCardForm',
 
 	components: {
 		'method-submit': MethodSubmit,
-		'cdx-button': CdxButton
+		'donate-button': DonateButton
 	},
 
 	inject: [ 'params' ],
@@ -53,6 +51,12 @@ module.exports = exports = defineComponent( {
 			formValid: false,
 			wmfToken: this.params.wmf_token
 		};
+	},
+
+	computed: {
+		formattedAmount() {
+			return getFormattedAmount( this.donation.amount, this.params.language, this.donation.currency, this.donation.country );
+		}
 	},
 
 	methods: {

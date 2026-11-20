@@ -80,6 +80,7 @@
 	"combowiki-donor-billing-heading": "Heading above the donor's contact, billing address and card fields on the ComboWiki card payment form.",
 	"combowiki-donate-with-paypal": "Button text to submit the donation via PayPal on the ComboWiki donation form.",
 	"combowiki-donate-with-venmo": "Button text to submit the donation via Venmo on the ComboWiki donation form.",
+	"combowiki-donate-amount": "Button text to submit a card or SEPA donation on the ComboWiki donation form, showing the amount that will be charged.\n\nParameters:\n* $1 - the amount formatted for the donor's locale, with its currency symbol, e.g. $20.80\n* $2 - the currency code, e.g. USD\n{{Identical|Donate}}",
 	"donate_interface": "{{Identical|Support Wikimedia}}",
 	"donate_interface-desc": "{{desc|name=Donation Interface|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
 	"donate_interface-langonly-desc": "{{desc|name=Donation Interface - Language Only|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
