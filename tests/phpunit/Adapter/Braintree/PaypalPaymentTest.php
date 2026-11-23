@@ -193,7 +193,9 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$expectedPaymentToken = $init['payment_token'];
-		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		foreach ( [ 1, 2, 3 ] as $i ) {
+			$expectedMerchantRef[$i] = $init['contribution_tracking_id'] . '.' . $i;
+		}
 		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
 
 		$donorDetailsResponse = new DonorDetails();
@@ -208,15 +210,23 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 
 		$this->paypalPaymentProvider->expects( $this->exactly( 2 ) )
 				->method( 'createPayment' )
-				->with( [
-						'amount' => '1.55',
-						'country' => 'US',
-						'currency' => 'USD',
-						'description' => 'Wikimedia Foundation',
-						'order_id' => $expectedMerchantRef,
-						'user_ip' => '127.0.0.1',
-						'payment_token' => $expectedPaymentToken
-				] )
+				->withConsecutive( [ [
+					'amount' => '1.55',
+					'country' => 'US',
+					'currency' => 'USD',
+					'description' => 'Wikimedia Foundation',
+					'order_id' => $expectedMerchantRef[1],
+					'user_ip' => '127.0.0.1',
+					'payment_token' => $expectedPaymentToken
+				] ], [ [
+					'amount' => '1.55',
+					'country' => 'US',
+					'currency' => 'USD',
+					'description' => 'Wikimedia Foundation',
+					'order_id' => $expectedMerchantRef[2],
+					'user_ip' => '127.0.0.1',
+					'payment_token' => $expectedPaymentToken
+				] ] )
 				->willReturn( $createPaymentResponse );
 
 		for ( $i = 0; $i < 3; $i++ ) {
@@ -234,7 +244,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 				'user_ip' => '127.0.0.1',
 				'gateway' => 'braintree',
 				'contribution_tracking_id' => $init['contribution_tracking_id'],
-				'order_id' => $expectedMerchantRef,
+				'order_id' => $expectedMerchantRef[1],
 				'payment_method' => 'paypal',
 		];
 		$this->assertArrayContains(
@@ -248,18 +258,20 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 								'initial' => 0
 						]
 				] + $expectedAntifraudInitial;
+		$expectedAntiFraudProcess['order_id'] = $expectedMerchantRef[2];
 		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][1]
 		);
-		$expectedAntiFraudProcess = [
+		$expectedAntiFraudReject = [
 						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 						'gateway_txn_id' => $expectedGatewayId,
 						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
 				] + $expectedAntifraudInitial;
+		$expectedAntiFraudReject['order_id'] = $expectedMerchantRef[3];
 		$this->assertArrayContains(
-				$expectedAntiFraudProcess,
-				$messages['payments-antifraud'][2]
+			$expectedAntiFraudReject,
+			$messages['payments-antifraud'][2]
 		);
 		$this->assertCount( 2, $messages['payments-init'] );
 	}
@@ -277,8 +289,9 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$expectedPaymentToken = $init['payment_token'];
-		$expectedContributionTrackingId = $init['contribution_tracking_id'];
-		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		foreach ( [ 1, 2, 3 ] as $i ) {
+			$expectedMerchantRef[$i] = $init['contribution_tracking_id'] . '.' . $i;
+		}
 		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
 
 		$donorDetailsResponse = new DonorDetails();
@@ -293,15 +306,23 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 
 		$this->paypalPaymentProvider->expects( $this->exactly( 2 ) )
 				->method( 'createPayment' )
-				->with( [
+				->withConsecutive( [ [
 						'amount' => '1.55',
 						'country' => 'US',
 						'currency' => 'USD',
 						'description' => 'Wikimedia Foundation',
-						'order_id' => $expectedMerchantRef,
+						'order_id' => $expectedMerchantRef[1],
 						'user_ip' => '127.0.0.1',
 						'payment_token' => $expectedPaymentToken
-				] )
+				] ], [ [
+					'amount' => '1.55',
+					'country' => 'US',
+					'currency' => 'USD',
+					'description' => 'Wikimedia Foundation',
+					'order_id' => $expectedMerchantRef[2],
+					'user_ip' => '127.0.0.1',
+					'payment_token' => $expectedPaymentToken
+				] ] )
 				->willReturn( $createPaymentResponse );
 
 		for ( $i = 1; $i <= 3; $i++ ) {
@@ -321,19 +342,20 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 				'score_breakdown' => [ 'initial' => 0 ],
 				'user_ip' => '127.0.0.1',
 				'gateway' => 'braintree',
-				'order_id' => $expectedMerchantRef
+				'order_id' => $expectedMerchantRef[1]
 		];
 		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
-		$expectedAntiFraudProcess = [
+		$expectedAntiFraudReject = [
 				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 				'score_breakdown' => [ 'IPDenyList' => 100 ],
 				] + $expectedAntifraudInitial;
+		$expectedAntiFraudReject['order_id'] = $expectedMerchantRef[3];
 		$this->assertArrayContains(
-				$expectedAntiFraudProcess,
-				$messages['payments-antifraud'][2]
+			$expectedAntiFraudReject,
+			$messages['payments-antifraud'][2]
 		);
 		$this->assertCount( 2, $messages['payments-init'] );
 	}

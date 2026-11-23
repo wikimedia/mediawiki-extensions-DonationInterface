@@ -149,6 +149,7 @@ class BraintreeAdapter extends GatewayAdapter {
 		$createPaymentParams = $this->buildRequestArray();
 		$this->logger->info( "Calling createPayment for Braintree payment with: " . json_encode( $createPaymentParams ) );
 		$createPaymentResult = $provider->createPayment( $createPaymentParams );
+		$this->incrementSequenceNumber();
 		$validationErrors = $createPaymentResult->getValidationErrors();
 		// If there are validation errors, present them for correction with a
 		// 'refresh' type PaymentResult
