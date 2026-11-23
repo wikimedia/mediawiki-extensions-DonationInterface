@@ -11,31 +11,31 @@
 		</p>
 
 		<method-submit>
-			<cdx-button
-				action="progressive"
-				weight="primary"
-				class="combo-wiki__button-submit"
-				:disabled="isSubmitting"
+			<donate-button
+				:formatted-amount="formattedAmount"
+				:currency="donation.currency"
+				:submitting="isSubmitting"
 				@click="submit"
-			>
-				{{ donateBtn }}
-			</cdx-button>
+			></donate-button>
 		</method-submit>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxButton } = require( '@wikimedia/codex' );
 const MethodSubmit = require( './MethodSubmit.vue' );
+const DonateButton = require( './DonateButton.vue' );
+const { getFormattedAmount } = require( '../amountHelper.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'SEPAComponent',
 
 	components: {
 		'method-submit': MethodSubmit,
-		CdxButton
+		'donate-button': DonateButton
 	},
+
+	inject: [ 'params' ],
 
 	props: {
 		donation: {
@@ -58,11 +58,8 @@ module.exports = exports = defineComponent( {
 	},
 
 	computed: {
-		donateBtn() {
-			if ( this.isSubmitting ) {
-				return '...';
-			}
-			return this.$i18n( 'donate_interface-submit-button' ).text();
+		formattedAmount() {
+			return getFormattedAmount( this.donation.amount, this.params.language, this.donation.currency, this.donation.country );
 		}
 	},
 

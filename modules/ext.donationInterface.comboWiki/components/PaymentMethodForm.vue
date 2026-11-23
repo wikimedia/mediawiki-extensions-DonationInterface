@@ -767,6 +767,13 @@ module.exports = exports = defineComponent( {
 					} );
 				}
 			}
+
+			// If a payment method was pre-selected via URL param, run validation so any
+			// errors (e.g. missing or out-of-range amount) are visible immediately rather
+			// than only on click payment method.
+			if ( selectedPaymentMethod.value && props.beforeSelect ) {
+				props.beforeSelect();
+			}
 		} );
 		onBeforeUnmount( () => clearTimeout( showButtonsTimer ) );
 

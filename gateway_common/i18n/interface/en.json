@@ -48,6 +48,7 @@
 	"combowiki-donor-billing-heading": "Donor and Billing Information",
 	"combowiki-donate-with-paypal": "Donate with PayPal",
 	"combowiki-donate-with-venmo": "Donate with Venmo",
+	"combowiki-donate-amount": "Donate $1 $2",
 	"donate_interface": "Support Wikimedia",
 	"donate_interface-desc": "Donation landing page that integrates gateway extensions",
 	"donate_interface-langonly-desc": "Exposes only DonationInterface system messages",

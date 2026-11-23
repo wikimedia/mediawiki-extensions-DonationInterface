@@ -2,6 +2,7 @@ AU:
   state_province: true
 CA:
   address: true
+  state_province: true
 GB:
   address: true
   opt_in: true

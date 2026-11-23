@@ -39,6 +39,8 @@
 	"combowiki-donor-billing-heading": "Macluumaadka Deeq bixiyaha iyo Biil bixinta",
 	"combowiki-donate-with-venmo": "Ku deeq adigoo adeegsanaya Venmo",
 	"donate_interface-donor-employer-plain": "Loo shaqeeye",
+	"donate_interface-donor-expiration": "MM/YY",
+	"donate_interface-donor-security": "CVV",
 	"donate_interface-confirmation-yes": "Haa",
 	"donate_interface-confirmation-no": "Maya",
 	"donate_interface-error-msg-card-num": "Fadlan geli lambarka kaarka deynta oo sax ah",

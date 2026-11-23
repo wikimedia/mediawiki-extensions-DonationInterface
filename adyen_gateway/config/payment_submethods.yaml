@@ -114,6 +114,11 @@ sepadirectdebit:
 #    - PL
 #    - RO
 #    - SE
+  validation:
+    name: false
+    street_address: false
+    postal_code: false
+    city: false
 interac:
   group: cc
 ach:

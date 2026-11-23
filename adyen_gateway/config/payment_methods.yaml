@@ -11,9 +11,14 @@ dd:
   label: Direct debit
   validation:
     country: true
-    name: true
     email: true
     bank_account_type: true
+    last_name: false
+    first_name: false
+    postal_code: false
+    street_address: false
+    city: false
+    address: false
 rtbt:
   recurring: true
   label: Real time bank transfer
@@ -26,11 +31,22 @@ apple:
   label: Apple Pay
   validation:
     country: true
+    name: false
+    email: false
+    address: false
+    street_address: false
+    postal_code: false
+    fiscal_number: false
+    state_province: false
 google:
   recurring: true
   label: Google Pay
   validation:
     country: true
+    city: false
+    street_address: false
+    postal_code: false
+    address: false
 bt:
   recurring: false
   label: Bank Transfer
