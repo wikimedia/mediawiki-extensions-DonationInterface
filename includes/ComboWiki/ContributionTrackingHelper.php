@@ -143,8 +143,9 @@ class ContributionTrackingHelper {
 			} catch ( \Exception $e ) {
 				$this->logger->error( $fn . ": Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
 			}
+		} else {
+			$this->logger->debug( $fn . ": Contribution tracking data has not changed" );
 		}
-		$this->logger->debug( $fn . ": Contribution tracking data has not changed" );
 	}
 
 	/**
