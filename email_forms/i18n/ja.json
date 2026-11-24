@@ -37,7 +37,6 @@
 	"emailpreferences-select-preference-message": "以下からメールの受信設定を変更できます。",
 	"emailpreferences-transactional-note": "ご注意：停止または配信解除の後も、領収書など手続きに関するメールはお送りいたします。",
 	"emailpreferences-success": "メール受信の設定が更新されました。",
-	"emailpreferences-verify-email-sent": "メールアドレスの認証メールをお送りしました。",
 	"emailpreferences-title": "メール設定",
 	"emailpreferences-confirmemail-title": "メールアドレスを認証する",
 	"emailpreferences-wikimedia-image-alt": "ウィキメディア財団",

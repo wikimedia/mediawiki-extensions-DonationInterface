@@ -94,7 +94,6 @@
 	"emailpreferences-send-email": "मुझे विकिमीडिया संस्थान से सुनना पसंद है, मुझे सब कुछ भेजें!",
 	"emailpreferences-snooze-email": "{{PLURAL:$1|एक दिन|$1 दिन}} के लिए ईमेल थामें।",
 	"emailpreferences-success": "आपकी ईमेल की वरीयताएँ सहेजने का आपका अनुरोध प्रस्तुत कर दिया गया है।",
-	"emailpreferences-verify-email-sent": "हमने आपके नए ईमेल पते पर एक पुष्टीकरण कड़ी भेजी है।",
 	"emailpreferences-title": "ईमेल की वरीयताएँ",
 	"emailpreferences-confirmemail-title": "ईमेल की पुष्टि करें",
 	"emailpreferences-wikimedia-image-alt": "विकिमीडिया संस्थान",

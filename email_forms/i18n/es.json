@@ -65,7 +65,7 @@
 	"emailpreferences-select-preference-message": "Cambia tu estado a continuación:",
 	"emailpreferences-transactional-note": "Nota: Después de pausar o cancelar tu suscripción, todavía recibirás correos sobre transacciones, como los recibos de tus donaciones.",
 	"emailpreferences-success": "Se ha enviado tu solicitud para guardar tus preferencias de correo electrónico.",
-	"emailpreferences-verify-email-sent": "Hemos enviado un enlace de confirmación a tu nueva dirección de correo electrónico.",
+	"emailpreferences-verify-email-sent-previous": "Hemos enviado un enlace de confirmación a tu dirección de correo electrónico anterior.",
 	"emailpreferences-title": "Preferencias de correo electrónico",
 	"emailpreferences-confirmemail-title": "Confirmar correo electrónico",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",

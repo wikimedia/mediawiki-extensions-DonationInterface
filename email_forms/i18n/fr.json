@@ -154,7 +154,7 @@
 	"emailpreferences-select-preference-message": "Modifiez votre statut ci-dessous :",
 	"emailpreferences-transactional-note": "Remarque : Vous recevrez toujours des e-mails transactionnels, comme des reçus de dons, après une suspension ou un désabonnement.",
 	"emailpreferences-success": "Votre demande de modification de vos préférences en matière de courriel a été envoyée.",
-	"emailpreferences-verify-email-sent": "Nous avons envoyé un lien de confirmation à votre nouvelle adresse e-mail.",
+	"emailpreferences-verify-email-sent-previous": "Nous avons envoyé un lien de confirmation à votre adresse e-mail précédente.",
 	"emailpreferences-title": "Préférences courriel",
 	"emailpreferences-confirmemail-title": "Confirmez l’adresse de courriel",
 	"emailpreferences-wikimedia-image-alt": "Fondation Wikimédia",

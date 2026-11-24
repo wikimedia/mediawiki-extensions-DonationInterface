@@ -205,7 +205,6 @@
 	"emailpreferences-select-preference-message": "아래에서 상태를 변경하세요:",
 	"emailpreferences-transactional-note": "참고: 구독을 일시 정지하거나 취소한 후에도 기부 영수증과 같은 거래 관련 이메일은 계속해서 수신하게 됩니다.",
 	"emailpreferences-success": "이메일 환경 설정에 대한 저장 요청을 제출했습니다.",
-	"emailpreferences-verify-email-sent": "새로운 이메일 주소로 확인 링크를 보보냈습니다.",
 	"emailpreferences-title": "이메일 환경 설정",
 	"emailpreferences-confirmemail-title": "이메일 확인",
 	"emailpreferences-wikimedia-image-alt": "위키미디어 재단",

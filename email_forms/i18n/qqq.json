@@ -204,7 +204,7 @@
 	"emailpreferences-select-preference-message": "Heading directly above the preference radio buttons. None of them are selected by default, so this invites the donor to pick one only if they want to change their current preference.",
 	"emailpreferences-transactional-note": "Footnote about continuing to receive transactional emails below the e-mail preference radio buttons.",
 	"emailpreferences-success": "Message following successful submission of preferences update.",
-	"emailpreferences-verify-email-sent": "Message to inform donor a confirmation link has been sent to their new email address.",
+	"emailpreferences-verify-email-sent-previous": "Message to inform donor a confirmation link has been sent to their previous email address.",
 	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
 	"emailpreferences-confirmemail-title": "Title for page where the user confirm that they want to set their primary email to the e-mail they pass.",
 	"emailpreferences-wikimedia-image-alt": "{{optional}}\nImage alt for wikimedia logo",
