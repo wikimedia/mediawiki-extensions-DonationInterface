@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\DonationInterface\Special;
 
-use AdyenCheckoutAdapter;
 use BraintreeAdapter;
 use DonationInterface;
 use GatewayAdapter;
@@ -224,7 +223,7 @@ class Donate extends UnlistedSpecialPage {
 			);
 			if ( $adapter ) {
 				$this->adapters[$gateway] = $adapter;
-				$clientConfig = $this->getClientConfig( $adapter );
+				$clientConfig = $this->getClientConfig( $gateway );
 				if ( $clientConfig ) {
 					$clientConfig->addResources( $this->getOutput() );
 					$this->clientConfigs[$gateway] = $clientConfig;
@@ -638,23 +637,23 @@ class Donate extends UnlistedSpecialPage {
 	 * The client config for an adapter, chosen by the adapter class so it always matches
 	 * the adapter.
 	 *
-	 * @param GatewayAdapter $adapter
+	 * @param string $gateway
 	 * @return GatewayClientConfig|null Null for a gateway that sends no client config
 	 */
-	private function getClientConfig( GatewayAdapter $adapter ): ?GatewayClientConfig {
-		return match ( true ) {
-			$adapter instanceof GravyAdapter => new GravyClientConfig(
+	private function getClientConfig( string $gateway ): ?GatewayClientConfig {
+		return match ( $gateway ) {
+			'gravy' => new GravyClientConfig(
 				$this->routingParams,
 				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ),
 				$this->getConfig(),
 				$this->logger
 			),
-			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig(
+			'adyen' => new AdyenClientConfig(
 				$this->routingParams,
 				$this->getConfig(),
 				$this->logger
 			),
-			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
+			'braintree' => new BraintreeClientConfig(
 				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER ),
 				$this->getConfig()
 			),
