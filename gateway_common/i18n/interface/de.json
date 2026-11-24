@@ -65,6 +65,7 @@
 	"combowiki-donor-billing-heading": "Spender- und Abrechnungsinformationen",
 	"combowiki-donate-with-paypal": "Per PayPal spenden",
 	"combowiki-donate-with-venmo": "Mit Venmo spenden",
+	"combowiki-donate-amount": "Spende $1 $2",
 	"donate_interface": "Wikimedia unterstützen",
 	"donate_interface-desc": "Ermöglicht eine Spendenseite, die Gateway-Erweiterungen einbezieht",
 	"donate_interface-langonly-desc": "Ermöglicht lediglich die Anzeige der Systemnachrichten für die Spendenseite",

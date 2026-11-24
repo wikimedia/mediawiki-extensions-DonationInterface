@@ -33,7 +33,7 @@
 					:min="minAmount"
 					:max="maxAmount"
 					step="any"
-					:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
+					:placeholder="$i18n( 'donate_interface-other' ).text()"
 					@update:model-value="setOtherAmount"
 				>
 				</cdx-text-input>
