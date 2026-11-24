@@ -51,7 +51,7 @@
 	"donate_interface-donor-card-num": "Број картице",
 	"donate_interface-donor-expiration": "ММ/ГГ",
 	"donate_interface-donor-expiry-date": "Датум истека",
-	"donate_interface-donor-security": "Сигурносни код",
+	"donate_interface-donor-security": "CVV",
 	"donate_interface-donor-fiscal_number": "Фискални број",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Ово је необавезно.",
 	"donate_interface-donor-phone": "Број телефона",
