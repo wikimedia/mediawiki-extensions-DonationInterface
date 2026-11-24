@@ -21,7 +21,6 @@ class BraintreeAdapter extends GatewayAdapter {
 	protected function defineOrderIDMeta() {
 		// TODO: Implement defineOrderIDMeta() method.
 		$this->order_id_meta = [
-			'alt_locations' => [ 'request' => 'merchantReference' ],
 			'ct_id' => true,
 			'generate' => true,
 		];
