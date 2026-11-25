@@ -118,7 +118,7 @@
 	"donate_interface-email-unsub-button": "Berhenti melanggan",
 	"donate_interface-email-unsub-success": "Anda telah digugurkan daripada senarai mel kami",
 	"donate_interface-email-unsub-delay": "Sila berikan empat (4) hari untuk perubahan dilaksanakan. Kami memohon maaf atas sebarang e-mel yang anda terima ketika ini. Jika anda ada persoalan, sila hubungi $1",
-	"donate_interface-email-unsub-fail": "Terdapat ralat ketika memproseskan permintaan anda, sila hubungi <$1>.",
+	"donate_interface-email-unsub-fail": "Terdapat ralat ketika memproseskan permintaan anda, sila hubungi <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Adakah anda benar-benar ingin berhenti melanggan <b>$1</b>?",
 	"donate_interface-faqs": "Soalan lazim",
 	"donate_interface-tax-info": "Maklumat kebolehpotongan cukai",

@@ -182,7 +182,7 @@
 	"donate_interface-email-unsub-button": "सदस्यता छोड़ें",
 	"donate_interface-email-unsub-success": "आपको सफलतापूर्वक हमारी डाक सूची से हटा दिया गया है",
 	"donate_interface-email-unsub-delay": "बदलाव को प्रभाव दिखाने के लिए कम-से-कम चार (4) दिनों की ज़रूरत है। इस दौरान किसी भी ईमेल के लिए हम क्षमा चाहते हैं। अगर आपके पास कोई सवाल है, कृपया $1 पर संपर्क करें",
-	"donate_interface-email-unsub-fail": "आपके अनुरोध को प्रोसेस करते समय एक त्रुटि आई, कृपया <$1> पर संपर्क करें।",
+	"donate_interface-email-unsub-fail": "आपके अनुरोध को प्रोसेस करते समय एक त्रुटि आई, कृपया <a href=\"mailto:$1\">$1</a> पर संपर्क करें।",
 	"donate_interface-email-unsub-confirm": "क्या आप सच में <b>$1</b> से सदस्यता छोड़ना चाहते हैं?",
 	"donate_interface-email-explain": "आपके दान की पुष्टि करने के लिए हम आपको रसीद ईमेल के ज़रिए भेजेंगे।",
 	"donate_interface-email-optin-fail": "आपके अनुरोध को प्रोसेस करते समय एक त्रुटि आई। कृपया <a href=\"mailto:$1\">$1</a> पर संपर्क करें या फिर <a href=\"$2\">पुनः प्रयास करने के लिए यहाँ क्लिक करें</a>।",

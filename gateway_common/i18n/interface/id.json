@@ -169,7 +169,7 @@
 	"donate_interface-email-unsub-button": "Berhenti berlangganan",
 	"donate_interface-email-unsub-success": "Anda telah berhasil menghapus diri Anda dari milis kami.",
 	"donate_interface-email-unsub-delay": "Harap tunggu hingga empat (4) hari sebelum perubahan diterapkan. Kami memohon maaf atas surel apa pun yang pernah Anda terima selama ini. Jika Anda memiliki pertanyaan, silakan hubungi $1",
-	"donate_interface-email-unsub-fail": "Terjadi galat saat memproses permintaan Anda, silakan hubungi <$1>.",
+	"donate_interface-email-unsub-fail": "Terjadi galat saat memproses permintaan Anda, silakan hubungi <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Apakah Anda yakin ingin berhenti berlangganan <b>$1</b>?",
 	"donate_interface-email-explain": "Kami akan menyurelkan Anda tanda terima untuk mengonfirmasi sumbangan Anda.",
 	"donate_interface-faqs": "Pertanyaan yang sering diajukan",

@@ -145,7 +145,7 @@
 	"donate_interface-email-unsub-button": "Không theo dõi",
 	"donate_interface-email-unsub-success": "Tên của bạn đã được gỡ bỏ thành công khỏi danh sách thư của chúng tôi",
 	"donate_interface-email-unsub-delay": "Xin vui lòng chờ đến bốn (4) ngày để những thay đổi có hiệu lực. Chúng tôi xin lỗi vì các thư điện tử mà bạn nhận được trong thời gian này. Nếu bạn có bất kỳ câu hỏi nào, xin vui lòng liên hệ $1",
-	"donate_interface-email-unsub-fail": "Đã có lỗi xảy ra khi xử lý yêu cầu của bạn, vui lòng liên hệ <$1>.",
+	"donate_interface-email-unsub-fail": "Đã có lỗi xảy ra khi xử lý yêu cầu của bạn, vui lòng liên hệ <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Bạn có chắc bạn muốn hủy đăng ký <b>$1</b>?",
 	"donate_interface-faqs": "Câu hỏi thường gặp",
 	"donate_interface-tax-info": "Thông tin khấu trừ thuế",

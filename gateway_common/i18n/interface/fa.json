@@ -148,7 +148,7 @@
 	"donate_interface-email-unsub-button": "لغو اشتراک",
 	"donate_interface-email-unsub-success": "شما با موفقیت از میلینگ لیست ما خارج شدید",
 	"donate_interface-email-unsub-delay": "لطفاً حداکثر تا (۴) روز صبر کنید تا تغییرات اعمال شوند. ما به خاطر ایمیل‌هایی که در این مدت دریافت می‌کنید پوزش می‌طلبیم. اگر پرسشی دارید لطفاً با $1 تماس بگیرید.",
-	"donate_interface-email-unsub-fail": "در پردازش درخواست شما خطایی رخ داد، لطفاً با  <$1> تماس بگیرید.",
+	"donate_interface-email-unsub-fail": "در پردازش درخواست شما خطایی رخ داد، لطفاً با  <a href=\"mailto:$1\">$1</a> تماس بگیرید.",
 	"donate_interface-email-unsub-confirm": "مطمئنید که می‌خواهید عضویتتان را در <b>$1</b> لغو کنید؟",
 	"donate_interface-faqs": "پرسش‌های متداول",
 	"donate_interface-tax-info": "اطلاعات مالیات کسر پذیر",

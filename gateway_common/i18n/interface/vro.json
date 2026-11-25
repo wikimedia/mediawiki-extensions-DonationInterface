@@ -91,7 +91,7 @@
 	"donate_interface-email-unsub-button": "Lõpõdaq telmine ärq",
 	"donate_interface-email-unsub-success": "Sa sait miiq listist ilosahe vällä",
 	"donate_interface-email-unsub-delay": "Või võttaq kooniq neli (4) päivä, inne ku muutminõ jouhtõ saa. Pallõmi väega andis kirjo peräst, miä sa tuu ao seen saat. Ku sul om küsümiisi, kirodaq aadrõsi pääle $1",
-	"donate_interface-email-unsub-fail": "Su soovi täütmise man johtu viga, olõq hää kirodaq aadrõsi pääle <$1>.",
+	"donate_interface-email-unsub-fail": "Su soovi täütmise man johtu viga, olõq hää kirodaq aadrõsi pääle <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-faqs": "Kõgõ inämb küsüdüq küsümiseq",
 	"donate_interface-tax-info": "Massusoodustuisi teedüs",
 	"donate_interface-informationsharing": "Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst. Lisas saat lukõq <a href=\"$1\">miiq tugõmispõhimõttit</a>.",
