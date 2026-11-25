@@ -99,6 +99,7 @@
 	"combowiki-donor-billing-heading": "捐赠者和账单信息",
 	"combowiki-donate-with-paypal": "通过PayPal捐赠",
 	"combowiki-donate-with-venmo": "使用Venmo捐赠",
+	"combowiki-donate-amount": "捐赠$1 $2",
 	"donate_interface": "支持维基媒体",
 	"donate_interface-desc": "整合网关扩展的捐赠落地页",
 	"donate_interface-langonly-desc": "仅显示捐赠界面系统消息",
