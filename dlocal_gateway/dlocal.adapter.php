@@ -63,6 +63,11 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		] );
 
 		if ( $createPaymentResponse->requiresRedirect() ) {
+			if ( $createPaymentResponse->getRecurringPaymentToken() ) {
+				$this->addResponseData( [
+					'recurring_payment_token' => $createPaymentResponse->getRecurringPaymentToken(),
+				] );
+			}
 			// ... and ensure it is persisted in the php session
 			$this->session_addDonorData();
 

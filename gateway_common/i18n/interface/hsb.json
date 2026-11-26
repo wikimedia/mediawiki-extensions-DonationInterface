@@ -110,7 +110,7 @@
 	"donate_interface-rtbt-issuer_id": "Banku wubrać",
 	"donate_interface-email-unsub-button": "Wotskazać",
 	"donate_interface-email-unsub-success": "Sće wuspšnje z našeje rozesyłanskeje lisćiny wotstronił",
-	"donate_interface-email-unsub-fail": "Při předźěłowanju wašeho naprašowanja je zmylka wustupił, prošu stajće so z <$1> do zwiska.",
+	"donate_interface-email-unsub-fail": "Při předźěłowanju wašeho naprašowanja je zmylka wustupił, prošu stajće so z <a href=\"mailto:$1\">$1</a> do zwiska.",
 	"donate_interface-email-unsub-confirm": "Chceće <b>$1</b> woprawdźe wotskazać?",
 	"donate_interface-faqs": "Huste prašenja",
 	"donate_interface-tax-info": "Informacije wo wotćahujomnosći wot dawkow",

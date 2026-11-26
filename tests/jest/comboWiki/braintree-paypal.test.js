@@ -1,6 +1,7 @@
 /* global describe it expect jest beforeEach */
 
 const VueTestUtils = require( '@vue/test-utils' );
+const { reactive } = require( 'vue' );
 const BraintreePayPal = require( '../../../modules/ext.donationInterface.comboWiki/components/BraintreePayPal.vue' );
 const { useAppState } = require( '../../../modules/ext.donationInterface.comboWiki/composables/useAppState.js' );
 
@@ -11,6 +12,7 @@ const session = { start: jest.fn() };
 const paypalCheckout = {
 	loadPayPalSDK: jest.fn(),
 	createBillingAgreementSession: jest.fn(),
+	createOneTimePaymentSession: jest.fn(),
 	tokenizePayment: jest.fn()
 };
 window.braintree = {
@@ -35,7 +37,7 @@ function visit( queryString ) {
 async function mountPayPal( props = {} ) {
 	const wrapper = VueTestUtils.mount( BraintreePayPal, {
 		props: Object.assign( {
-			donation: { frequency: 'once', amount: 10 },
+			donation: { frequency: 'once', amount: 10, currency: 'USD' },
 			donorDetails: null
 		}, props ),
 		global: {
@@ -59,11 +61,20 @@ async function mountPayPal( props = {} ) {
 }
 
 /**
- * @return {Object} The options BraintreePayPal passed to createBillingAgreementSession
+ * @return {Object} The options BraintreePayPal last passed to createBillingAgreementSession
  */
-function sessionOptions() {
-	return paypalCheckout.createBillingAgreementSession.mock.calls[ 0 ][ 0 ];
+function billingAgreementOptions() {
+	return paypalCheckout.createBillingAgreementSession.mock.lastCall[ 0 ];
 }
+
+/**
+ * @return {Object} The options BraintreePayPal last passed to createOneTimePaymentSession
+ */
+function oneTimeOptions() {
+	return paypalCheckout.createOneTimePaymentSession.mock.lastCall[ 0 ];
+}
+
+const MONTHLY = { donation: { frequency: 'month', amount: 3, currency: 'USD' } };
 
 beforeEach( () => {
 	window.mw.loader = { getScript: jest.fn( () => Promise.resolve() ) };
@@ -72,6 +83,7 @@ beforeEach( () => {
 	window.braintree.paypalCheckoutV6.create.mockResolvedValue( paypalCheckout );
 	paypalCheckout.loadPayPalSDK.mockResolvedValue();
 	paypalCheckout.createBillingAgreementSession.mockReturnValue( session );
+	paypalCheckout.createOneTimePaymentSession.mockReturnValue( session );
 	paypalCheckout.tokenizePayment.mockResolvedValue( TOKENIZED );
 	appState.setLoading( false );
 } );
@@ -87,10 +99,80 @@ describe( 'ComboWiki Braintree PayPal when the donor clicks the PayPal button', 
 		expect( session.start ).not.toHaveBeenCalled();
 	} );
 
-	it( 'opens PayPal on click', async () => {
+	it( 'opens a one-time PayPal checkout, not a billing agreement, for a one-time donation', async () => {
+		const wrapper = await mountPayPal( { donation: { frequency: 'once', amount: 10.4, currency: 'USD' } } );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		expect( paypalCheckout.createBillingAgreementSession ).not.toHaveBeenCalled();
+		expect( oneTimeOptions() ).toEqual( expect.objectContaining( {
+			amount: '10.4',
+			currency: 'USD',
+			intent: 'authorize'
+		} ) );
+		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'auto' } );
+	} );
+
+	it( 'opens a PayPal billing agreement for a monthly donation', async () => {
+		const wrapper = await mountPayPal( MONTHLY );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		expect( paypalCheckout.createOneTimePaymentSession ).not.toHaveBeenCalled();
+		expect( billingAgreementOptions().billingAgreementDescription ).toBe( 'Wikimedia Foundation' );
+		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'auto' } );
+	} );
+
+	it( 'makes the PayPal session before the click, so Safari doesn\'t block the popup', async () => {
+		const wrapper = await mountPayPal();
+		expect( paypalCheckout.createOneTimePaymentSession ).toHaveBeenCalledTimes( 1 );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		expect( paypalCheckout.createOneTimePaymentSession ).toHaveBeenCalledTimes( 1 );
+		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'auto' } );
+	} );
+
+	it( 'makes a billing agreement session when the donor changes to monthly', async () => {
+		const wrapper = await mountPayPal();
+		await wrapper.setProps( MONTHLY );
+		expect( paypalCheckout.createBillingAgreementSession ).toHaveBeenCalledTimes( 1 );
+	} );
+
+	it( 'uses the amount and frequency on the form when the donor clicks', async () => {
+		const wrapper = await mountPayPal();
+		await wrapper.setProps( { donation: { frequency: 'once', amount: 25, currency: 'USD' } } );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		expect( oneTimeOptions().amount ).toBe( '25' );
+	} );
+
+	it( 'stops making sessions once unmounted, e.g. when the donor changes the payment method', async () => {
+		const donation = reactive( { frequency: 'once', amount: 10, currency: 'USD' } );
+		const wrapper = await mountPayPal( { donation } );
+		wrapper.unmount();
+		const callsBefore = paypalCheckout.createOneTimePaymentSession.mock.calls.length;
+		donation.amount = 25;
+		expect( paypalCheckout.createOneTimePaymentSession ).toHaveBeenCalledTimes( callsBefore );
+	} );
+
+	it( 'waits for the PayPal SDK before making a session for a change', async () => {
+		let sdkLoaded;
+		paypalCheckout.loadPayPalSDK.mockReturnValue( new Promise( ( resolve ) => {
+			sdkLoaded = resolve;
+		} ) );
+		const donation = reactive( { frequency: 'once', amount: 10, currency: 'USD' } );
+		const wrapper = await mountPayPal( { donation } );
+		donation.amount = 25;
+		expect( paypalCheckout.createOneTimePaymentSession ).not.toHaveBeenCalled();
+		sdkLoaded();
+		await VueTestUtils.flushPromises();
+		expect( paypalCheckout.createOneTimePaymentSession ).toHaveBeenCalledTimes( 1 );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		expect( oneTimeOptions().amount ).toBe( '25' );
+	} );
+
+	it( 'reports an error when PayPal won\'t make the session', async () => {
+		const error = new Error( 'invalid options' );
+		paypalCheckout.createOneTimePaymentSession.mockImplementationOnce( () => {
+			throw error;
+		} );
 		const wrapper = await mountPayPal();
 		await wrapper.find( 'paypal-button' ).trigger( 'click' );
-		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'auto' } );
+		expect( wrapper.emitted( 'error' ) ).toEqual( [ [ error ] ] );
 	} );
 
 	it( 'doesn\'t open PayPal while the donor details are invalid', async () => {
@@ -99,10 +181,23 @@ describe( 'ComboWiki Braintree PayPal when the donor clicks the PayPal button', 
 		expect( session.start ).not.toHaveBeenCalled();
 	} );
 
-	it( 'submits with a nonce made from only the billing token', async () => {
+	it( 'submits a one-time donation with a nonce made from the order and payer', async () => {
 		const wrapper = await mountPayPal();
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
 		// What PayPal passes to onApprove in the popup
-		await sessionOptions().onApprove( { orderId: 'EC-1', billingToken: 'BA-1', payerId: 'PAYER1', fundingSource: 'paypal' } );
+		await oneTimeOptions().onApprove( { orderId: 'ORDER-1', payerId: 'PAYER1' } );
+		expect( paypalCheckout.tokenizePayment ).toHaveBeenCalledWith( { orderId: 'ORDER-1', payerId: 'PAYER1' } );
+		expect( wrapper.emitted( 'submit' ) ).toEqual( [ [ expect.objectContaining( {
+			payment_token: 'fake-nonce',
+			device_data: 'device-data'
+		} ) ] ] );
+	} );
+
+	it( 'submits a monthly donation with a nonce made from only the billing token', async () => {
+		const wrapper = await mountPayPal( MONTHLY );
+		await wrapper.find( 'paypal-button' ).trigger( 'click' );
+		// What PayPal passes to onApprove in the popup
+		await billingAgreementOptions().onApprove( { orderId: 'EC-1', billingToken: 'BA-1', payerId: 'PAYER1', fundingSource: 'paypal' } );
 		expect( paypalCheckout.tokenizePayment ).toHaveBeenCalledWith( { billingToken: 'BA-1' } );
 		expect( wrapper.emitted( 'submit' ) ).toEqual( [ [ {
 			payment_token: 'fake-nonce',
@@ -117,9 +212,11 @@ describe( 'ComboWiki Braintree PayPal when the donor clicks the PayPal button', 
 describe( 'ComboWiki Braintree PayPal when the donor chose PayPal before arriving', () => {
 	const ZERO_CLICK = 'country=GB&currency=GBP&payment_method=paypal&recurring=0&uselang=en-gb&amount=10';
 
-	it( 'goes straight to PayPal', async () => {
+	it( 'goes straight to a one-time PayPal checkout', async () => {
 		visit( ZERO_CLICK );
-		const wrapper = await mountPayPal();
+		const wrapper = await mountPayPal( { donation: { frequency: 'once', amount: 10, currency: 'GBP' } } );
+		expect( paypalCheckout.createBillingAgreementSession ).not.toHaveBeenCalled();
+		expect( oneTimeOptions() ).toEqual( expect.objectContaining( { amount: '10', currency: 'GBP' } ) );
 		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'redirect' } );
 		expect( appState.loading.value ).toBe( true );
 		expect( wrapper.find( 'paypal-button' ).isVisible() ).toBe( false );
@@ -129,8 +226,16 @@ describe( 'ComboWiki Braintree PayPal when the donor chose PayPal before arrivin
 		visit( ZERO_CLICK );
 		await mountPayPal();
 		const pageUrl = 'http://localhost/index.php?title=Special%3ADonate&' + ZERO_CLICK;
-		expect( sessionOptions().returnUrl ).toBe( pageUrl );
-		expect( sessionOptions().cancelUrl ).toBe( pageUrl + '&paypalCancel=1' );
+		expect( oneTimeOptions().returnUrl ).toBe( pageUrl );
+		expect( oneTimeOptions().cancelUrl ).toBe( pageUrl + '&paypalCancel=1' );
+	} );
+
+	it( 'goes straight to a PayPal billing agreement for a monthly donation', async () => {
+		visit( 'country=GB&currency=GBP&payment_method=paypal&recurring=1&frequency_unit=month&uselang=en-gb&amount=3' );
+		await mountPayPal( MONTHLY );
+		expect( paypalCheckout.createOneTimePaymentSession ).not.toHaveBeenCalled();
+		expect( paypalCheckout.createBillingAgreementSession ).toHaveBeenCalled();
+		expect( session.start ).toHaveBeenCalledWith( { presentationMode: 'redirect' } );
 	} );
 
 	it( 'doesn\'t go to PayPal without an amount', async () => {
@@ -155,8 +260,31 @@ describe( 'ComboWiki Braintree PayPal when the donor chose PayPal before arrivin
 	} );
 } );
 
-describe( 'ComboWiki Braintree PayPal when PayPal sends the donor back', () => {
-	const RETURN = 'country=GB&currency=GBP&payment_method=paypal&recurring=0&uselang=en-gb&amount=10&token=EC-1&ba_token=BA-1';
+describe( 'ComboWiki Braintree PayPal when PayPal sends the donor back from a one-time checkout', () => {
+	const RETURN = 'country=GB&currency=GBP&payment_method=paypal&recurring=0&uselang=en-gb&amount=10&token=ORDER-1&PayerID=PAYER1';
+
+	beforeEach( () => {
+		visit( RETURN );
+	} );
+
+	it( 'submits with a nonce made from the order and payer in the URL', async () => {
+		const wrapper = await mountPayPal();
+		expect( session.start ).not.toHaveBeenCalled();
+		expect( paypalCheckout.tokenizePayment ).toHaveBeenCalledWith( { orderId: 'ORDER-1', payerId: 'PAYER1' } );
+		expect( wrapper.emitted( 'submit' ) ).toEqual( [ [ expect.objectContaining( {
+			payment_token: 'fake-nonce'
+		} ) ] ] );
+	} );
+
+	it( 'removes the order and payer from the URL, so a reload can\'t submit them again', async () => {
+		await mountPayPal();
+		expect( window.location.search ).not.toContain( 'token' );
+		expect( window.location.search ).not.toContain( 'PayerID' );
+	} );
+} );
+
+describe( 'ComboWiki Braintree PayPal when PayPal sends the donor back from a billing agreement', () => {
+	const RETURN = 'country=GB&currency=GBP&payment_method=paypal&recurring=1&frequency_unit=month&uselang=en-gb&amount=3&token=EC-1&ba_token=BA-1';
 
 	beforeEach( () => {
 		visit( RETURN );

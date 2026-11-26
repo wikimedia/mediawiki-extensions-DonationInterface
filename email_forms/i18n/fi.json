@@ -134,7 +134,6 @@
 	"emailpreferences-send-email": "Haluan kuulla kuulla Wikimedia Foundationilta, lähetä minulle kaikki!",
 	"emailpreferences-snooze-email": "Keskeytä sähköpostit {{PLURAL:$1|yhdeksi päiväksi|$1 päiväksi}}.",
 	"emailpreferences-success": "Pyyntösi sähköpostiasetuksiesi tallentamiseksi on lähetetty.",
-	"emailpreferences-verify-email-sent": "Olemme lähettäneet vahvistuslinkin uuteen sähköpostiosoitteeseesi.",
 	"emailpreferences-title": "Sähköpostiasetukset",
 	"emailpreferences-confirmemail-title": "Vahvista sähköpostiosoite",
 	"recurupgrade": "Toistuva lahjoituksesi",

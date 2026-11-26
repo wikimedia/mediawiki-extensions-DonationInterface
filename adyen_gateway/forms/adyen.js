@@ -451,7 +451,11 @@
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
-			location.assign( mw.config.get( 'DonationInterfaceFailUrl' ) );
+			const failUrl = new URL( mw.config.get( 'DonationInterfaceFailUrl' ), location.href );
+			if ( result.orderId ) {
+				failUrl.searchParams.set( 'order_id', result.orderId );
+			}
+			location.assign( failUrl.toString() );
 			return;
 		}
 

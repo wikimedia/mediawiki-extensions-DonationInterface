@@ -110,6 +110,18 @@ describe( 'ComboWiki amount', () => {
 		expect( wrapper.vm.donation.amount ).toBe( 42 );
 		expect( otherAmountInput( wrapper ).props( 'modelValue' ) ).toBe( '42' );
 	} );
+
+	it( 'keeps the decimal places of an amount from the URL in the other amount field', async () => {
+		const wrapper = await mountForm( {}, { amount: '1.20' } );
+		expect( wrapper.vm.donation.amount ).toBe( 1.2 );
+		expect( otherAmountInput( wrapper ).props( 'modelValue' ) ).toBe( '1.20' );
+	} );
+
+	it( 'starts on the preset for an amount from the URL written with cents', async () => {
+		const wrapper = await mountForm( {}, { amount: '10.00' } );
+		expect( wrapper.vm.donation.amount ).toBe( 10 );
+		expect( otherAmountInput( wrapper ).props( 'modelValue' ) ).toBe( '' );
+	} );
 } );
 
 // Expected fees follow calculateFee() in the donate wiki's MediaWiki:DonationForm.js

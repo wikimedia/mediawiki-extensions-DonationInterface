@@ -15,6 +15,6 @@
 	"emailpreferences-select-preference-message": "Cambia tu estado a continuación:",
 	"emailpreferences-transactional-note": "Nota: luego de activar la pausa o darte de baja, seguirás recibiendo correos electrónicos de transacciones, como recibos de donaciones.",
 	"emailpreferences-success": "Se envió tu solicitud para guardar tus preferencias de correo electrónico.",
-	"emailpreferences-verify-email-sent": "Enviamos un enlace de confirmación a tu nueva dirección de correo electrónico.",
+	"emailpreferences-verify-email-sent-previous": "Enviamos un enlace de confirmación a tu dirección de correo electrónico anterior.",
 	"emailpreferences-confirmemail-title": "Confirmar correo electrónico"
 }

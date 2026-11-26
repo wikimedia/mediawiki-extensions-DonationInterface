@@ -57,6 +57,7 @@
 	"combowiki-donor-billing-heading": "Información do doante e de facturación",
 	"combowiki-donate-with-paypal": "Doar con PayPal",
 	"combowiki-donate-with-venmo": "Doar con Venmo",
+	"combowiki-donate-amount": "Doar $1 $2",
 	"donate_interface": "Apoia a Wikimedia",
 	"donate_interface-desc": "Páxina de doazóns que integra diferentes modos de pagamento",
 	"donate_interface-langonly-desc": "Expón soamente as mensaxes do sistema de DonationInterface",

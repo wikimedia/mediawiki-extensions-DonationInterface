@@ -94,7 +94,7 @@
 	"donate_interface-rtbt-issuer_id": "බැංකුවක් තෝරන්න",
 	"donate_interface-email-unsub-button": "සාමාජිකත්වයෙන් ඉවත්වන්න",
 	"donate_interface-email-unsub-success": "අපගේ තැපැල් ලැයිස්තුවෙන් ඔබව සාර්ථකව ඉවත් කරන ලදී",
-	"donate_interface-email-unsub-fail": "ඔබේ අයදුම ක්‍රියානනය කිරීමේදී දෝෂයක් හට ගැනුණි, කරුණාකර  <$1> සම්බන්ධ කරගන්න.",
+	"donate_interface-email-unsub-fail": "ඔබේ අයදුම ක්‍රියානනය කිරීමේදී දෝෂයක් හට ගැනුණි, කරුණාකර  <a href=\"mailto:$1\">$1</a> සම්බන්ධ කරගන්න.",
 	"donate_interface-email-unsub-confirm": "ඔබට සාමාජිකත්වයෙන් ඉවත් වීමට අවශ්‍යමද <b>$1</b>?",
 	"donate_interface-faqs": "නිතර විමසූ ප්‍රශ්ණ",
 	"donate_interface-tax-info": "බදු අවම කිරීමේ තොරතුරු",

@@ -133,7 +133,7 @@
 	"donate_interface-email-unsub-button": "Otkaži pretplatu",
 	"donate_interface-email-unsub-success": "Uklonjeni ste s naše dopisne liste",
 	"donate_interface-email-unsub-delay": "Molimo pričekajte do četiri dana da izmjene budu aktivirane. Ispričavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, molimo javite nam se na $1",
-	"donate_interface-email-unsub-fail": "Došlo je do pogreške pri obradi vašeg zahtjeva, molimo javite nam se na <$1>.",
+	"donate_interface-email-unsub-fail": "Došlo je do pogreške pri obradi vašeg zahtjeva, molimo javite nam se na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Jeste li sigurni da želite otkazati pretplatu na <b>$1</b>?",
 	"donate_interface-faqs": "Često postavljana pitanja (FAQ)",
 	"donate_interface-tax-info": "Informacije o poreznim olakšicama",

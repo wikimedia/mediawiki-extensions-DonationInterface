@@ -32,7 +32,6 @@
 	"emailpreferences-select-preference-message": "Módosítsd státuszodat:",
 	"emailpreferences-transactional-note": "Megjegyzés: a leiratkozás vagy a levelek szüneteltetése után is megkapod a pénzügyi tranzakciókról szóló leveleket, például adományaid nyugtáit.",
 	"emailpreferences-success": "Az e-mailes preferenciáid módosításainak mentése elküldésre került.",
-	"emailpreferences-verify-email-sent": "Egy megerősítő e-mailt küldtünk az új címedre",
 	"emailpreferences-title": "E-mail preferenciák",
 	"emailpreferences-confirmemail-title": "E-mail-címed megerősítése",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Alapítványtól",

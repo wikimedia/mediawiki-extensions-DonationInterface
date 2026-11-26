@@ -96,7 +96,7 @@
 	"donate_interface-email-unsub-button": "Abbstelle",
 	"donate_interface-email-unsub-success": "Du bisch vo üsrer Mailinglischt ussegno worde",
 	"donate_interface-email-unsub-delay": "Bitte gib üs für die Änderige bis zue vier (4) Dääg Zit. Mir bitte um dyn Verständnis für d E-Mails, wo du derwyylscht dere Zit überchunnsch. Wenn no Froogge hesch, no kontaktier $1",
-	"donate_interface-email-unsub-fail": "Es het en Fääler bi de Verarbeitig vo dynrer Aafroog gee, bitte due <$1> kontaktiere.",
+	"donate_interface-email-unsub-fail": "Es het en Fääler bi de Verarbeitig vo dynrer Aafroog gee, bitte due <a href=\"mailto:$1\">$1</a> kontaktiere.",
 	"donate_interface-email-unsub-confirm": "Sin Si sicher, dass Si kei E-Mail-Benochrichtigunge me an <b>$1</b> wän iberchuu?",
 	"donate_interface-faqs": "Frooge, wo vil gstellt werde",
 	"donate_interface-tax-info": "Informatione über s Absetze vo de Stüür",

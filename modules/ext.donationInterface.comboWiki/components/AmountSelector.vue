@@ -146,7 +146,9 @@ module.exports = exports = defineComponent( {
 		},
 		// Sets amount from the URL
 		setAmount() {
-			const amount = Number( this.params.amount );
+			// Keep the string as it was in the URL, so 1.20 isn't shown as 1.2
+			const urlAmount = String( this.params.amount ).trim();
+			const amount = Number( urlAmount );
 			// Make sure it's actually a number
 			if ( !isFinite( amount ) || amount <= 0 ) {
 				return;
@@ -155,7 +157,7 @@ module.exports = exports = defineComponent( {
 			if ( this.presetAmounts.includes( amount ) ) {
 				this.selectAmount( amount );
 			} else {
-				this.setOtherAmount( String( amount ).trim() );
+				this.setOtherAmount( urlAmount );
 			}
 		},
 		setOtherAmount( value ) {

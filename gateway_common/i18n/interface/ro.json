@@ -145,7 +145,7 @@
 	"donate_interface-rtbt-issuer_id": "Selectați o bancă",
 	"donate_interface-email-unsub-button": "Dezabonare",
 	"donate_interface-email-unsub-success": "Ați fost înlăturat cu succes din lista noastră de discuții",
-	"donate_interface-email-unsub-fail": "A apărut o eroare la procesarea solicitării dumneavoastră. Vă rugăm, contactați <$1>.",
+	"donate_interface-email-unsub-fail": "A apărut o eroare la procesarea solicitării dumneavoastră. Vă rugăm, contactați <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Sunteți sigur că doriți să dezabonați adresa <b>$1</b>?",
 	"donate_interface-email-explain": "Îți vom trimite prin e-mail o chitanță pentru a confirma donația.",
 	"donate_interface-faqs": "Întrebări frecvente",

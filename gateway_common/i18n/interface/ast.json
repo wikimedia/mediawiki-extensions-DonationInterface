@@ -138,7 +138,7 @@
 	"donate_interface-email-unsub-button": "Date de baxa",
 	"donate_interface-email-unsub-success": "Desaniciósete correchamente de la llista de corréu",
 	"donate_interface-email-unsub-delay": "Da un marxe de cuatro (4) díes pa que los cambeos surtan efectu. Pidimos disculpes polos correos electrónicos que puedas recibir demientres esti tiempu. Si tienes dalguna dulda, comunícate con $1",
-	"donate_interface-email-unsub-fail": "Hebo un error al procesar la to solicitú, comunícate con <$1>.",
+	"donate_interface-email-unsub-fail": "Hebo un error al procesar la to solicitú, comunícate con <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "¿Tas seguru de que quies date de baxa de <b>$1</b>?",
 	"donate_interface-faqs": "Entrugues más frecuentes",
 	"donate_interface-tax-info": "Información de desgravación d'impuestos",

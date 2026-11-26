@@ -93,7 +93,7 @@
 	"donate_interface-bt-account_holder": "கணக்கு வைத்திருப்பவர்",
 	"donate_interface-rtbt-issuer_id": "ஒரு வங்கியை தேர்ந்தெடு",
 	"donate_interface-email-unsub-success": "நீங்கள் வெற்றிகரமாக எங்கள் மின்னஞ்சல் பட்டியலில் இருந்து நீக்கப்பட்டுவிட்டீர்கள்.",
-	"donate_interface-email-unsub-fail": "உங்கள் கோரிக்கையை செயல்படுத்தும்போது பிழை ஏற்பட்டது, தயவுகூர்ந்து <$1>ஐ தொடர்பு கொள்ளவும்.",
+	"donate_interface-email-unsub-fail": "உங்கள் கோரிக்கையை செயல்படுத்தும்போது பிழை ஏற்பட்டது, தயவுகூர்ந்து <a href=\"mailto:$1\">$1</a>ஐ தொடர்பு கொள்ளவும்.",
 	"donate_interface-faqs": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
 	"donate_interface-currency-change": "மாற்றவா?",
 	"donate_interface-monthlybox-amount": "மாதாந்திர நன்கொடை மதிப்பு",

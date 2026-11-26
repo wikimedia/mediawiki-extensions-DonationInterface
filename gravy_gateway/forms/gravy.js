@@ -234,7 +234,11 @@
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
-			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+			const failUrl = new URL( mw.config.get( 'DonationInterfaceFailUrl' ), location.href );
+			if ( result.orderId ) {
+				failUrl.searchParams.set( 'order_id', result.orderId );
+			}
+			document.location.replace( failUrl.toString() );
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {

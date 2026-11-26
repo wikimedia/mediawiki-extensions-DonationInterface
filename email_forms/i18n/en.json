@@ -203,7 +203,7 @@
 	"emailpreferences-select-preference-message": "Change your status below:",
 	"emailpreferences-transactional-note": "Note: After pausing or unsubscribing, you will still receive transactional emails, such as donation receipts.",
 	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted.",
-	"emailpreferences-verify-email-sent": "We’ve sent a confirmation link to your new email address.",
+	"emailpreferences-verify-email-sent-previous": "We’ve sent a confirmation link to your previous email address.",
 	"emailpreferences-title": "Email preferences",
 	"emailpreferences-confirmemail-title": "Confirm email",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",

@@ -19,6 +19,11 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		$data = $this->gateway->getData_Unstaged_Escaped();
 		self::$country = $data['country'];
 
+		$queryStringOrderID = $this->gatewayPage->getRequest()->getVal( 'order_id' );
+		if ( $queryStringOrderID && preg_match( '/^\d+\.\d+\z/', $queryStringOrderID ) ) {
+			$data['order_id'] = $queryStringOrderID;
+		}
+
 		$this->addMessageParameters( $data );
 		$this->addRetryLink( $data );
 
