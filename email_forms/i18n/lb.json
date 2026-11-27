@@ -58,6 +58,7 @@
 	"donorportal-cancel-recurring-reason-cancel-support": "Ech wëll d'Wikimedia Foundation net méi ënnerstëtzen.",
 	"donorportal-cancel-recurring-changed-my-mind": "Ech hu meng Meenung geännert",
 	"donorportal-cancel-failure": "Et ass eppes schifgaangen, kontaktéiert wgl. $1",
+	"donorportal-authentication-failure": "Et ass eppes schifgaangen. Probéiert wgl. méi spéit nach eng Kéier oder $1",
 	"donorportal-thank-you": "Merci!",
 	"donorportal-update-recurring-change-mind": "Ech hu meng Meenung geännert",
 	"donorportal-aside-faq": "Dacks gestallt Froen",

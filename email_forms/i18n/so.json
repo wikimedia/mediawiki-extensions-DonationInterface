@@ -16,5 +16,6 @@
 	"emailpreferences-status-subscribed": "Hadda waxaad ku biirsan tahay iimayllada Wikimedia.",
 	"emailpreferences-status-paused": "Iimayllada Wikimedia-gaaga waa la hakiyay ilaa $1.",
 	"emailpreferences-status-unsubscribed": "Hadda kuma biirsan iimayllada Wikimedia.",
-	"emailpreferences-select-preference-message": "Hoos ka beddel xaaladdaada:"
+	"emailpreferences-select-preference-message": "Hoos ka beddel xaaladdaada:",
+	"emailpreferences-verify-email-sent-previous": "Waxaan xiriiriye xaqiijin ah u dirnay cinwaankaagii hore ee iimaylka."
 }

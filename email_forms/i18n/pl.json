@@ -101,6 +101,7 @@
 	"emailpreferences-select-preference-message": "Zmień swój status poniżej:",
 	"emailpreferences-transactional-note": "Uwaga: Po wstrzymaniu subskrypcji lub jej anulowaniu nadal będziesz otrzymywać e-maile transakcyjne, takie jak potwierdzenia darowizn.",
 	"emailpreferences-success": "Zapisano zmiany w preferencjach dotyczących wiadomości e-mail.",
+	"emailpreferences-verify-email-sent-previous": "Wysłaliśmy link potwierdzający na Twój poprzedni adres e-mail.",
 	"emailpreferences-title": "Preferencje dotyczące wiadomości e-mail",
 	"emailpreferences-confirmemail-title": "Potwierdź adres e-mail",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"

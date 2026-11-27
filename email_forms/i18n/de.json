@@ -207,6 +207,7 @@
 	"emailpreferences-select-preference-message": "Ändern Sie Ihren Status unten:",
 	"emailpreferences-transactional-note": "Hinweis: Auch nach dem Pausieren oder Abmelden erhalten Sie weiterhin Transaktions-E-Mails, wie z. B. Spendenquittungen.",
 	"emailpreferences-success": "Deine Anfrage zum Speichern deiner E-Mail-Einstellungen wurde übermittelt.",
+	"emailpreferences-verify-email-sent-previous": "Wir haben Ihnen einen Bestätigungslink an Ihre vorherige E-Mail-Adresse gesendet.",
 	"emailpreferences-title": "E-Mail-Einstellungen",
 	"emailpreferences-confirmemail-title": "E-Mail-Adresse bestätigen",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
